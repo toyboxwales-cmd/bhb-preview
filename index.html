@@ -7,10 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>
     :root {
-        /* Original BHB colours — brought back */
+        /* BHB PALETTE — bold, 90s magazine, colourful */
         --sky-blue: #84b6f4;
-        --bg-lavender: #B49FCC;
-        --accent-magenta: #E53A8A;
+        --aqua: #5BC0BE;
+        --hot-pink: #E53A8A;
         --text-ink: #3C4B71;
         --paper-white: #F8F9FA;
         --hl-yellow: #FFF000;
@@ -19,14 +19,8 @@
         --mon-peach: #FFD2B3;
         --mon-yellow: #FEEC94;
         --mon-mint: #B2E5D0;
-        --mon-cream: #FFF4E0;
+        --bg-lavender: #B49FCC;
 
-        /* Slightly softer versions for backgrounds */
-        --soft-pink-bg: #FFE0EA;
-        --soft-blue-bg: #D6E8FF;
-        --soft-lav-bg: #E4D8F0;
-
-        /* Fonts — same as original */
         --font-display: 'Shrikhand', cursive;
         --font-header: 'Fredoka One', sans-serif;
         --font-body: 'Space Grotesk', sans-serif;
@@ -34,11 +28,7 @@
         --font-marker: 'Permanent Marker', cursive;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-        font-family: var(--font-body);
-        background: var(--sky-blue);
-        color: var(--text-ink);
-    }
+    body { font-family: var(--font-body); color: var(--text-ink); }
 
     /* ===== VIDEO HERO ===== */
     .video-hero {
@@ -58,32 +48,25 @@
         width: auto; height: auto;
         transform: translate(-50%, -50%);
         object-fit: cover;
-        /* No colour filter at all */
     }
-    /* Just enough dim so white text reads */
     .video-hero .overlay-dim {
         position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         background: rgba(0,0,0,0.28);
         z-index: 1; pointer-events: none;
     }
-    /* Very light scan lines */
     .video-hero .overlay-scanlines {
         position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: repeating-linear-gradient(
-            0deg, transparent, transparent 4px,
-            rgba(0,0,0,0.015) 4px, rgba(0,0,0,0.015) 8px
-        );
+        background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.015) 4px, rgba(0,0,0,0.015) 8px);
         z-index: 2; pointer-events: none;
     }
-    /* Bottom fade into first section */
     .video-hero .overlay-bottom {
         position: absolute; bottom: 0; left: 0; right: 0;
         height: 100px;
-        background: linear-gradient(0deg, var(--soft-pink-bg) 0%, transparent 100%);
+        background: linear-gradient(0deg, var(--sky-blue) 0%, transparent 100%);
         z-index: 3; pointer-events: none;
     }
 
-    /* ===== LOGO — original style, slightly cleaner ===== */
+    /* ===== LOGO — original bold style ===== */
     .hero-logo {
         position: absolute;
         top: 20px; left: 22px;
@@ -91,7 +74,7 @@
     }
     .hero-logo h1 {
         font-family: var(--font-header);
-        font-size: 2rem;
+        font-size: 2.2rem;
         color: var(--paper-white);
         letter-spacing: 2px;
         line-height: 1;
@@ -102,17 +85,17 @@
              2px -2px 0 var(--text-ink),
             -2px  2px 0 var(--text-ink),
              2px  2px 0 var(--text-ink),
-             4px  4px 0 var(--text-ink);
+             5px  5px 0 var(--text-ink);
     }
     .hero-logo .tagline {
         font-family: var(--font-marker);
         font-size: 0.7rem;
         color: var(--text-ink);
         background: var(--hl-yellow);
-        padding: 2px 6px;
+        padding: 2px 7px;
         display: inline-block;
         transform: rotate(-2deg);
-        margin-top: 3px;
+        margin-top: 4px;
     }
 
     /* ===== HERO CONTENT ===== */
@@ -145,19 +128,19 @@
     }
     .hero-cta {
         display: inline-block;
-        background: var(--accent-magenta);
+        background: var(--hot-pink);
         color: white;
         font-family: var(--font-header);
         font-size: 1.15rem;
         padding: 14px 36px;
         border-radius: 50px;
         text-decoration: none;
-        box-shadow: 4px 4px 0 rgba(0,0,0,0.3), 0 4px 20px rgba(229,58,138,0.3);
-        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
+        transition: transform 0.15s, box-shadow 0.15s;
     }
     .hero-cta:hover {
         transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0 rgba(0,0,0,0.3), 0 2px 12px rgba(229,58,138,0.4);
+        box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
     }
     .hero-detail {
         font-size: 0.82rem;
@@ -176,16 +159,13 @@
         transition: transform 0.25s ease;
     }
     .play-btn:hover { transform: scale(1.08); }
-    .play-btn:active { transform: scale(0.96); }
-
     .play-circle {
         width: 58px; height: 58px;
         border-radius: 50%;
         border: 2.5px solid rgba(255,255,255,0.5);
         display: flex; align-items: center; justify-content: center;
         background: rgba(255,255,255,0.08);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
         transition: all 0.3s ease;
     }
     .play-triangle {
@@ -194,11 +174,9 @@
         border-width: 9px 0 9px 16px;
         border-color: transparent transparent transparent rgba(255,255,255,0.85);
         margin-left: 3px;
-        transition: all 0.3s;
     }
     .play-btn.playing .play-triangle {
-        border: none;
-        width: 14px; height: 16px; margin-left: 0;
+        border: none; width: 14px; height: 16px; margin-left: 0;
         border-left: 3.5px solid rgba(255,255,255,0.85);
         border-right: 3.5px solid rgba(255,255,255,0.85);
     }
@@ -240,7 +218,6 @@
         50% { transform: translateX(-50%) translateY(6px); }
     }
 
-    /* Tap overlay */
     .tap-to-play {
         position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         z-index: 10; display: flex; align-items: center; justify-content: center;
@@ -255,47 +232,60 @@
         display: flex; align-items: center; justify-content: center;
         animation: pulse-ring 2s ease infinite;
     }
-    .tap-vid-circle::after {
-        content: '▶'; color: rgba(255,255,255,0.7);
-        font-size: 1.4rem; margin-left: 4px;
-    }
-    @keyframes pulse-ring {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.06); }
-    }
+    .tap-vid-circle::after { content: '▶'; color: rgba(255,255,255,0.7); font-size: 1.4rem; margin-left: 4px; }
+    @keyframes pulse-ring { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
-    /* ===== SOUND FAMILIAR — soft pink bg ===== */
+    /* ===== SOUND FAMILIAR — sky blue bg, magazine bold ===== */
     .sound-familiar {
-        background: var(--soft-pink-bg);
+        background: var(--sky-blue);
         padding: 70px 24px 80px;
+        position: relative;
+        overflow: hidden;
     }
-    .sound-familiar .inner { max-width: 720px; margin: 0 auto; }
+    .sound-familiar .inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
+    /* Big bold background text — magazine style */
+    .sound-familiar .bg-text {
+        position: absolute;
+        top: -10px; right: -30px;
+        font-family: var(--font-display);
+        font-size: 10rem;
+        color: rgba(255,255,255,0.08);
+        line-height: 1;
+        z-index: 1;
+        pointer-events: none;
+        transform: rotate(-5deg);
+    }
     .sound-familiar .section-tag {
         font-family: var(--font-marker);
-        font-size: 0.85rem;
-        color: var(--accent-magenta);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 10px;
+        font-size: 1rem;
+        color: var(--hot-pink);
+        background: var(--hl-yellow);
+        display: inline-block;
+        padding: 3px 10px;
+        transform: rotate(-1deg);
+        margin-bottom: 14px;
     }
     .sound-familiar h2 {
         font-family: var(--font-header);
-        font-size: 2.1rem;
-        color: var(--text-ink);
+        font-size: 2.3rem;
+        color: white;
         margin-bottom: 30px;
-        line-height: 1.25;
+        line-height: 1.2;
+        text-shadow: 3px 3px 0 var(--text-ink);
     }
     .pain-card {
         background: white;
         padding: 22px 24px;
-        border-radius: 12px;
+        border-radius: 4px;
         margin-bottom: 16px;
-        box-shadow: 3px 3px 0 var(--mon-pink);
-        border-left: 4px solid var(--accent-magenta);
+        box-shadow: 5px 5px 0 var(--hot-pink);
+        transform: rotate(-0.5deg);
+        position: relative;
     }
+    .pain-card:nth-child(odd) { transform: rotate(0.3deg); }
     .pain-card .quote {
         font-family: var(--font-hand);
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         color: var(--text-ink);
         margin-bottom: 6px;
         line-height: 1.25;
@@ -307,31 +297,37 @@
     }
     .annotation {
         font-family: var(--font-hand);
-        font-size: 1.25rem;
-        color: var(--accent-magenta);
-        margin-top: 22px;
-        transform: rotate(-1.5deg);
+        font-size: 1.4rem;
+        color: white;
+        margin-top: 24px;
+        transform: rotate(-2deg);
         display: inline-block;
+        background: var(--hot-pink);
+        padding: 4px 14px;
+        border-radius: 2px;
     }
 
-    /* ===== WHAT'S INSIDE — lavender bg ===== */
+    /* ===== WHAT'S INSIDE — white bg with pops of colour ===== */
     .whats-inside {
-        background: var(--soft-lav-bg);
+        background: white;
         padding: 70px 24px 80px;
         text-align: center;
+        position: relative;
     }
     .whats-inside .inner { max-width: 820px; margin: 0 auto; }
     .whats-inside .section-tag {
         font-family: var(--font-marker);
-        font-size: 0.85rem;
-        color: var(--bg-lavender);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 10px;
+        font-size: 1rem;
+        color: white;
+        background: var(--bg-lavender);
+        display: inline-block;
+        padding: 3px 10px;
+        transform: rotate(1deg);
+        margin-bottom: 14px;
     }
     .whats-inside h2 {
         font-family: var(--font-header);
-        font-size: 2.1rem;
+        font-size: 2.3rem;
         color: var(--text-ink);
         margin-bottom: 36px;
     }
@@ -342,13 +338,18 @@
         text-align: left;
     }
     .feature-card {
-        background: white;
-        border-radius: 14px;
+        background: var(--paper-white);
+        border-radius: 6px;
         padding: 24px 22px;
-        box-shadow: 3px 3px 0 var(--mon-laven);
         transition: transform 0.2s;
+        position: relative;
     }
-    .feature-card:hover { transform: translateY(-3px); }
+    /* Each card gets a different coloured shadow */
+    .feature-card:nth-child(1) { box-shadow: 5px 5px 0 var(--mon-pink); }
+    .feature-card:nth-child(2) { box-shadow: 5px 5px 0 var(--mon-laven); }
+    .feature-card:nth-child(3) { box-shadow: 5px 5px 0 var(--mon-mint); }
+    .feature-card:nth-child(4) { box-shadow: 5px 5px 0 var(--mon-peach); }
+    .feature-card:hover { transform: translateY(-3px) rotate(-0.5deg); }
     .feature-card .icon { font-size: 1.6rem; margin-bottom: 10px; }
     .feature-card h3 {
         font-family: var(--font-header);
@@ -365,78 +366,93 @@
     .feature-note {
         grid-column: 1 / -1;
         background: var(--hl-yellow);
-        border-radius: 14px;
+        border-radius: 2px;
         padding: 20px 24px;
         text-align: center;
-        transform: rotate(-0.8deg);
-        box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        transform: rotate(-1deg);
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.12);
     }
     .feature-note p {
         font-family: var(--font-hand);
-        font-size: 1.3rem;
+        font-size: 1.35rem;
         color: var(--text-ink);
         line-height: 1.4;
     }
 
-    /* ===== CTA — mint bg ===== */
+    /* ===== CTA — hot pink bg ===== */
     .cta-section {
-        background: var(--mon-mint);
+        background: var(--hot-pink);
         padding: 60px 24px;
         text-align: center;
+        position: relative;
+        overflow: hidden;
     }
+    .cta-section .bg-text {
+        position: absolute;
+        bottom: -20px; left: -20px;
+        font-family: var(--font-display);
+        font-size: 8rem;
+        color: rgba(255,255,255,0.08);
+        line-height: 1;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .cta-section .inner { position: relative; z-index: 2; }
     .cta-section h2 {
         font-family: var(--font-hand);
-        font-size: 2.4rem;
-        color: var(--text-ink);
+        font-size: 2.6rem;
+        color: white;
         margin-bottom: 8px;
     }
     .cta-section .price {
-        color: #5A7B6B;
+        color: rgba(255,255,255,0.75);
         margin-bottom: 22px;
         font-size: 0.95rem;
     }
     .cta-section .cta-btn {
         display: inline-block;
-        background: var(--accent-magenta);
-        color: white;
+        background: white;
+        color: var(--hot-pink);
         font-family: var(--font-header);
         font-size: 1.1rem;
         padding: 14px 34px;
         border-radius: 50px;
         text-decoration: none;
         box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-        transition: transform 0.2s;
+        transition: transform 0.15s;
     }
     .cta-section .cta-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
     .cta-section .cancel-note {
         font-family: var(--font-hand);
-        font-size: 1rem;
-        color: #5A7B6B;
+        font-size: 1.05rem;
+        color: rgba(255,255,255,0.7);
         margin-top: 10px;
         display: block;
     }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-        .hero-logo h1 { font-size: 1.5rem; }
+        .hero-logo h1 { font-size: 1.6rem; }
         .hero-logo { top: 16px; left: 16px; }
         .hero-content h2 { font-size: 2.7rem; }
         .hero-content .hero-sub { font-size: 1rem; }
         .play-circle { width: 50px; height: 50px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
-        .sound-familiar h2, .whats-inside h2 { font-size: 1.7rem; }
+        .sound-familiar h2, .whats-inside h2 { font-size: 1.8rem; }
+        .sound-familiar .bg-text { font-size: 6rem; }
+        .pain-card .quote { font-size: 1.3rem; }
     }
     @media (max-width: 480px) {
-        .hero-logo h1 { font-size: 1.2rem; }
+        .hero-logo h1 { font-size: 1.3rem; }
         .hero-content h2 { font-size: 2.2rem; }
         .hero-content .hero-sub { font-size: 0.92rem; margin-bottom: 22px; }
         .hero-cta { font-size: 1rem; padding: 12px 28px; }
         .play-circle { width: 46px; height: 46px; }
-        .play-label { font-size: 1rem; }
-        .sound-familiar h2, .whats-inside h2 { font-size: 1.45rem; }
+        .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
-        .cta-section h2 { font-size: 1.9rem; }
+        .cta-section h2 { font-size: 2rem; }
+        .sound-familiar .bg-text { font-size: 4rem; }
         .tap-vid-circle { width: 56px; height: 56px; }
     }
 </style>
@@ -462,9 +478,7 @@
             <div class="hero-detail">Real gameplans. Real numbers. £15/month.</div>
 
             <div class="play-btn" id="playBtn" onclick="toggleAudio()">
-                <div class="play-circle">
-                    <div class="play-triangle"></div>
-                </div>
+                <div class="play-circle"><div class="play-triangle"></div></div>
                 <div class="play-label">
                     <span class="lbl-play">press play</span>
                     <span class="lbl-pause">now playing ♫</span>
@@ -486,6 +500,7 @@
 
     <!-- ===== SOUND FAMILIAR ===== -->
     <section class="sound-familiar">
+        <div class="bg-text">WOW!</div>
         <div class="inner">
             <div class="section-tag">Sound Familiar?</div>
             <h2>You're not the problem. The system is.</h2>
@@ -543,10 +558,13 @@
 
     <!-- ===== CTA ===== -->
     <section class="cta-section">
-        <h2>she's still in there. go get her.</h2>
-        <div class="price">Step-by-step gameplans. Real numbers. £15/month.</div>
-        <a href="#" class="cta-btn">Find Your Gameplan</a>
-        <span class="cancel-note">(cancel anytime, no questions asked)</span>
+        <div class="bg-text">GO!</div>
+        <div class="inner">
+            <h2>she's still in there. go get her.</h2>
+            <div class="price">Step-by-step gameplans. Real numbers. £15/month.</div>
+            <a href="#" class="cta-btn">Find Your Gameplan</a>
+            <span class="cancel-note">(cancel anytime, no questions asked)</span>
+        </div>
     </section>
 
 <script>
@@ -555,40 +573,30 @@
     var tapOverlay = document.getElementById('tapOverlay');
     var hero = document.getElementById('videoHero');
     var hasPlayed = false;
-
     video.playbackRate = 0.5;
-
     function tryPlay() {
         var p = video.play();
         if (p !== undefined) {
             p.then(function() {
-                hasPlayed = true;
-                video.playbackRate = 0.5;
+                hasPlayed = true; video.playbackRate = 0.5;
                 tapOverlay.classList.add('hidden');
-            }).catch(function() {
-                tapOverlay.classList.remove('hidden');
-            });
+            }).catch(function() { tapOverlay.classList.remove('hidden'); });
         }
     }
-
     video.addEventListener('loadeddata', function() { tryPlay(); });
     if (video.readyState >= 2) { tryPlay(); }
-
     tapOverlay.addEventListener('click', function() {
         video.play().then(function() {
-            hasPlayed = true;
-            video.playbackRate = 0.5;
+            hasPlayed = true; video.playbackRate = 0.5;
             tapOverlay.classList.add('hidden');
         }).catch(function() {});
     });
-
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting && !hasPlayed) { tryPlay(); }
         });
     }, { threshold: 0.3 });
     observer.observe(hero);
-
     function onFirstInteraction() {
         if (!hasPlayed) { tryPlay(); }
         document.removeEventListener('touchstart', onFirstInteraction);
@@ -597,18 +605,14 @@
     document.addEventListener('touchstart', onFirstInteraction, { passive: true });
     document.addEventListener('scroll', onFirstInteraction, { passive: true });
 })();
-
 function toggleAudio() {
     var audio = document.getElementById('bgAudio');
     var btn = document.getElementById('playBtn');
     if (audio.paused) {
         audio.volume = 0.3;
-        audio.play().then(function() {
-            btn.classList.add('playing');
-        }).catch(function() {});
+        audio.play().then(function() { btn.classList.add('playing'); }).catch(function() {});
     } else {
-        audio.pause();
-        btn.classList.remove('playing');
+        audio.pause(); btn.classList.remove('playing');
     }
 }
 </script>
