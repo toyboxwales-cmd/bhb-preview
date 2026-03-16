@@ -59,9 +59,9 @@
         z-index: 2; pointer-events: none;
     }
     .video-hero .overlay-bottom {
-        position: absolute; bottom: 0; left: 0; right: 0;
-        height: 200px;
-        background: linear-gradient(0deg, var(--sky-blue) 0%, var(--sky-blue) 5%, transparent 100%);
+        position: absolute; bottom: -2px; left: 0; right: 0;
+        height: 35vh;
+        background: linear-gradient(0deg, var(--sky-blue) 0%, var(--sky-blue) 8%, rgba(132,182,244,0.6) 35%, rgba(132,182,244,0) 100%);
         z-index: 3; pointer-events: none;
     }
 
@@ -205,12 +205,12 @@
         font-size: 0.7rem; color: rgba(255,255,255,0.2); z-index: 5;
     }
     .scroll-hint {
-        position: absolute; bottom: 44px; left: 50%;
+        position: absolute; bottom: 28px; left: 50%;
         transform: translateX(-50%); z-index: 5;
-        color: rgba(255,255,255,0.75);
-        font-family: var(--font-hand); font-size: 1.3rem;
+        color: var(--text-ink);
+        font-family: var(--font-hand); font-size: 1.5rem;
+        font-weight: 700;
         animation: bounce 2.5s ease infinite;
-        text-shadow: 0 1px 6px rgba(0,0,0,0.3);
     }
     .scroll-hint::after { content: ' ↓'; }
     @keyframes bounce {
