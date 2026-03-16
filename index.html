@@ -4,24 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BHB — Build Her Business</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;600;700&family=Caveat:wght@400;600&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>
     :root {
-        --sky-blue: #8EC5FC;
-        --accent-magenta: #E53A8A;
-        --text-ink: #3C4B71;
-        --mon-pink: #FFB5C6;
-        --bg-lavender: #D5C6E0;
-        --hl-yellow: #FFF04B;
-        --paper-white: #FFFEF8;
+        /* ===== EVOLVED PALETTE ===== */
+        /* Warm, cinematic, faded-photograph feel */
+        --cream: #FFF8F0;
+        --warm-white: #FFFBF5;
+        --blush: #E8B4B8;
+        --dusty-rose: #C97B84;
+        --deep-rose: #A85767;
+        --amber: #D4A574;
+        --soft-gold: #E8C87A;
+        --warm-ink: #4A3B3B;
+        --muted-ink: #6B5858;
+        --faded-lavender: #D5C5D0;
+        --soft-sage: #B8C9B8;
+
+        /* Fonts — same families, used differently */
         --font-header: 'Fredoka One', sans-serif;
-        --font-display: 'Shrikhand', cursive;
         --font-body: 'Space Grotesk', sans-serif;
         --font-hand: 'Caveat', cursive;
-        --font-logo-sub: 'Permanent Marker', cursive;
+        --font-marker: 'Permanent Marker', cursive;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: var(--font-body); background: var(--sky-blue); color: var(--text-ink); }
+    body {
+        font-family: var(--font-body);
+        background: var(--cream);
+        color: var(--warm-ink);
+        -webkit-font-smoothing: antialiased;
+    }
 
     /* ===== VIDEO HERO ===== */
     .video-hero {
@@ -32,7 +44,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #1a1228;
+        background: #2a1f1f;
     }
     .video-hero video {
         position: absolute;
@@ -41,59 +53,53 @@
         width: auto; height: auto;
         transform: translate(-50%, -50%);
         object-fit: cover;
-        /* LIGHTER filter — just a gentle dim so text is readable */
-        filter: brightness(0.65) saturate(0.8) contrast(1.05);
+        /* Warm, cinematic — not dark, not washed out */
+        filter: brightness(0.62) saturate(0.75) contrast(1.05) sepia(0.08);
     }
-    /* Subtle scan lines */
+    /* Very subtle scan lines — barely there */
     .video-hero .overlay-scanlines {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         background: repeating-linear-gradient(
-            0deg, transparent, transparent 3px,
-            rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 6px
+            0deg, transparent, transparent 4px,
+            rgba(0,0,0,0.02) 4px, rgba(0,0,0,0.02) 8px
         );
-        z-index: 2;
-        pointer-events: none;
+        z-index: 2; pointer-events: none;
     }
-    /* Gentle vignette */
+    /* Warm vignette */
     .video-hero .overlay-vignette {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.35) 100%);
-        z-index: 2;
-        pointer-events: none;
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(ellipse at center, transparent 40%, rgba(42,31,31,0.45) 100%);
+        z-index: 2; pointer-events: none;
+    }
+    /* Bottom fade into page */
+    .video-hero .overlay-bottom {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        height: 150px;
+        background: linear-gradient(0deg, var(--cream) 0%, transparent 100%);
+        z-index: 3; pointer-events: none;
     }
 
-    /* ===== LOGO — matches original site ===== */
+    /* ===== LOGO — evolved ===== */
     .hero-logo {
         position: absolute;
-        top: 20px; left: 24px;
+        top: 24px; left: 28px;
         z-index: 10;
     }
     .hero-logo h1 {
         font-family: var(--font-header);
-        font-size: 2.2rem;
-        color: var(--paper-white);
-        text-shadow:
-            -2px -2px 0 var(--text-ink),
-             2px -2px 0 var(--text-ink),
-            -2px  2px 0 var(--text-ink),
-             2px  2px 0 var(--text-ink),
-             4px  4px 0 var(--text-ink);
-        letter-spacing: 2px;
-        line-height: 1;
-        transform: rotate(-2deg);
-        display: inline-block;
+        font-size: 1.8rem;
+        color: var(--warm-white);
+        letter-spacing: 1.5px;
+        line-height: 1.05;
+        /* Clean — no chunky outlines */
+        text-shadow: 0 2px 12px rgba(0,0,0,0.3);
     }
-    .hero-logo .logo-subtitle {
-        font-family: var(--font-logo-sub);
-        color: var(--text-ink);
-        font-size: 0.75rem;
-        transform: rotate(-2deg);
-        display: inline-block;
-        background: var(--hl-yellow);
-        padding: 2px 6px;
+    .hero-logo .tagline {
+        font-family: var(--font-hand);
+        font-size: 0.9rem;
+        color: var(--blush);
         margin-top: 3px;
+        opacity: 0.85;
     }
 
     /* ===== HERO CONTENT ===== */
@@ -106,45 +112,115 @@
     }
     .hero-content h2 {
         font-family: var(--font-hand);
-        font-size: 3.5rem;
+        font-size: 3.6rem;
+        font-weight: 700;
         color: #fff;
-        line-height: 1.15;
-        margin-bottom: 18px;
-        text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        line-height: 1.12;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 24px rgba(0,0,0,0.4);
     }
     .hero-content h2 .highlight {
-        color: var(--hl-yellow);
+        color: var(--soft-gold);
     }
-    .hero-content p {
+    .hero-content .hero-sub {
         font-family: var(--font-body);
-        font-size: 1.1rem;
-        color: rgba(255,255,255,0.85);
-        line-height: 1.6;
-        max-width: 520px;
-        margin: 0 auto 28px;
-        text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+        font-size: 1.05rem;
+        color: rgba(255,255,255,0.82);
+        line-height: 1.65;
+        max-width: 480px;
+        margin: 0 auto 30px;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.25);
     }
     .hero-cta {
         display: inline-block;
-        background: var(--accent-magenta);
+        background: var(--deep-rose);
         color: white;
         font-family: var(--font-header);
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         padding: 14px 36px;
         border-radius: 50px;
         text-decoration: none;
-        box-shadow: 0 4px 20px rgba(229,58,138,0.4);
+        box-shadow: 0 4px 20px rgba(168,87,103,0.35);
         transition: transform 0.2s, box-shadow 0.2s;
+        letter-spacing: 0.5px;
     }
     .hero-cta:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 28px rgba(229,58,138,0.5);
+        box-shadow: 0 6px 28px rgba(168,87,103,0.45);
     }
-    .hero-price {
-        font-family: var(--font-body);
-        font-size: 0.85rem;
-        color: rgba(255,255,255,0.55);
+    .hero-detail {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.45);
         margin-top: 10px;
+        font-weight: 500;
+    }
+
+    /* ===== PLAY BUTTON — minimal, elegant ===== */
+    .play-btn {
+        margin-top: 32px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        z-index: 6;
+        position: relative;
+        transition: transform 0.25s ease;
+    }
+    .play-btn:hover { transform: scale(1.06); }
+    .play-btn:active { transform: scale(0.97); }
+
+    .play-circle {
+        width: 64px; height: 64px;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .play-circle::after {
+        content: '';
+        width: 0; height: 0;
+        border-style: solid;
+        border-width: 10px 0 10px 18px;
+        border-color: transparent transparent transparent rgba(255,255,255,0.75);
+        margin-left: 3px;
+        transition: border-color 0.3s;
+    }
+    .play-label {
+        font-family: var(--font-hand);
+        font-size: 1.05rem;
+        color: rgba(255,255,255,0.55);
+        margin-top: 8px;
+        transition: color 0.3s;
+    }
+    /* Playing state */
+    .play-btn.playing .play-circle {
+        border-color: var(--blush);
+        background: rgba(232,180,184,0.15);
+        animation: glow-pulse 2s ease infinite;
+    }
+    .play-btn.playing .play-circle::after {
+        /* Pause icon — two bars */
+        border: none;
+        width: 14px; height: 16px;
+        margin-left: 0;
+        border-left: 4px solid rgba(255,255,255,0.8);
+        border-right: 4px solid rgba(255,255,255,0.8);
+        background: transparent;
+    }
+    .play-btn.playing .play-label { color: var(--blush); }
+    .play-btn .label-pause { display: none; }
+    .play-btn.playing .label-play { display: none; }
+    .play-btn.playing .label-pause { display: inline; }
+
+    @keyframes glow-pulse {
+        0%, 100% { box-shadow: 0 0 20px rgba(232,180,184,0.15); }
+        50% { box-shadow: 0 0 30px rgba(232,180,184,0.3); }
     }
 
     /* VHS timestamp */
@@ -152,224 +228,216 @@
         position: absolute;
         bottom: 18px; right: 20px;
         font-family: 'Courier New', monospace;
-        font-size: 0.75rem;
-        color: rgba(255,255,255,0.3);
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.2);
         z-index: 5;
     }
-
     /* Scroll hint */
     .scroll-hint {
         position: absolute;
-        bottom: 24px; left: 50%;
+        bottom: 60px; left: 50%;
         transform: translateX(-50%);
         z-index: 5;
-        color: rgba(255,255,255,0.35);
-        font-size: 0.75rem;
+        color: rgba(255,255,255,0.3);
+        font-family: var(--font-hand);
+        font-size: 0.85rem;
         text-align: center;
-        animation: bounce 2s ease infinite;
+        animation: bounce 2.5s ease infinite;
     }
     .scroll-hint::after {
         content: '↓';
         display: block;
-        font-size: 1rem;
-        margin-top: 3px;
+        font-size: 0.9rem;
+        margin-top: 2px;
     }
     @keyframes bounce {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50% { transform: translateX(-50%) translateY(8px); }
-    }
-
-    /* ===== FOLDED NOTE PLAY BUTTON ===== */
-    .note-btn {
-        margin-top: 28px;
-        display: inline-block;
-        cursor: pointer;
-        position: relative;
-        z-index: 6;
-        transition: transform 0.25s ease;
-    }
-    .note-btn:hover { transform: scale(1.06) rotate(-1deg); }
-    .note-btn:active { transform: scale(0.97); }
-
-    /* The folded triangle note */
-    .note-shape {
-        width: 100px;
-        height: 100px;
-        position: relative;
-        margin: 0 auto;
-        filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
-    }
-    /* Triangle using clip-path */
-    .note-paper {
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(145deg, #FFFEF8 0%, #f5edd8 40%, #efe5cc 100%);
-        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        position: relative;
-    }
-    /* Fold line */
-    .note-paper::before {
-        content: '';
-        position: absolute;
-        top: 52%; left: 28%;
-        width: 44%;
-        height: 1px;
-        background: rgba(60,75,113,0.12);
-        transform: rotate(-5deg);
-    }
-    /* Little crease shadow */
-    .note-paper::after {
-        content: '';
-        position: absolute;
-        top: 40%; left: 50%;
-        width: 30%;
-        height: 40%;
-        background: linear-gradient(135deg, transparent 40%, rgba(0,0,0,0.03) 100%);
-    }
-    /* "open me" text on the note */
-    .note-text {
-        position: absolute;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%) rotate(-3deg);
-        font-family: var(--font-hand);
-        font-size: 1rem;
-        color: var(--text-ink);
-        white-space: nowrap;
-        opacity: 0.7;
-    }
-    /* Little arrow doodle */
-    .note-arrow {
-        position: absolute;
-        bottom: 14px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: var(--font-hand);
-        font-size: 0.7rem;
-        color: var(--accent-magenta);
-        opacity: 0.6;
-    }
-
-    /* Label below the note */
-    .note-label {
-        font-family: var(--font-hand);
-        font-size: 1.15rem;
-        color: rgba(255,255,255,0.7);
-        margin-top: 8px;
-        transition: color 0.3s;
-    }
-
-    /* Playing state */
-    .note-btn.playing .note-label { color: var(--mon-pink); }
-    .note-btn.playing .note-paper {
-        background: linear-gradient(145deg, #FFE8EE 0%, #FFD6E0 40%, #f8c4d4 100%);
-    }
-    .note-btn .label-pause { display: none; }
-    .note-btn.playing .label-play { display: none; }
-    .note-btn.playing .label-pause { display: inline; }
-
-    /* Gentle pulse when playing */
-    .note-btn.playing .note-shape {
-        animation: note-pulse 2.5s ease infinite;
-    }
-    @keyframes note-pulse {
-        0%, 100% { transform: scale(1) rotate(0deg); }
-        25% { transform: scale(1.03) rotate(1deg); }
-        75% { transform: scale(1.03) rotate(-1deg); }
-    }
-
-    /* Unfolding animation on first tap */
-    @keyframes unfold {
-        0% { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
-        50% { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); transform: rotate(5deg) scale(1.1); }
-        70% { clip-path: polygon(10% 0%, 0% 100%, 100% 100%); transform: rotate(-2deg) scale(1.08); }
-        100% { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); transform: rotate(0deg) scale(1); }
-    }
-    .note-btn.unfold-anim .note-paper {
-        animation: unfold 0.6s ease forwards;
+        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
+        50% { transform: translateX(-50%) translateY(6px); opacity: 0.5; }
     }
 
     /* Tap overlay for mobile video autoplay */
     .tap-to-play {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         cursor: pointer;
-        background: rgba(26, 18, 40, 0.2);
+        background: rgba(42,31,31,0.2);
         transition: opacity 0.5s ease;
     }
-    .tap-to-play.hidden {
-        opacity: 0;
-        pointer-events: none;
-    }
+    .tap-to-play.hidden { opacity: 0; pointer-events: none; }
     .tap-circle {
         width: 70px; height: 70px;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px solid rgba(255,255,255,0.4);
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         animation: pulse-ring 2s ease infinite;
     }
     .tap-circle::after {
-        content: '▶';
-        color: rgba(255,255,255,0.8);
-        font-size: 1.5rem;
-        margin-left: 4px;
+        content: '▶'; color: rgba(255,255,255,0.7);
+        font-size: 1.5rem; margin-left: 4px;
     }
     @keyframes pulse-ring {
-        0%, 100% { transform: scale(1); border-color: rgba(255,255,255,0.5); }
-        50% { transform: scale(1.08); border-color: rgba(255,255,255,0.3); }
+        0%, 100% { transform: scale(1); border-color: rgba(255,255,255,0.4); }
+        50% { transform: scale(1.06); border-color: rgba(255,255,255,0.2); }
     }
 
-    /* ===== NEXT SECTION TEASER ===== */
-    .next-section {
-        padding: 80px 40px;
-        text-align: center;
-        background: var(--mon-pink);
-        min-height: 300px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    /* ===== SOUND FAMILIAR SECTION — evolved ===== */
+    .sound-familiar {
+        background: var(--cream);
+        padding: 80px 24px;
+        max-width: 780px;
+        margin: 0 auto;
     }
-    .next-section h2 {
+    .sound-familiar .section-label {
+        font-family: var(--font-hand);
+        font-size: 1.1rem;
+        color: var(--dusty-rose);
+        margin-bottom: 8px;
+        opacity: 0.8;
+    }
+    .sound-familiar h2 {
         font-family: var(--font-header);
-        font-size: 2rem;
-        color: var(--text-ink);
-        margin-bottom: 12px;
+        font-size: 2.2rem;
+        color: var(--warm-ink);
+        margin-bottom: 32px;
+        line-height: 1.2;
     }
-    .next-section p {
-        max-width: 500px;
-        opacity: 0.6;
+    .sound-familiar .pain-card {
+        background: var(--warm-white);
+        border-left: 3px solid var(--blush);
+        padding: 22px 26px;
+        border-radius: 0 10px 10px 0;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 12px rgba(74,59,59,0.05);
+    }
+    .pain-card .quote {
+        font-family: var(--font-hand);
+        font-size: 1.35rem;
+        color: var(--warm-ink);
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+    .pain-card .response {
+        font-size: 0.95rem;
+        color: var(--muted-ink);
         line-height: 1.6;
     }
+    .sound-familiar .annotation {
+        font-family: var(--font-hand);
+        font-size: 1.2rem;
+        color: var(--dusty-rose);
+        margin-top: 24px;
+        transform: rotate(-1.5deg);
+        display: inline-block;
+    }
+
+    /* ===== WHAT'S INSIDE SECTION — evolved ===== */
+    .whats-inside {
+        background: var(--warm-white);
+        padding: 80px 24px;
+        text-align: center;
+    }
+    .whats-inside .inner {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .whats-inside .section-label {
+        font-family: var(--font-hand);
+        font-size: 1.1rem;
+        color: var(--dusty-rose);
+        margin-bottom: 8px;
+    }
+    .whats-inside h2 {
+        font-family: var(--font-header);
+        font-size: 2.2rem;
+        color: var(--warm-ink);
+        margin-bottom: 40px;
+    }
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        text-align: left;
+    }
+    .feature-card {
+        background: var(--cream);
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 12px rgba(74,59,59,0.05);
+        border: 1px solid rgba(74,59,59,0.06);
+    }
+    .feature-card .icon {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    .feature-card h3 {
+        font-family: var(--font-header);
+        font-size: 1.05rem;
+        color: var(--warm-ink);
+        margin-bottom: 8px;
+    }
+    .feature-card p {
+        font-size: 0.9rem;
+        color: var(--muted-ink);
+        line-height: 1.55;
+    }
+
+    /* ===== CTA STRIP ===== */
+    .cta-strip {
+        background: var(--warm-ink);
+        padding: 60px 24px;
+        text-align: center;
+    }
+    .cta-strip h2 {
+        font-family: var(--font-hand);
+        font-size: 2.4rem;
+        color: var(--warm-white);
+        margin-bottom: 8px;
+    }
+    .cta-strip p {
+        color: rgba(255,248,240,0.6);
+        margin-bottom: 24px;
+        font-size: 0.95rem;
+    }
+    .cta-strip .cta-btn {
+        display: inline-block;
+        background: var(--deep-rose);
+        color: white;
+        font-family: var(--font-header);
+        font-size: 1.05rem;
+        padding: 13px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 4px 16px rgba(168,87,103,0.3);
+        transition: transform 0.2s;
+    }
+    .cta-strip .cta-btn:hover { transform: translateY(-2px); }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-        .hero-logo h1 { font-size: 1.6rem; }
-        .hero-logo .logo-subtitle { font-size: 0.65rem; }
-        .hero-logo { top: 16px; left: 16px; }
+        .hero-logo h1 { font-size: 1.4rem; }
+        .hero-logo { top: 18px; left: 18px; }
         .hero-content h2 { font-size: 2.6rem; }
-        .hero-content p { font-size: 1rem; }
-        .note-shape { width: 85px; height: 85px; }
-        .note-text { font-size: 0.9rem; bottom: 20px; }
-        .note-label { font-size: 1.05rem; }
-        .next-section { padding: 50px 20px; }
-        .next-section h2 { font-size: 1.5rem; }
+        .hero-content .hero-sub { font-size: 0.95rem; }
+        .play-circle { width: 56px; height: 56px; }
+        .sound-familiar { padding: 60px 20px; }
+        .sound-familiar h2 { font-size: 1.8rem; }
+        .whats-inside { padding: 60px 20px; }
+        .whats-inside h2 { font-size: 1.8rem; }
     }
     @media (max-width: 480px) {
-        .hero-logo h1 { font-size: 1.3rem; }
-        .hero-logo .logo-subtitle { font-size: 0.6rem; }
+        .hero-logo h1 { font-size: 1.2rem; }
         .hero-content h2 { font-size: 2.1rem; }
-        .hero-content p { font-size: 0.9rem; margin-bottom: 22px; }
-        .hero-cta { font-size: 1rem; padding: 12px 28px; }
-        .note-shape { width: 75px; height: 75px; }
-        .note-text { font-size: 0.8rem; bottom: 18px; }
-        .note-label { font-size: 0.95rem; }
+        .hero-content .hero-sub { font-size: 0.88rem; margin-bottom: 22px; }
+        .hero-cta { font-size: 0.95rem; padding: 12px 28px; }
+        .play-circle { width: 50px; height: 50px; }
+        .play-label { font-size: 0.95rem; }
+        .sound-familiar h2 { font-size: 1.5rem; }
+        .pain-card .quote { font-size: 1.2rem; }
+        .pain-card .response { font-size: 0.88rem; }
+        .feature-grid { grid-template-columns: 1fr; }
+        .whats-inside h2 { font-size: 1.5rem; }
+        .cta-strip h2 { font-size: 1.8rem; }
         .tap-circle { width: 56px; height: 56px; }
         .tap-circle::after { font-size: 1.2rem; }
     }
@@ -382,30 +450,27 @@
         <video id="bgVideo" src="video1.mp4" autoplay muted loop playsinline preload="auto" webkit-playsinline="true"></video>
         <div class="overlay-scanlines"></div>
         <div class="overlay-vignette"></div>
+        <div class="overlay-bottom"></div>
 
-        <!-- Logo — same style as original site -->
+        <!-- Logo -->
         <div class="hero-logo">
             <h1>BUILD HER<br>BUSINESS</h1>
-            <div><span class="logo-subtitle">Find Your Gameplan.</span></div>
+            <div class="tagline">find your gameplan.</div>
         </div>
 
         <!-- Main content -->
         <div class="hero-content">
             <h2>remember when you believed you could do <span class="highlight">anything?</span></h2>
-            <p>That girl is still in there. She's just been buried under someone else's business plan.</p>
-            <a href="#" class="hero-cta">Get Her Back →</a>
-            <div class="hero-price">Step-by-step gameplans. Real numbers. £15/month.</div>
+            <p class="hero-sub">That girl is still in there. She's just been buried under someone else's business plan.</p>
+            <a href="#" class="hero-cta">Get Her Back</a>
+            <div class="hero-detail">Real gameplans. Real numbers. £15/month. Cancel anytime.</div>
 
-            <!-- Folded note play button -->
-            <div class="note-btn" id="noteBtn" onclick="toggleAudio()">
-                <div class="note-shape">
-                    <div class="note-paper"></div>
-                    <span class="note-text">open me</span>
-                    <span class="note-arrow">↑ ↑ ↑</span>
-                </div>
-                <div class="note-label">
-                    <span class="label-play">▶ press play</span>
-                    <span class="label-pause">♫ playing...</span>
+            <!-- Play button — minimal, elegant -->
+            <div class="play-btn" id="playBtn" onclick="toggleAudio()">
+                <div class="play-circle"></div>
+                <div class="play-label">
+                    <span class="label-play">press play</span>
+                    <span class="label-pause">now playing</span>
                 </div>
             </div>
         </div>
@@ -415,7 +480,7 @@
             <source src="audio.mp3" type="audio/mpeg">
         </audio>
 
-        <div class="hero-timestamp">PLAY ▶ 1993</div>
+        <div class="hero-timestamp">1993</div>
         <div class="scroll-hint">keep scrolling</div>
 
         <!-- Tap overlay for mobile video autoplay -->
@@ -424,11 +489,66 @@
         </div>
     </div>
 
-    <!-- Next section teaser -->
-    <div class="next-section">
-        <h2>Sound Familiar?</h2>
-        <p>This is where the rest of the page would continue below the video hero.</p>
-    </div>
+    <!-- ===== SOUND FAMILIAR ===== -->
+    <section class="sound-familiar">
+        <div class="section-label">sound familiar?</div>
+        <h2>You're not the problem. The system is.</h2>
+
+        <div class="pain-card">
+            <div class="quote">"I just need to hit Diamond rank..."</div>
+            <div class="response">You've been saying that for 3 years. The rank keeps moving. The products keep stacking up in your spare room.</div>
+        </div>
+
+        <div class="pain-card">
+            <div class="quote">"My upline said I'm not trying hard enough..."</div>
+            <div class="response">You're messaging 50 people a day. You're working harder than most employees. The system is the problem, not you.</div>
+        </div>
+
+        <div class="pain-card">
+            <div class="quote">"I've invested too much to quit now..."</div>
+            <div class="response">That's the sunk cost fallacy talking. The bravest thing you can do is walk away and start fresh.</div>
+        </div>
+
+        <div class="annotation">^ this was me too, babe. all of it.</div>
+    </section>
+
+    <!-- ===== WHAT'S INSIDE ===== -->
+    <section class="whats-inside">
+        <div class="inner">
+            <div class="section-label">what you actually get</div>
+            <h2>Everything they should've given you from the start.</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">📋</div>
+                    <h3>Step-by-step gameplans</h3>
+                    <p>Real business plans with real numbers. Not "manifest your dream life" nonsense.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💰</div>
+                    <h3>Honest money talk</h3>
+                    <p>What things actually cost, what you can actually earn, and how long it actually takes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">👯</div>
+                    <h3>Your crew</h3>
+                    <p>A community of women who've been where you are. No fake positivity. Just real support.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🗺️</div>
+                    <h3>The roadmap</h3>
+                    <p>Month by month, what to do, when to do it, and why. No guessing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA STRIP ===== -->
+    <section class="cta-strip">
+        <h2>she's still in there. go get her.</h2>
+        <p>Step-by-step gameplans. Real numbers. £15/month. Cancel anytime.</p>
+        <a href="#" class="cta-btn">Find Your Gameplan</a>
+    </section>
 
 <script>
 (function() {
@@ -479,17 +599,12 @@
     document.addEventListener('scroll', onFirstInteraction, { passive: true });
 })();
 
-// Audio toggle with unfold animation
+// Audio toggle
 function toggleAudio() {
     var audio = document.getElementById('bgAudio');
-    var btn = document.getElementById('noteBtn');
+    var btn = document.getElementById('playBtn');
     if (audio.paused) {
         audio.volume = 0.3;
-        // Trigger unfold animation
-        btn.classList.add('unfold-anim');
-        setTimeout(function() {
-            btn.classList.remove('unfold-anim');
-        }, 600);
         audio.play().then(function() {
             btn.classList.add('playing');
         }).catch(function() {});
