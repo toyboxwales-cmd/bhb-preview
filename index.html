@@ -578,21 +578,23 @@
         startExperience();
     }, { passive: false });
 
-    // Scroll-based auto-fade: when user scrolls past ~70% of hero, fade out music and video
+    // Scroll-based auto-fade: smooth fade out when scrolling past hero
     var heroSection = document.getElementById('videoHero');
-    var audioFadedOut = false;
-    var fadeInterval = null;
+    var hasScrolledAway = false;
+    var audioFadeInterval = null;
 
     function fadeOutAudio() {
-        if (audioFadedOut || audio.paused) return;
-        audioFadedOut = true;
+        if (audio.paused) return;
+        if (audioFadeInterval) clearInterval(audioFadeInterval);
         var vol = audio.volume;
-        fadeInterval = setInterval(function() {
-            vol -= 0.02;
+        // Slow fade — takes ~2 seconds (0.01 every 50ms = 0.2/sec)
+        audioFadeInterval = setInterval(function() {
+            vol -= 0.008;
             if (vol <= 0) {
                 vol = 0;
                 audio.pause();
-                clearInterval(fadeInterval);
+                clearInterval(audioFadeInterval);
+                audioFadeInterval = null;
                 var toggle = document.getElementById('audioToggle');
                 toggle.classList.remove('playing');
                 var playLabel = toggle.querySelector('.lbl-play');
@@ -604,21 +606,23 @@
         }, 50);
     }
 
-    function resetToStatic() {
+    function settleToStill() {
+        // Pause video but keep it VISIBLE at frame 0 — so it shows a still image
         video.pause();
         video.currentTime = 0;
-        video.classList.remove('visible');
+        // Keep video.classList 'visible' so it stays showing the first frame
     }
 
-    // Use scroll listener for smooth detection
     window.addEventListener('scroll', function() {
         if (!hasStarted) return;
         var rect = heroSection.getBoundingClientRect();
         var heroBottom = rect.bottom;
-        var threshold = window.innerHeight * 0.3; // when only 30% of hero is visible
-        if (heroBottom < threshold) {
+        var threshold = window.innerHeight * 0.35;
+
+        if (heroBottom < threshold && !hasScrolledAway) {
+            hasScrolledAway = true;
             fadeOutAudio();
-            resetToStatic();
+            settleToStill();
         }
     }, { passive: true });
 })();
