@@ -43,10 +43,8 @@
     }
     .video-hero video {
         position: absolute;
-        top: 50%; left: 50%;
-        min-width: 100%; min-height: 100%;
-        width: auto; height: auto;
-        transform: translate(-50%, -50%);
+        top: 0; left: 0;
+        width: 100%; height: 100%;
         object-fit: cover;
     }
     .video-hero .overlay-dim {
@@ -61,8 +59,8 @@
     }
     .video-hero .overlay-bottom {
         position: absolute; bottom: 0; left: 0; right: 0;
-        height: 100px;
-        background: linear-gradient(0deg, var(--sky-blue) 0%, transparent 100%);
+        height: 200px;
+        background: linear-gradient(0deg, var(--sky-blue) 0%, var(--sky-blue) 5%, transparent 100%);
         z-index: 3; pointer-events: none;
     }
 
@@ -208,9 +206,10 @@
     .scroll-hint {
         position: absolute; bottom: 44px; left: 50%;
         transform: translateX(-50%); z-index: 5;
-        color: rgba(255,255,255,0.3);
-        font-family: var(--font-hand); font-size: 0.9rem;
+        color: rgba(255,255,255,0.75);
+        font-family: var(--font-hand); font-size: 1.3rem;
         animation: bounce 2.5s ease infinite;
+        text-shadow: 0 1px 6px rgba(0,0,0,0.3);
     }
     .scroll-hint::after { content: ' ↓'; }
     @keyframes bounce {
@@ -243,18 +242,6 @@
         overflow: hidden;
     }
     .sound-familiar .inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
-    /* Big bold background text — magazine style */
-    .sound-familiar .bg-text {
-        position: absolute;
-        top: -10px; right: -30px;
-        font-family: var(--font-display);
-        font-size: 10rem;
-        color: rgba(255,255,255,0.08);
-        line-height: 1;
-        z-index: 1;
-        pointer-events: none;
-        transform: rotate(-5deg);
-    }
     .sound-familiar .section-tag {
         font-family: var(--font-marker);
         font-size: 1rem;
@@ -387,16 +374,6 @@
         position: relative;
         overflow: hidden;
     }
-    .cta-section .bg-text {
-        position: absolute;
-        bottom: -20px; left: -20px;
-        font-family: var(--font-display);
-        font-size: 8rem;
-        color: rgba(255,255,255,0.08);
-        line-height: 1;
-        z-index: 0;
-        pointer-events: none;
-    }
     .cta-section .inner { position: relative; z-index: 2; }
     .cta-section h2 {
         font-family: var(--font-hand);
@@ -490,7 +467,6 @@
             <source src="audio.mp3" type="audio/mpeg">
         </audio>
 
-        <div class="hero-timestamp">1993</div>
         <div class="scroll-hint">keep scrolling</div>
 
         <div class="tap-to-play" id="tapOverlay">
@@ -500,7 +476,6 @@
 
     <!-- ===== SOUND FAMILIAR ===== -->
     <section class="sound-familiar">
-        <div class="bg-text">WOW!</div>
         <div class="inner">
             <div class="section-tag">Sound Familiar?</div>
             <h2>You're not the problem. The system is.</h2>
@@ -558,7 +533,6 @@
 
     <!-- ===== CTA ===== -->
     <section class="cta-section">
-        <div class="bg-text">GO!</div>
         <div class="inner">
             <h2>she's still in there. go get her.</h2>
             <div class="price">Step-by-step gameplans. Real numbers. £15/month.</div>
