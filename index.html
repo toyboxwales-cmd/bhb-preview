@@ -4,22 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BHB — Build Her Business</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;600;700&family=Caveat:wght@400;600&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>
     :root {
         --sky-blue: #8EC5FC;
         --accent-magenta: #E53A8A;
         --text-ink: #3C4B71;
-        --mon-pink: #FFD6E0;
+        --mon-pink: #FFB5C6;
         --bg-lavender: #D5C6E0;
         --hl-yellow: #FFF04B;
+        --paper-white: #FFFEF8;
         --font-header: 'Fredoka One', sans-serif;
-        --font-display: 'Shrikhand', serif;
+        --font-display: 'Shrikhand', cursive;
         --font-body: 'Space Grotesk', sans-serif;
         --font-hand: 'Caveat', cursive;
+        --font-logo-sub: 'Permanent Marker', cursive;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: var(--font-body); background: #f8f4ff; color: var(--text-ink); }
+    body { font-family: var(--font-body); background: var(--sky-blue); color: var(--text-ink); }
 
     /* ===== VIDEO HERO ===== */
     .video-hero {
@@ -39,68 +41,68 @@
         width: auto; height: auto;
         transform: translate(-50%, -50%);
         object-fit: cover;
-        filter: brightness(0.4) saturate(0.65) contrast(1.1);
+        /* LIGHTER filter — just a gentle dim so text is readable */
+        filter: brightness(0.65) saturate(0.8) contrast(1.05);
     }
-    /* Scan lines */
+    /* Subtle scan lines */
     .video-hero .overlay-scanlines {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
         background: repeating-linear-gradient(
-            0deg, transparent, transparent 2px,
-            rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
+            0deg, transparent, transparent 3px,
+            rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 6px
         );
         z-index: 2;
         pointer-events: none;
     }
-    /* Vignette */
+    /* Gentle vignette */
     .video-hero .overlay-vignette {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%);
+        background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.35) 100%);
         z-index: 2;
         pointer-events: none;
     }
-    /* Top gradient for logo area */
-    .video-hero .overlay-top {
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 120px;
-        background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%);
-        z-index: 3;
-        pointer-events: none;
-    }
 
-    /* Logo / brand name at top */
-    .hero-brand {
+    /* ===== LOGO — matches original site ===== */
+    .hero-logo {
         position: absolute;
-        top: 24px; left: 50%;
-        transform: translateX(-50%);
+        top: 20px; left: 24px;
         z-index: 10;
-        text-align: center;
     }
-    .hero-brand h1 {
-        font-family: var(--font-display);
-        font-size: 1.4rem;
-        color: #fff;
+    .hero-logo h1 {
+        font-family: var(--font-header);
+        font-size: 2.2rem;
+        color: var(--paper-white);
+        text-shadow:
+            -2px -2px 0 var(--text-ink),
+             2px -2px 0 var(--text-ink),
+            -2px  2px 0 var(--text-ink),
+             2px  2px 0 var(--text-ink),
+             4px  4px 0 var(--text-ink);
         letter-spacing: 2px;
-        text-shadow: 0 2px 12px rgba(0,0,0,0.4);
-        opacity: 0.85;
+        line-height: 1;
+        transform: rotate(-2deg);
+        display: inline-block;
     }
-    .hero-brand .tagline {
-        font-family: var(--font-hand);
-        font-size: 0.95rem;
-        color: var(--mon-pink);
-        opacity: 0.7;
-        margin-top: 2px;
+    .hero-logo .logo-subtitle {
+        font-family: var(--font-logo-sub);
+        color: var(--text-ink);
+        font-size: 0.75rem;
+        transform: rotate(-2deg);
+        display: inline-block;
+        background: var(--hl-yellow);
+        padding: 2px 6px;
+        margin-top: 3px;
     }
 
-    /* Hero content */
+    /* ===== HERO CONTENT ===== */
     .hero-content {
         position: relative;
         z-index: 5;
         text-align: center;
         padding: 30px 24px;
-        max-width: 680px;
+        max-width: 700px;
     }
     .hero-content h2 {
         font-family: var(--font-hand);
@@ -116,7 +118,7 @@
     .hero-content p {
         font-family: var(--font-body);
         font-size: 1.1rem;
-        color: rgba(255,255,255,0.8);
+        color: rgba(255,255,255,0.85);
         line-height: 1.6;
         max-width: 520px;
         margin: 0 auto 28px;
@@ -141,7 +143,7 @@
     .hero-price {
         font-family: var(--font-body);
         font-size: 0.85rem;
-        color: rgba(255,255,255,0.5);
+        color: rgba(255,255,255,0.55);
         margin-top: 10px;
     }
 
@@ -177,136 +179,115 @@
         50% { transform: translateX(-50%) translateY(8px); }
     }
 
-    /* ===== CASSETTE TAPE PLAY BUTTON ===== */
-    .cassette-btn {
+    /* ===== FOLDED NOTE PLAY BUTTON ===== */
+    .note-btn {
         margin-top: 28px;
         display: inline-block;
         cursor: pointer;
         position: relative;
         z-index: 6;
-        transition: transform 0.2s;
+        transition: transform 0.25s ease;
     }
-    .cassette-btn:hover { transform: scale(1.05); }
-    .cassette-btn:active { transform: scale(0.98); }
+    .note-btn:hover { transform: scale(1.06) rotate(-1deg); }
+    .note-btn:active { transform: scale(0.97); }
 
-    .cassette-body {
-        width: 180px;
-        height: 110px;
-        background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-        border-radius: 8px;
+    /* The folded triangle note */
+    .note-shape {
+        width: 100px;
+        height: 100px;
         position: relative;
-        border: 2px solid #444;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 8px;
+        margin: 0 auto;
+        filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
     }
-    /* Cassette label */
-    .cassette-label {
-        width: 140px;
-        height: 46px;
-        background: linear-gradient(135deg, #FFD6E0 0%, #f8b4c8 50%, #FFD6E0 100%);
-        border-radius: 4px;
+    /* Triangle using clip-path */
+    .note-paper {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(145deg, #FFFEF8 0%, #f5edd8 40%, #efe5cc 100%);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     }
-    .cassette-label-text {
+    /* Fold line */
+    .note-paper::before {
+        content: '';
+        position: absolute;
+        top: 52%; left: 28%;
+        width: 44%;
+        height: 1px;
+        background: rgba(60,75,113,0.12);
+        transform: rotate(-5deg);
+    }
+    /* Little crease shadow */
+    .note-paper::after {
+        content: '';
+        position: absolute;
+        top: 40%; left: 50%;
+        width: 30%;
+        height: 40%;
+        background: linear-gradient(135deg, transparent 40%, rgba(0,0,0,0.03) 100%);
+    }
+    /* "open me" text on the note */
+    .note-text {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-3deg);
         font-family: var(--font-hand);
         font-size: 1rem;
         color: var(--text-ink);
-        font-weight: 600;
-        letter-spacing: 0.5px;
+        white-space: nowrap;
+        opacity: 0.7;
     }
-    .cassette-label-line {
+    /* Little arrow doodle */
+    .note-arrow {
         position: absolute;
-        left: 10px; right: 10px;
-        height: 1px;
-        background: rgba(60,75,113,0.15);
-    }
-    .cassette-label-line.top { top: 8px; }
-    .cassette-label-line.bottom { bottom: 8px; }
-
-    /* Reel window */
-    .cassette-reels {
-        display: flex;
-        gap: 32px;
-        margin-top: 8px;
-        align-items: center;
-    }
-    .reel {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        border: 2px solid #555;
-        background: #111;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .reel::after {
-        content: '';
-        width: 8px; height: 8px;
-        border-radius: 50%;
-        background: #333;
-        border: 1px solid #555;
-    }
-    .reel::before {
-        content: '';
-        position: absolute;
-        width: 20px; height: 20px;
-        border: 1px dashed #444;
-        border-radius: 50%;
-    }
-    .cassette-btn.playing .reel {
-        animation: spin-reel 2s linear infinite;
-    }
-    @keyframes spin-reel {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    /* Tape between reels */
-    .tape-window {
-        position: absolute;
-        bottom: 22px;
+        bottom: 14px;
         left: 50%;
         transform: translateX(-50%);
-        width: 70px;
-        height: 10px;
-        background: rgba(60,40,20,0.6);
-        border-radius: 2px;
-        border: 1px solid #444;
+        font-family: var(--font-hand);
+        font-size: 0.7rem;
+        color: var(--accent-magenta);
+        opacity: 0.6;
     }
 
-    /* Press play text */
-    .cassette-action {
+    /* Label below the note */
+    .note-label {
         font-family: var(--font-hand);
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         color: rgba(255,255,255,0.7);
-        margin-top: 10px;
+        margin-top: 8px;
         transition: color 0.3s;
     }
-    .cassette-btn.playing .cassette-action .label-play { display: none; }
-    .cassette-btn .cassette-action .label-pause { display: none; }
-    .cassette-btn.playing .cassette-action .label-pause { display: inline; }
-    .cassette-btn.playing .cassette-action { color: var(--mon-pink); }
 
-    /* Screw holes on cassette */
-    .cassette-screw {
-        position: absolute;
-        width: 6px; height: 6px;
-        border-radius: 50%;
-        background: #333;
-        border: 1px solid #555;
+    /* Playing state */
+    .note-btn.playing .note-label { color: var(--mon-pink); }
+    .note-btn.playing .note-paper {
+        background: linear-gradient(145deg, #FFE8EE 0%, #FFD6E0 40%, #f8c4d4 100%);
     }
-    .cassette-screw.tl { top: 6px; left: 8px; }
-    .cassette-screw.tr { top: 6px; right: 8px; }
-    .cassette-screw.bl { bottom: 6px; left: 8px; }
-    .cassette-screw.br { bottom: 6px; right: 8px; }
+    .note-btn .label-pause { display: none; }
+    .note-btn.playing .label-play { display: none; }
+    .note-btn.playing .label-pause { display: inline; }
+
+    /* Gentle pulse when playing */
+    .note-btn.playing .note-shape {
+        animation: note-pulse 2.5s ease infinite;
+    }
+    @keyframes note-pulse {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        25% { transform: scale(1.03) rotate(1deg); }
+        75% { transform: scale(1.03) rotate(-1deg); }
+    }
+
+    /* Unfolding animation on first tap */
+    @keyframes unfold {
+        0% { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        50% { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); transform: rotate(5deg) scale(1.1); }
+        70% { clip-path: polygon(10% 0%, 0% 100%, 100% 100%); transform: rotate(-2deg) scale(1.08); }
+        100% { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); transform: rotate(0deg) scale(1); }
+    }
+    .note-btn.unfold-anim .note-paper {
+        animation: unfold 0.6s ease forwards;
+    }
 
     /* Tap overlay for mobile video autoplay */
     .tap-to-play {
@@ -317,7 +298,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        background: rgba(26, 18, 40, 0.3);
+        background: rgba(26, 18, 40, 0.2);
         transition: opacity 0.5s ease;
     }
     .tap-to-play.hidden {
@@ -369,30 +350,26 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-        .video-hero { height: 100vh; }
+        .hero-logo h1 { font-size: 1.6rem; }
+        .hero-logo .logo-subtitle { font-size: 0.65rem; }
+        .hero-logo { top: 16px; left: 16px; }
         .hero-content h2 { font-size: 2.6rem; }
         .hero-content p { font-size: 1rem; }
-        .hero-brand h1 { font-size: 1.2rem; }
-        .cassette-body { width: 160px; height: 100px; }
-        .cassette-label { width: 124px; height: 40px; }
-        .cassette-label-text { font-size: 0.9rem; }
-        .cassette-reels { gap: 26px; margin-top: 6px; }
-        .reel { width: 24px; height: 24px; }
-        .cassette-action { font-size: 1rem; }
+        .note-shape { width: 85px; height: 85px; }
+        .note-text { font-size: 0.9rem; bottom: 20px; }
+        .note-label { font-size: 1.05rem; }
         .next-section { padding: 50px 20px; }
         .next-section h2 { font-size: 1.5rem; }
     }
     @media (max-width: 480px) {
+        .hero-logo h1 { font-size: 1.3rem; }
+        .hero-logo .logo-subtitle { font-size: 0.6rem; }
         .hero-content h2 { font-size: 2.1rem; }
         .hero-content p { font-size: 0.9rem; margin-bottom: 22px; }
         .hero-cta { font-size: 1rem; padding: 12px 28px; }
-        .cassette-body { width: 150px; height: 94px; }
-        .cassette-label { width: 116px; height: 38px; }
-        .cassette-label-text { font-size: 0.85rem; }
-        .cassette-reels { gap: 22px; margin-top: 5px; }
-        .reel { width: 22px; height: 22px; }
-        .cassette-action { font-size: 0.95rem; margin-top: 8px; }
-        .hero-brand h1 { font-size: 1.1rem; }
+        .note-shape { width: 75px; height: 75px; }
+        .note-text { font-size: 0.8rem; bottom: 18px; }
+        .note-label { font-size: 0.95rem; }
         .tap-circle { width: 56px; height: 56px; }
         .tap-circle::after { font-size: 1.2rem; }
     }
@@ -405,12 +382,11 @@
         <video id="bgVideo" src="video1.mp4" autoplay muted loop playsinline preload="auto" webkit-playsinline="true"></video>
         <div class="overlay-scanlines"></div>
         <div class="overlay-vignette"></div>
-        <div class="overlay-top"></div>
 
-        <!-- Brand -->
-        <div class="hero-brand">
-            <h1>BUILD HER BUSINESS</h1>
-            <div class="tagline">for the girls who are done being sold to</div>
+        <!-- Logo — same style as original site -->
+        <div class="hero-logo">
+            <h1>BUILD HER<br>BUSINESS</h1>
+            <div><span class="logo-subtitle">Find Your Gameplan.</span></div>
         </div>
 
         <!-- Main content -->
@@ -420,27 +396,16 @@
             <a href="#" class="hero-cta">Get Her Back →</a>
             <div class="hero-price">Step-by-step gameplans. Real numbers. £15/month.</div>
 
-            <!-- Cassette tape play button -->
-            <div class="cassette-btn" id="cassetteBtn" onclick="toggleAudio()">
-                <div class="cassette-body">
-                    <div class="cassette-screw tl"></div>
-                    <div class="cassette-screw tr"></div>
-                    <div class="cassette-screw bl"></div>
-                    <div class="cassette-screw br"></div>
-                    <div class="cassette-label">
-                        <div class="cassette-label-line top"></div>
-                        <span class="cassette-label-text">BHB mixtape vol.1</span>
-                        <div class="cassette-label-line bottom"></div>
-                    </div>
-                    <div class="cassette-reels">
-                        <div class="reel"></div>
-                        <div class="reel"></div>
-                    </div>
-                    <div class="tape-window"></div>
+            <!-- Folded note play button -->
+            <div class="note-btn" id="noteBtn" onclick="toggleAudio()">
+                <div class="note-shape">
+                    <div class="note-paper"></div>
+                    <span class="note-text">open me</span>
+                    <span class="note-arrow">↑ ↑ ↑</span>
                 </div>
-                <div class="cassette-action">
+                <div class="note-label">
                     <span class="label-play">▶ press play</span>
-                    <span class="label-pause">◼ pause</span>
+                    <span class="label-pause">♫ playing...</span>
                 </div>
             </div>
         </div>
@@ -462,7 +427,7 @@
     <!-- Next section teaser -->
     <div class="next-section">
         <h2>Sound Familiar?</h2>
-        <p>This is where the rest of the page would continue. The video hero above is now the very first thing your visitors see.</p>
+        <p>This is where the rest of the page would continue below the video hero.</p>
     </div>
 
 <script>
@@ -514,12 +479,17 @@
     document.addEventListener('scroll', onFirstInteraction, { passive: true });
 })();
 
-// Audio toggle
+// Audio toggle with unfold animation
 function toggleAudio() {
     var audio = document.getElementById('bgAudio');
-    var btn = document.getElementById('cassetteBtn');
+    var btn = document.getElementById('noteBtn');
     if (audio.paused) {
         audio.volume = 0.3;
+        // Trigger unfold animation
+        btn.classList.add('unfold-anim');
+        setTimeout(function() {
+            btn.classList.remove('unfold-anim');
+        }, 600);
         audio.play().then(function() {
             btn.classList.add('playing');
         }).catch(function() {});
