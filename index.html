@@ -173,16 +173,80 @@
         50% { transform: scale(1.08); border-color: rgba(255,255,255,0.3); }
     }
 
+    /* ===== AUDIO PLAY BUTTON ===== */
+    .audio-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.25);
+        color: #fff;
+        font-family: 'Caveat', cursive;
+        font-size: 1.2rem;
+        padding: 10px 22px;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 6;
+    }
+    .audio-btn:hover {
+        background: rgba(255,255,255,0.2);
+        border-color: rgba(255,255,255,0.4);
+    }
+    .audio-btn .audio-icon {
+        font-size: 1rem;
+        transition: transform 0.2s;
+    }
+    .audio-btn.playing .audio-icon {
+        animation: audio-pulse 1s ease infinite;
+    }
+    @keyframes audio-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+    /* Equaliser bars when playing */
+    .eq-bars {
+        display: none;
+        align-items: flex-end;
+        gap: 2px;
+        height: 16px;
+    }
+    .audio-btn.playing .eq-bars { display: inline-flex; }
+    .audio-btn.playing .audio-label-play { display: none; }
+    .audio-btn .audio-label-pause { display: none; }
+    .audio-btn.playing .audio-label-pause { display: inline; }
+    .eq-bars span {
+        width: 3px;
+        background: #FFD6E0;
+        border-radius: 1px;
+        animation: eq-bounce 0.8s ease infinite;
+    }
+    .eq-bars span:nth-child(1) { height: 8px; animation-delay: 0s; }
+    .eq-bars span:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+    .eq-bars span:nth-child(3) { height: 6px; animation-delay: 0.3s; }
+    .eq-bars span:nth-child(4) { height: 12px; animation-delay: 0.1s; }
+    @keyframes eq-bounce {
+        0%, 100% { transform: scaleY(0.4); }
+        50% { transform: scaleY(1); }
+    }
+
     @media (max-width: 768px) {
+        .scroll-stopper { height: 70vh; }
         .stopper-content h2 { font-size: 2.5rem; }
         .stopper-content p { font-size: 1rem; }
         .fake-section { padding: 50px 20px; min-height: 250px; }
         .fake-section h2 { font-size: 1.5rem; }
     }
     @media (max-width: 480px) {
+        .scroll-stopper { height: 65vh; }
         .stopper-content h2 { font-size: 2rem; }
         .stopper-content p { font-size: 0.9rem; }
         .stopper-cta { font-size: 1rem; padding: 12px 28px; }
+        .audio-btn { font-size: 1.05rem; padding: 8px 18px; }
         .tap-circle { width: 56px; height: 56px; }
         .tap-circle::after { font-size: 1.2rem; }
     }
@@ -208,7 +272,18 @@
             <h2>remember when you believed you could do anything?</h2>
             <p>That girl is still in there. She's just been buried under someone else's business plan.</p>
             <a href="#" class="stopper-cta">Get Her Back →</a>
+            <br>
+            <button class="audio-btn" id="audioBtn" onclick="toggleAudio()">
+                <span class="audio-icon">🎧</span>
+                <span class="audio-label-play">play me</span>
+                <span class="audio-label-pause">playing...</span>
+                <span class="eq-bars"><span></span><span></span><span></span><span></span></span>
+            </button>
         </div>
+        <!-- Audio element — replace src with your actual audio file -->
+        <audio id="bgAudio" preload="auto" loop>
+            <source src="audio.mp3" type="audio/mpeg">
+        </audio>
         <div class="stopper-timestamp">PLAY ▶ 1993</div>
         <div class="scroll-hint">keep scrolling</div>
 
@@ -289,6 +364,21 @@
     document.addEventListener('touchstart', onFirstInteraction, { passive: true });
     document.addEventListener('scroll', onFirstInteraction, { passive: true });
 })();
+
+// Audio toggle
+function toggleAudio() {
+    var audio = document.getElementById('bgAudio');
+    var btn = document.getElementById('audioBtn');
+    if (audio.paused) {
+        audio.volume = 0.3;
+        audio.play().then(function() {
+            btn.classList.add('playing');
+        }).catch(function() {});
+    } else {
+        audio.pause();
+        btn.classList.remove('playing');
+    }
+}
 </script>
 </body>
 </html>
