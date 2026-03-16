@@ -3,31 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Preview 3: Full-Screen Scroll Stopper</title>
+<title>BHB — Build Her Business</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 <style>
+    :root {
+        --sky-blue: #8EC5FC;
+        --accent-magenta: #E53A8A;
+        --text-ink: #3C4B71;
+        --mon-pink: #FFD6E0;
+        --bg-lavender: #D5C6E0;
+        --hl-yellow: #FFF04B;
+        --font-header: 'Fredoka One', sans-serif;
+        --font-display: 'Shrikhand', serif;
+        --font-body: 'Space Grotesk', sans-serif;
+        --font-hand: 'Caveat', cursive;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Space Grotesk', sans-serif; background: #f8f4ff; color: #3C4B71; }
+    body { font-family: var(--font-body); background: #f8f4ff; color: var(--text-ink); }
 
-    .label {
-        position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-        background: #E53A8A; color: white; text-align: center;
-        padding: 12px 20px; font-weight: 700; font-size: 1.1rem;
-        font-family: 'Fredoka One', sans-serif;
-    }
-    .label span { font-weight: 400; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; display: block; opacity: 0.9; }
-
-    .fake-section {
-        padding: 80px 40px; text-align: center; min-height: 350px;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-    }
-    .fake-section h2 { font-family: 'Fredoka One', sans-serif; font-size: 2rem; margin-bottom: 12px; }
-    .fake-section p { max-width: 500px; opacity: 0.6; line-height: 1.6; }
-    .section-earnings { background: #FFD6E0; }
-    .section-sound { background: #D5C6E0; }
-
-    /* ===== FULL-SCREEN SCROLL STOPPER ===== */
-    .scroll-stopper {
+    /* ===== VIDEO HERO ===== */
+    .video-hero {
         position: relative;
         width: 100%;
         height: 100vh;
@@ -35,109 +30,285 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* Dark fallback so it NEVER looks blank */
         background: #1a1228;
     }
-    .scroll-stopper video {
+    .video-hero video {
         position: absolute;
         top: 50%; left: 50%;
         min-width: 100%; min-height: 100%;
         width: auto; height: auto;
         transform: translate(-50%, -50%);
         object-fit: cover;
-        filter: brightness(0.45) saturate(0.7) contrast(1.1);
+        filter: brightness(0.4) saturate(0.65) contrast(1.1);
     }
     /* Scan lines */
-    .scroll-stopper .overlay-scanlines {
+    .video-hero .overlay-scanlines {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
         background: repeating-linear-gradient(
             0deg, transparent, transparent 2px,
-            rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px
+            rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
         );
         z-index: 2;
         pointer-events: none;
     }
-    /* Gradient vignette */
-    .scroll-stopper .overlay-vignette {
+    /* Vignette */
+    .video-hero .overlay-vignette {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+        background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%);
         z-index: 2;
         pointer-events: none;
     }
-    .stopper-content {
+    /* Top gradient for logo area */
+    .video-hero .overlay-top {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 120px;
+        background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    /* Logo / brand name at top */
+    .hero-brand {
+        position: absolute;
+        top: 24px; left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        text-align: center;
+    }
+    .hero-brand h1 {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        color: #fff;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        opacity: 0.85;
+    }
+    .hero-brand .tagline {
+        font-family: var(--font-hand);
+        font-size: 0.95rem;
+        color: var(--mon-pink);
+        opacity: 0.7;
+        margin-top: 2px;
+    }
+
+    /* Hero content */
+    .hero-content {
         position: relative;
         z-index: 5;
         text-align: center;
-        padding: 30px;
-        max-width: 700px;
+        padding: 30px 24px;
+        max-width: 680px;
     }
-    .stopper-content h2 {
-        font-family: 'Caveat', cursive;
+    .hero-content h2 {
+        font-family: var(--font-hand);
         font-size: 3.5rem;
         color: #fff;
-        line-height: 1.2;
-        margin-bottom: 16px;
+        line-height: 1.15;
+        margin-bottom: 18px;
         text-shadow: 0 2px 20px rgba(0,0,0,0.5);
     }
-    .stopper-content p {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.15rem;
+    .hero-content h2 .highlight {
+        color: var(--hl-yellow);
+    }
+    .hero-content p {
+        font-family: var(--font-body);
+        font-size: 1.1rem;
         color: rgba(255,255,255,0.8);
         line-height: 1.6;
-        max-width: 500px;
-        margin: 0 auto 30px;
-        text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+        max-width: 520px;
+        margin: 0 auto 28px;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.3);
     }
-    .stopper-cta {
+    .hero-cta {
         display: inline-block;
-        background: #E53A8A;
+        background: var(--accent-magenta);
         color: white;
-        font-family: 'Fredoka One', sans-serif;
-        font-size: 1.1rem;
+        font-family: var(--font-header);
+        font-size: 1.15rem;
         padding: 14px 36px;
         border-radius: 50px;
         text-decoration: none;
         box-shadow: 0 4px 20px rgba(229,58,138,0.4);
         transition: transform 0.2s, box-shadow 0.2s;
     }
-    .stopper-cta:hover {
+    .hero-cta:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 28px rgba(229,58,138,0.5);
     }
+    .hero-price {
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        color: rgba(255,255,255,0.5);
+        margin-top: 10px;
+    }
+
     /* VHS timestamp */
-    .stopper-timestamp {
+    .hero-timestamp {
         position: absolute;
-        bottom: 20px; right: 24px;
+        bottom: 18px; right: 20px;
         font-family: 'Courier New', monospace;
-        font-size: 0.8rem;
-        color: rgba(255,255,255,0.35);
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.3);
         z-index: 5;
     }
+
     /* Scroll hint */
     .scroll-hint {
         position: absolute;
-        bottom: 30px; left: 50%;
+        bottom: 24px; left: 50%;
         transform: translateX(-50%);
         z-index: 5;
-        color: rgba(255,255,255,0.4);
-        font-size: 0.8rem;
+        color: rgba(255,255,255,0.35);
+        font-size: 0.75rem;
         text-align: center;
         animation: bounce 2s ease infinite;
     }
     .scroll-hint::after {
         content: '↓';
         display: block;
-        font-size: 1.2rem;
-        margin-top: 4px;
+        font-size: 1rem;
+        margin-top: 3px;
     }
     @keyframes bounce {
         0%, 100% { transform: translateX(-50%) translateY(0); }
         50% { transform: translateX(-50%) translateY(8px); }
     }
 
-    /* Tap-to-play overlay for mobile */
+    /* ===== CASSETTE TAPE PLAY BUTTON ===== */
+    .cassette-btn {
+        margin-top: 28px;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        z-index: 6;
+        transition: transform 0.2s;
+    }
+    .cassette-btn:hover { transform: scale(1.05); }
+    .cassette-btn:active { transform: scale(0.98); }
+
+    .cassette-body {
+        width: 180px;
+        height: 110px;
+        background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+        border-radius: 8px;
+        position: relative;
+        border: 2px solid #444;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 8px;
+    }
+    /* Cassette label */
+    .cassette-label {
+        width: 140px;
+        height: 46px;
+        background: linear-gradient(135deg, #FFD6E0 0%, #f8b4c8 50%, #FFD6E0 100%);
+        border-radius: 4px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .cassette-label-text {
+        font-family: var(--font-hand);
+        font-size: 1rem;
+        color: var(--text-ink);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    .cassette-label-line {
+        position: absolute;
+        left: 10px; right: 10px;
+        height: 1px;
+        background: rgba(60,75,113,0.15);
+    }
+    .cassette-label-line.top { top: 8px; }
+    .cassette-label-line.bottom { bottom: 8px; }
+
+    /* Reel window */
+    .cassette-reels {
+        display: flex;
+        gap: 32px;
+        margin-top: 8px;
+        align-items: center;
+    }
+    .reel {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid #555;
+        background: #111;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .reel::after {
+        content: '';
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #333;
+        border: 1px solid #555;
+    }
+    .reel::before {
+        content: '';
+        position: absolute;
+        width: 20px; height: 20px;
+        border: 1px dashed #444;
+        border-radius: 50%;
+    }
+    .cassette-btn.playing .reel {
+        animation: spin-reel 2s linear infinite;
+    }
+    @keyframes spin-reel {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    /* Tape between reels */
+    .tape-window {
+        position: absolute;
+        bottom: 22px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+        height: 10px;
+        background: rgba(60,40,20,0.6);
+        border-radius: 2px;
+        border: 1px solid #444;
+    }
+
+    /* Press play text */
+    .cassette-action {
+        font-family: var(--font-hand);
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.7);
+        margin-top: 10px;
+        transition: color 0.3s;
+    }
+    .cassette-btn.playing .cassette-action .label-play { display: none; }
+    .cassette-btn .cassette-action .label-pause { display: none; }
+    .cassette-btn.playing .cassette-action .label-pause { display: inline; }
+    .cassette-btn.playing .cassette-action { color: var(--mon-pink); }
+
+    /* Screw holes on cassette */
+    .cassette-screw {
+        position: absolute;
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: #333;
+        border: 1px solid #555;
+    }
+    .cassette-screw.tl { top: 6px; left: 8px; }
+    .cassette-screw.tr { top: 6px; right: 8px; }
+    .cassette-screw.bl { bottom: 6px; left: 8px; }
+    .cassette-screw.br { bottom: 6px; right: 8px; }
+
+    /* Tap overlay for mobile video autoplay */
     .tap-to-play {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
@@ -146,7 +317,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        background: rgba(26, 18, 40, 0.4);
+        background: rgba(26, 18, 40, 0.3);
         transition: opacity 0.5s ease;
     }
     .tap-to-play.hidden {
@@ -173,168 +344,152 @@
         50% { transform: scale(1.08); border-color: rgba(255,255,255,0.3); }
     }
 
-    /* ===== AUDIO PLAY BUTTON ===== */
-    .audio-btn {
-        display: inline-flex;
+    /* ===== NEXT SECTION TEASER ===== */
+    .next-section {
+        padding: 80px 40px;
+        text-align: center;
+        background: var(--mon-pink);
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 8px;
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.25);
-        color: #fff;
-        font-family: 'Caveat', cursive;
-        font-size: 1.2rem;
-        padding: 10px 22px;
-        border-radius: 50px;
-        cursor: pointer;
-        margin-top: 16px;
-        transition: all 0.3s ease;
-        position: relative;
-        z-index: 6;
+        justify-content: center;
     }
-    .audio-btn:hover {
-        background: rgba(255,255,255,0.2);
-        border-color: rgba(255,255,255,0.4);
+    .next-section h2 {
+        font-family: var(--font-header);
+        font-size: 2rem;
+        color: var(--text-ink);
+        margin-bottom: 12px;
     }
-    .audio-btn .audio-icon {
-        font-size: 1rem;
-        transition: transform 0.2s;
-    }
-    .audio-btn.playing .audio-icon {
-        animation: audio-pulse 1s ease infinite;
-    }
-    @keyframes audio-pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.2); }
-    }
-    /* Equaliser bars when playing */
-    .eq-bars {
-        display: none;
-        align-items: flex-end;
-        gap: 2px;
-        height: 16px;
-    }
-    .audio-btn.playing .eq-bars { display: inline-flex; }
-    .audio-btn.playing .audio-label-play { display: none; }
-    .audio-btn .audio-label-pause { display: none; }
-    .audio-btn.playing .audio-label-pause { display: inline; }
-    .eq-bars span {
-        width: 3px;
-        background: #FFD6E0;
-        border-radius: 1px;
-        animation: eq-bounce 0.8s ease infinite;
-    }
-    .eq-bars span:nth-child(1) { height: 8px; animation-delay: 0s; }
-    .eq-bars span:nth-child(2) { height: 14px; animation-delay: 0.15s; }
-    .eq-bars span:nth-child(3) { height: 6px; animation-delay: 0.3s; }
-    .eq-bars span:nth-child(4) { height: 12px; animation-delay: 0.1s; }
-    @keyframes eq-bounce {
-        0%, 100% { transform: scaleY(0.4); }
-        50% { transform: scaleY(1); }
+    .next-section p {
+        max-width: 500px;
+        opacity: 0.6;
+        line-height: 1.6;
     }
 
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-        .scroll-stopper { height: 70vh; }
-        .stopper-content h2 { font-size: 2.5rem; }
-        .stopper-content p { font-size: 1rem; }
-        .fake-section { padding: 50px 20px; min-height: 250px; }
-        .fake-section h2 { font-size: 1.5rem; }
+        .video-hero { height: 100vh; }
+        .hero-content h2 { font-size: 2.6rem; }
+        .hero-content p { font-size: 1rem; }
+        .hero-brand h1 { font-size: 1.2rem; }
+        .cassette-body { width: 160px; height: 100px; }
+        .cassette-label { width: 124px; height: 40px; }
+        .cassette-label-text { font-size: 0.9rem; }
+        .cassette-reels { gap: 26px; margin-top: 6px; }
+        .reel { width: 24px; height: 24px; }
+        .cassette-action { font-size: 1rem; }
+        .next-section { padding: 50px 20px; }
+        .next-section h2 { font-size: 1.5rem; }
     }
     @media (max-width: 480px) {
-        .scroll-stopper { height: 65vh; }
-        .stopper-content h2 { font-size: 2rem; }
-        .stopper-content p { font-size: 0.9rem; }
-        .stopper-cta { font-size: 1rem; padding: 12px 28px; }
-        .audio-btn { font-size: 1.05rem; padding: 8px 18px; }
+        .hero-content h2 { font-size: 2.1rem; }
+        .hero-content p { font-size: 0.9rem; margin-bottom: 22px; }
+        .hero-cta { font-size: 1rem; padding: 12px 28px; }
+        .cassette-body { width: 150px; height: 94px; }
+        .cassette-label { width: 116px; height: 38px; }
+        .cassette-label-text { font-size: 0.85rem; }
+        .cassette-reels { gap: 22px; margin-top: 5px; }
+        .reel { width: 22px; height: 22px; }
+        .cassette-action { font-size: 0.95rem; margin-top: 8px; }
+        .hero-brand h1 { font-size: 1.1rem; }
         .tap-circle { width: 56px; height: 56px; }
         .tap-circle::after { font-size: 1.2rem; }
     }
 </style>
 </head>
 <body>
-    <div class="label">
-        CONCEPT 3: Full-Screen Scroll Stopper
-        <span>The entire viewport becomes a video moment — the viewer HAS to stop</span>
-    </div>
 
-    <div class="fake-section section-earnings" style="margin-top: 60px;">
-        <h2>The Earnings Section</h2>
-        <p>Scroll down to hit the full-screen video moment...</p>
-    </div>
-
-    <!-- ★ FULL-SCREEN SCROLL STOPPER ★ -->
-    <div class="scroll-stopper" id="stopper">
+    <!-- ===== VIDEO HERO ===== -->
+    <div class="video-hero" id="videoHero">
         <video id="bgVideo" src="video1.mp4" autoplay muted loop playsinline preload="auto" webkit-playsinline="true"></video>
         <div class="overlay-scanlines"></div>
         <div class="overlay-vignette"></div>
-        <div class="stopper-content">
-            <h2>remember when you believed you could do anything?</h2>
-            <p>That girl is still in there. She's just been buried under someone else's business plan.</p>
-            <a href="#" class="stopper-cta">Get Her Back →</a>
-            <br>
-            <button class="audio-btn" id="audioBtn" onclick="toggleAudio()">
-                <span class="audio-icon">🎧</span>
-                <span class="audio-label-play">play me</span>
-                <span class="audio-label-pause">playing...</span>
-                <span class="eq-bars"><span></span><span></span><span></span><span></span></span>
-            </button>
+        <div class="overlay-top"></div>
+
+        <!-- Brand -->
+        <div class="hero-brand">
+            <h1>BUILD HER BUSINESS</h1>
+            <div class="tagline">for the girls who are done being sold to</div>
         </div>
-        <!-- Audio element — replace src with your actual audio file -->
+
+        <!-- Main content -->
+        <div class="hero-content">
+            <h2>remember when you believed you could do <span class="highlight">anything?</span></h2>
+            <p>That girl is still in there. She's just been buried under someone else's business plan.</p>
+            <a href="#" class="hero-cta">Get Her Back →</a>
+            <div class="hero-price">Step-by-step gameplans. Real numbers. £15/month.</div>
+
+            <!-- Cassette tape play button -->
+            <div class="cassette-btn" id="cassetteBtn" onclick="toggleAudio()">
+                <div class="cassette-body">
+                    <div class="cassette-screw tl"></div>
+                    <div class="cassette-screw tr"></div>
+                    <div class="cassette-screw bl"></div>
+                    <div class="cassette-screw br"></div>
+                    <div class="cassette-label">
+                        <div class="cassette-label-line top"></div>
+                        <span class="cassette-label-text">BHB mixtape vol.1</span>
+                        <div class="cassette-label-line bottom"></div>
+                    </div>
+                    <div class="cassette-reels">
+                        <div class="reel"></div>
+                        <div class="reel"></div>
+                    </div>
+                    <div class="tape-window"></div>
+                </div>
+                <div class="cassette-action">
+                    <span class="label-play">▶ press play</span>
+                    <span class="label-pause">◼ pause</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio -->
         <audio id="bgAudio" preload="auto" loop>
             <source src="audio.mp3" type="audio/mpeg">
         </audio>
-        <div class="stopper-timestamp">PLAY ▶ 1993</div>
+
+        <div class="hero-timestamp">PLAY ▶ 1993</div>
         <div class="scroll-hint">keep scrolling</div>
 
-        <!-- Tap overlay for mobile if autoplay fails -->
+        <!-- Tap overlay for mobile video autoplay -->
         <div class="tap-to-play" id="tapOverlay">
             <div class="tap-circle"></div>
         </div>
     </div>
 
-    <div class="fake-section section-sound">
+    <!-- Next section teaser -->
+    <div class="next-section">
         <h2>Sound Familiar?</h2>
-        <p>The scroll-stopper takes up the full screen. The viewer literally cannot ignore it.</p>
+        <p>This is where the rest of the page would continue. The video hero above is now the very first thing your visitors see.</p>
     </div>
 
 <script>
 (function() {
     var video = document.getElementById('bgVideo');
     var tapOverlay = document.getElementById('tapOverlay');
-    var stopper = document.getElementById('stopper');
+    var hero = document.getElementById('videoHero');
     var hasPlayed = false;
 
-    // Set slow playback
     video.playbackRate = 0.5;
 
-    // Try to autoplay immediately
     function tryPlay() {
         var p = video.play();
         if (p !== undefined) {
             p.then(function() {
-                // Autoplay worked!
                 hasPlayed = true;
                 video.playbackRate = 0.5;
                 tapOverlay.classList.add('hidden');
             }).catch(function() {
-                // Autoplay blocked — show tap overlay
                 tapOverlay.classList.remove('hidden');
             });
         }
     }
 
-    // Try autoplay on load
-    video.addEventListener('loadeddata', function() {
-        tryPlay();
-    });
+    video.addEventListener('loadeddata', function() { tryPlay(); });
+    if (video.readyState >= 2) { tryPlay(); }
 
-    // Also try immediately in case already loaded
-    if (video.readyState >= 2) {
-        tryPlay();
-    }
-
-    // Tap overlay — user taps to start video
     tapOverlay.addEventListener('click', function() {
         video.play().then(function() {
             hasPlayed = true;
@@ -343,21 +498,15 @@
         }).catch(function() {});
     });
 
-    // Also try to play when section scrolls into view
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-            if (entry.isIntersecting && !hasPlayed) {
-                tryPlay();
-            }
+            if (entry.isIntersecting && !hasPlayed) { tryPlay(); }
         });
     }, { threshold: 0.3 });
-    observer.observe(stopper);
+    observer.observe(hero);
 
-    // As a last resort, try on any user touch/scroll
     function onFirstInteraction() {
-        if (!hasPlayed) {
-            tryPlay();
-        }
+        if (!hasPlayed) { tryPlay(); }
         document.removeEventListener('touchstart', onFirstInteraction);
         document.removeEventListener('scroll', onFirstInteraction);
     }
@@ -368,7 +517,7 @@
 // Audio toggle
 function toggleAudio() {
     var audio = document.getElementById('bgAudio');
-    var btn = document.getElementById('audioBtn');
+    var btn = document.getElementById('cassetteBtn');
     if (audio.paused) {
         audio.volume = 0.3;
         audio.play().then(function() {
