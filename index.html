@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview 3: Full-Screen Scroll Stopper</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Space Grotesk', sans-serif; background: #f8f4ff; color: #3C4B71; }
+
+    .label {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+        background: #E53A8A; color: white; text-align: center;
+        padding: 12px 20px; font-weight: 700; font-size: 1.1rem;
+        font-family: 'Fredoka One', sans-serif;
+    }
+    .label span { font-weight: 400; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; display: block; opacity: 0.9; }
+
+    .fake-section {
+        padding: 80px 40px; text-align: center; min-height: 350px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .fake-section h2 { font-family: 'Fredoka One', sans-serif; font-size: 2rem; margin-bottom: 12px; }
+    .fake-section p { max-width: 500px; opacity: 0.6; line-height: 1.6; }
+    .section-earnings { background: #FFD6E0; }
+    .section-sound { background: #D5C6E0; }
+
+    /* ===== FULL-SCREEN SCROLL STOPPER ===== */
+    .scroll-stopper {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Dark fallback so it NEVER looks blank */
+        background: #1a1228;
+    }
+    .scroll-stopper video {
+        position: absolute;
+        top: 50%; left: 50%;
+        min-width: 100%; min-height: 100%;
+        width: auto; height: auto;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        filter: brightness(0.45) saturate(0.7) contrast(1.1);
+    }
+    /* Scan lines */
+    .scroll-stopper .overlay-scanlines {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: repeating-linear-gradient(
+            0deg, transparent, transparent 2px,
+            rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px
+        );
+        z-index: 2;
+        pointer-events: none;
+    }
+    /* Gradient vignette */
+    .scroll-stopper .overlay-vignette {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+        z-index: 2;
+        pointer-events: none;
+    }
+    .stopper-content {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+        padding: 30px;
+        max-width: 700px;
+    }
+    .stopper-content h2 {
+        font-family: 'Caveat', cursive;
+        font-size: 3.5rem;
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 16px;
+        text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+    .stopper-content p {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.15rem;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.6;
+        max-width: 500px;
+        margin: 0 auto 30px;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+    .stopper-cta {
+        display: inline-block;
+        background: #E53A8A;
+        color: white;
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 1.1rem;
+        padding: 14px 36px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(229,58,138,0.4);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stopper-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 28px rgba(229,58,138,0.5);
+    }
+    /* VHS timestamp */
+    .stopper-timestamp {
+        position: absolute;
+        bottom: 20px; right: 24px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.35);
+        z-index: 5;
+    }
+    /* Scroll hint */
+    .scroll-hint {
+        position: absolute;
+        bottom: 30px; left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+        color: rgba(255,255,255,0.4);
+        font-size: 0.8rem;
+        text-align: center;
+        animation: bounce 2s ease infinite;
+    }
+    .scroll-hint::after {
+        content: '↓';
+        display: block;
+        font-size: 1.2rem;
+        margin-top: 4px;
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* Tap-to-play overlay for mobile */
+    .tap-to-play {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: rgba(26, 18, 40, 0.4);
+        transition: opacity 0.5s ease;
+    }
+    .tap-to-play.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .tap-circle {
+        width: 70px; height: 70px;
+        border: 2px solid rgba(255,255,255,0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse-ring 2s ease infinite;
+    }
+    .tap-circle::after {
+        content: '▶';
+        color: rgba(255,255,255,0.8);
+        font-size: 1.5rem;
+        margin-left: 4px;
+    }
+    @keyframes pulse-ring {
+        0%, 100% { transform: scale(1); border-color: rgba(255,255,255,0.5); }
+        50% { transform: scale(1.08); border-color: rgba(255,255,255,0.3); }
+    }
+
+    @media (max-width: 768px) {
+        .stopper-content h2 { font-size: 2.5rem; }
+        .stopper-content p { font-size: 1rem; }
+        .fake-section { padding: 50px 20px; min-height: 250px; }
+        .fake-section h2 { font-size: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+        .stopper-content h2 { font-size: 2rem; }
+        .stopper-content p { font-size: 0.9rem; }
+        .stopper-cta { font-size: 1rem; padding: 12px 28px; }
+        .tap-circle { width: 56px; height: 56px; }
+        .tap-circle::after { font-size: 1.2rem; }
+    }
+</style>
+</head>
+<body>
+    <div class="label">
+        CONCEPT 3: Full-Screen Scroll Stopper
+        <span>The entire viewport becomes a video moment — the viewer HAS to stop</span>
+    </div>
+
+    <div class="fake-section section-earnings" style="margin-top: 60px;">
+        <h2>The Earnings Section</h2>
+        <p>Scroll down to hit the full-screen video moment...</p>
+    </div>
+
+    <!-- ★ FULL-SCREEN SCROLL STOPPER ★ -->
+    <div class="scroll-stopper" id="stopper">
+        <video id="bgVideo" muted loop playsinline preload="auto">
+            <source src="video1.mp4" type="video/mp4">
+        </video>
+        <div class="overlay-scanlines"></div>
+        <div class="overlay-vignette"></div>
+        <div class="stopper-content">
+            <h2>remember when you believed you could do anything?</h2>
+            <p>That girl is still in there. She's just been buried under someone else's business plan.</p>
+            <a href="#" class="stopper-cta">Get Her Back →</a>
+        </div>
+        <div class="stopper-timestamp">PLAY ▶ 1993</div>
+        <div class="scroll-hint">keep scrolling</div>
+
+        <!-- Tap overlay for mobile if autoplay fails -->
+        <div class="tap-to-play" id="tapOverlay">
+            <div class="tap-circle"></div>
+        </div>
+    </div>
+
+    <div class="fake-section section-sound">
+        <h2>Sound Familiar?</h2>
+        <p>The scroll-stopper takes up the full screen. The viewer literally cannot ignore it.</p>
+    </div>
+
+<script>
+(function() {
+    var video = document.getElementById('bgVideo');
+    var tapOverlay = document.getElementById('tapOverlay');
+    var stopper = document.getElementById('stopper');
+    var hasPlayed = false;
+
+    // Set slow playback
+    video.playbackRate = 0.5;
+
+    // Try to autoplay immediately
+    function tryPlay() {
+        var p = video.play();
+        if (p !== undefined) {
+            p.then(function() {
+                // Autoplay worked!
+                hasPlayed = true;
+                video.playbackRate = 0.5;
+                tapOverlay.classList.add('hidden');
+            }).catch(function() {
+                // Autoplay blocked — show tap overlay
+                tapOverlay.classList.remove('hidden');
+            });
+        }
+    }
+
+    // Try autoplay on load
+    video.addEventListener('loadeddata', function() {
+        tryPlay();
+    });
+
+    // Also try immediately in case already loaded
+    if (video.readyState >= 2) {
+        tryPlay();
+    }
+
+    // Tap overlay — user taps to start video
+    tapOverlay.addEventListener('click', function() {
+        video.play().then(function() {
+            hasPlayed = true;
+            video.playbackRate = 0.5;
+            tapOverlay.classList.add('hidden');
+        }).catch(function() {});
+    });
+
+    // Also try to play when section scrolls into view
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting && !hasPlayed) {
+                tryPlay();
+            }
+        });
+    }, { threshold: 0.3 });
+    observer.observe(stopper);
+
+    // As a last resort, try on any user touch/scroll
+    function onFirstInteraction() {
+        if (!hasPlayed) {
+            tryPlay();
+        }
+        document.removeEventListener('touchstart', onFirstInteraction);
+        document.removeEventListener('scroll', onFirstInteraction);
+    }
+    document.addEventListener('touchstart', onFirstInteraction, { passive: true });
+    document.addEventListener('scroll', onFirstInteraction, { passive: true });
+})();
+</script>
+</body>
+</html>
