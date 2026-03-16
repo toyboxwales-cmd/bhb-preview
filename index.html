@@ -7,9 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>
     :root {
-        /* BHB PALETTE — bold, 90s magazine, colourful */
         --sky-blue: #84b6f4;
-        --aqua: #5BC0BE;
         --hot-pink: #E53A8A;
         --text-ink: #3C4B71;
         --paper-white: #F8F9FA;
@@ -39,7 +37,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: var(--sky-blue);
+        background: #1a1a2e;
     }
     .video-hero video {
         position: absolute;
@@ -59,15 +57,18 @@
         z-index: 2; pointer-events: none;
     }
 
-    /* ===== LOGO — original bold style ===== */
+    /* ===== LOGO ===== */
     .hero-logo {
         position: absolute;
         top: 20px; left: 22px;
         z-index: 10;
+        opacity: 0;
+        transition: opacity 1s ease;
     }
+    .hero-logo.visible { opacity: 1; }
     .hero-logo h1 {
         font-family: var(--font-header);
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         color: var(--paper-white);
         letter-spacing: 2px;
         line-height: 1;
@@ -78,11 +79,11 @@
              2px -2px 0 var(--text-ink),
             -2px  2px 0 var(--text-ink),
              2px  2px 0 var(--text-ink),
-             5px  5px 0 var(--text-ink);
+             4px  4px 0 var(--text-ink);
     }
     .hero-logo .tagline {
         font-family: var(--font-marker);
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         color: var(--text-ink);
         background: var(--hl-yellow);
         padding: 2px 7px;
@@ -91,7 +92,45 @@
         margin-top: 4px;
     }
 
-    /* ===== HERO CONTENT ===== */
+    /* ===== PLAY ME SCREEN ===== */
+    .play-me-screen {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: rgba(0,0,0,0.55);
+        transition: opacity 0.8s ease;
+    }
+    .play-me-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .play-me-text {
+        font-family: var(--font-marker);
+        font-size: 3.5rem;
+        color: var(--paper-white);
+        letter-spacing: 3px;
+        text-shadow: 4px 4px 0 var(--hot-pink);
+        animation: play-me-pulse 2.5s ease infinite;
+        transform: rotate(-3deg);
+    }
+    .play-me-arrow {
+        font-family: var(--font-hand);
+        font-size: 1.3rem;
+        color: rgba(255,255,255,0.5);
+        margin-top: 16px;
+        animation: play-me-pulse 2.5s ease infinite 0.3s;
+    }
+    @keyframes play-me-pulse {
+        0%, 100% { transform: rotate(-3deg) scale(1); }
+        50% { transform: rotate(-3deg) scale(1.05); }
+    }
+
+    /* ===== HERO CONTENT — hidden until triggered ===== */
     .hero-content {
         position: relative;
         z-index: 5;
@@ -107,6 +146,13 @@
         line-height: 1.12;
         margin-bottom: 18px;
         text-shadow: 0 3px 20px rgba(0,0,0,0.4);
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    .hero-content h2.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
     .hero-content h2 .highlight {
         color: var(--hl-yellow);
@@ -118,6 +164,22 @@
         max-width: 500px;
         margin: 0 auto 28px;
         text-shadow: 0 1px 8px rgba(0,0,0,0.25);
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    .hero-content .hero-sub.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .hero-cta-wrap {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 1s ease, transform 1s ease;
+    }
+    .hero-cta-wrap.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
     .hero-cta {
         display: inline-block;
@@ -141,8 +203,8 @@
         margin-top: 10px;
     }
 
-    /* ===== PLAY BUTTON ===== */
-    .play-btn {
+    /* ===== AUDIO PLAY BUTTON — appears with CTA ===== */
+    .audio-btn {
         margin-top: 28px;
         display: inline-flex;
         flex-direction: column;
@@ -151,43 +213,43 @@
         z-index: 6;
         transition: transform 0.25s ease;
     }
-    .play-btn:hover { transform: scale(1.08); }
-    .play-circle {
-        width: 58px; height: 58px;
+    .audio-btn:hover { transform: scale(1.08); }
+    .audio-circle {
+        width: 48px; height: 48px;
         border-radius: 50%;
-        border: 2.5px solid rgba(255,255,255,0.5);
+        border: 2px solid rgba(255,255,255,0.4);
         display: flex; align-items: center; justify-content: center;
-        background: rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.06);
         backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
         transition: all 0.3s ease;
     }
-    .play-triangle {
+    .audio-icon {
         width: 0; height: 0;
         border-style: solid;
-        border-width: 9px 0 9px 16px;
-        border-color: transparent transparent transparent rgba(255,255,255,0.85);
-        margin-left: 3px;
+        border-width: 7px 0 7px 12px;
+        border-color: transparent transparent transparent rgba(255,255,255,0.75);
+        margin-left: 2px;
     }
-    .play-btn.playing .play-triangle {
-        border: none; width: 14px; height: 16px; margin-left: 0;
-        border-left: 3.5px solid rgba(255,255,255,0.85);
-        border-right: 3.5px solid rgba(255,255,255,0.85);
+    .audio-btn.playing .audio-icon {
+        border: none; width: 12px; height: 14px; margin-left: 0;
+        border-left: 3px solid rgba(255,255,255,0.75);
+        border-right: 3px solid rgba(255,255,255,0.75);
     }
-    .play-label {
+    .audio-label {
         font-family: var(--font-hand);
-        font-size: 1.1rem;
-        color: rgba(255,255,255,0.6);
-        margin-top: 6px;
+        font-size: 1rem;
+        color: rgba(255,255,255,0.5);
+        margin-top: 5px;
     }
-    .play-btn.playing .play-circle {
+    .audio-btn.playing .audio-circle {
         border-color: var(--mon-pink);
-        background: rgba(255,181,198,0.15);
+        background: rgba(255,181,198,0.12);
         animation: soft-glow 2s ease infinite;
     }
-    .play-btn.playing .play-label { color: var(--mon-pink); }
-    .play-btn .lbl-pause { display: none; }
-    .play-btn.playing .lbl-play { display: none; }
-    .play-btn.playing .lbl-pause { display: inline; }
+    .audio-btn.playing .audio-label { color: var(--mon-pink); }
+    .audio-btn .lbl-pause { display: none; }
+    .audio-btn.playing .lbl-play { display: none; }
+    .audio-btn.playing .lbl-pause { display: inline; }
     @keyframes soft-glow {
         0%, 100% { box-shadow: 0 0 16px rgba(255,181,198,0.2); }
         50% { box-shadow: 0 0 28px rgba(255,181,198,0.35); }
@@ -197,39 +259,27 @@
         position: absolute; bottom: 16px; right: 18px;
         font-family: 'Courier New', monospace;
         font-size: 0.7rem; color: rgba(255,255,255,0.2); z-index: 5;
+        opacity: 0; transition: opacity 1s ease;
     }
+    .hero-timestamp.visible { opacity: 1; }
+
     .scroll-hint {
         position: absolute; bottom: 28px; left: 50%;
         transform: translateX(-50%); z-index: 5;
-        color: var(--text-ink);
-        font-family: var(--font-hand); font-size: 1.5rem;
+        color: rgba(255,255,255,0.6);
+        font-family: var(--font-hand); font-size: 1.4rem;
         font-weight: 700;
         animation: bounce 2.5s ease infinite;
+        opacity: 0; transition: opacity 1s ease;
     }
+    .scroll-hint.visible { opacity: 1; }
     .scroll-hint::after { content: ' ↓'; }
     @keyframes bounce {
         0%, 100% { transform: translateX(-50%) translateY(0); }
         50% { transform: translateX(-50%) translateY(6px); }
     }
 
-    .tap-to-play {
-        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        z-index: 10; display: flex; align-items: center; justify-content: center;
-        cursor: pointer; background: rgba(0,0,0,0.15);
-        transition: opacity 0.5s ease;
-    }
-    .tap-to-play.hidden { opacity: 0; pointer-events: none; }
-    .tap-vid-circle {
-        width: 70px; height: 70px;
-        border: 2px solid rgba(255,255,255,0.45);
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        animation: pulse-ring 2s ease infinite;
-    }
-    .tap-vid-circle::after { content: '▶'; color: rgba(255,255,255,0.7); font-size: 1.4rem; margin-left: 4px; }
-    @keyframes pulse-ring { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-
-    /* ===== SOUND FAMILIAR — sky blue bg, magazine bold ===== */
+    /* ===== SOUND FAMILIAR ===== */
     .sound-familiar {
         background: var(--sky-blue);
         padding: 70px 24px 80px;
@@ -289,7 +339,7 @@
         border-radius: 2px;
     }
 
-    /* ===== WHAT'S INSIDE — white bg with pops of colour ===== */
+    /* ===== WHAT'S INSIDE ===== */
     .whats-inside {
         background: white;
         padding: 70px 24px 80px;
@@ -326,7 +376,6 @@
         transition: transform 0.2s;
         position: relative;
     }
-    /* Each card gets a different coloured shadow */
     .feature-card:nth-child(1) { box-shadow: 5px 5px 0 var(--mon-pink); }
     .feature-card:nth-child(2) { box-shadow: 5px 5px 0 var(--mon-laven); }
     .feature-card:nth-child(3) { box-shadow: 5px 5px 0 var(--mon-mint); }
@@ -344,7 +393,6 @@
         color: #6B7B9E;
         line-height: 1.55;
     }
-    /* Yellow sticky note */
     .feature-note {
         grid-column: 1 / -1;
         background: var(--hl-yellow);
@@ -361,7 +409,7 @@
         line-height: 1.4;
     }
 
-    /* ===== CTA — hot pink bg ===== */
+    /* ===== CTA ===== */
     .cta-section {
         background: var(--hot-pink);
         padding: 60px 24px;
@@ -404,26 +452,25 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-        .hero-logo h1 { font-size: 1.6rem; }
+        .hero-logo h1 { font-size: 1.4rem; }
         .hero-logo { top: 16px; left: 16px; }
         .hero-content h2 { font-size: 2.7rem; }
         .hero-content .hero-sub { font-size: 1rem; }
-        .play-circle { width: 50px; height: 50px; }
+        .play-me-text { font-size: 2.8rem; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.8rem; }
         .pain-card .quote { font-size: 1.3rem; }
     }
     @media (max-width: 480px) {
-        .hero-logo h1 { font-size: 1.3rem; }
+        .hero-logo h1 { font-size: 1.2rem; }
         .hero-content h2 { font-size: 2.2rem; }
         .hero-content .hero-sub { font-size: 0.92rem; margin-bottom: 22px; }
         .hero-cta { font-size: 1rem; padding: 12px 28px; }
-        .play-circle { width: 46px; height: 46px; }
+        .play-me-text { font-size: 2.2rem; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
         .cta-section h2 { font-size: 2rem; }
-        .tap-vid-circle { width: 56px; height: 56px; }
     }
 </style>
 </head>
@@ -431,26 +478,34 @@
 
     <!-- ===== VIDEO HERO ===== -->
     <div class="video-hero" id="videoHero">
-        <video id="bgVideo" src="video1.mp4" autoplay muted loop playsinline preload="auto" webkit-playsinline="true"></video>
+        <video id="bgVideo" src="video1.mp4" muted loop playsinline preload="auto" webkit-playsinline="true"></video>
         <div class="overlay-dim"></div>
         <div class="overlay-scanlines"></div>
 
-        <div class="hero-logo">
+        <div class="hero-logo" id="heroLogo">
             <h1>BUILD HER<br>BUSINESS</h1>
             <div><span class="tagline">Find Your Gameplan.</span></div>
         </div>
 
-        <div class="hero-content">
-            <h2>remember when you believed you could do <span class="highlight">anything?</span></h2>
-            <p class="hero-sub">That girl is still in there. She's just been buried under someone else's business plan.</p>
-            <a href="#" class="hero-cta">Get Her Back</a>
-            <div class="hero-detail">Real gameplans. Real numbers. £15/month.</div>
+        <!-- PLAY ME SCREEN — the only thing visible on load -->
+        <div class="play-me-screen" id="playMeScreen">
+            <div class="play-me-text">PLAY ME ▶</div>
+            <div class="play-me-arrow">tap anywhere</div>
+        </div>
 
-            <div class="play-btn" id="playBtn" onclick="toggleAudio()">
-                <div class="play-circle"><div class="play-triangle"></div></div>
-                <div class="play-label">
-                    <span class="lbl-play">press play</span>
-                    <span class="lbl-pause">now playing ♫</span>
+        <!-- HERO CONTENT — fades in after play -->
+        <div class="hero-content" id="heroContent">
+            <h2 id="headline">remember when you believed you could do <span class="highlight">anything?</span></h2>
+            <p class="hero-sub" id="subline">she's still in there. she's just been buried under someone else's business plan.</p>
+            <div class="hero-cta-wrap" id="ctaWrap">
+                <a href="#" class="hero-cta">Get Her Back</a>
+                <div class="hero-detail">Real gameplans. Real numbers. £15/month.</div>
+                <div class="audio-btn" id="audioBtn" onclick="event.stopPropagation(); toggleAudio();">
+                    <div class="audio-circle"><div class="audio-icon"></div></div>
+                    <div class="audio-label">
+                        <span class="lbl-play">♫</span>
+                        <span class="lbl-pause">playing ♫</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -459,12 +514,8 @@
             <source src="audio.mp3" type="audio/mpeg">
         </audio>
 
-        <div class="hero-timestamp">1993</div>
-        <div class="scroll-hint">keep scrolling</div>
-
-        <div class="tap-to-play" id="tapOverlay">
-            <div class="tap-vid-circle"></div>
-        </div>
+        <div class="hero-timestamp" id="timestamp">1993</div>
+        <div class="scroll-hint" id="scrollHint">keep scrolling</div>
     </div>
 
     <!-- ===== SOUND FAMILIAR ===== -->
@@ -537,44 +588,62 @@
 <script>
 (function() {
     var video = document.getElementById('bgVideo');
-    var tapOverlay = document.getElementById('tapOverlay');
-    var hero = document.getElementById('videoHero');
-    var hasPlayed = false;
+    var playMeScreen = document.getElementById('playMeScreen');
+    var audio = document.getElementById('bgAudio');
+    var headline = document.getElementById('headline');
+    var subline = document.getElementById('subline');
+    var ctaWrap = document.getElementById('ctaWrap');
+    var heroLogo = document.getElementById('heroLogo');
+    var timestamp = document.getElementById('timestamp');
+    var scrollHint = document.getElementById('scrollHint');
+    var hasStarted = false;
+
     video.playbackRate = 0.5;
-    function tryPlay() {
-        var p = video.play();
-        if (p !== undefined) {
-            p.then(function() {
-                hasPlayed = true; video.playbackRate = 0.5;
-                tapOverlay.classList.add('hidden');
-            }).catch(function() { tapOverlay.classList.remove('hidden'); });
-        }
-    }
-    video.addEventListener('loadeddata', function() { tryPlay(); });
-    if (video.readyState >= 2) { tryPlay(); }
-    tapOverlay.addEventListener('click', function() {
+
+    function startExperience() {
+        if (hasStarted) return;
+        hasStarted = true;
+
+        // Play video
         video.play().then(function() {
-            hasPlayed = true; video.playbackRate = 0.5;
-            tapOverlay.classList.add('hidden');
+            video.playbackRate = 0.5;
         }).catch(function() {});
-    });
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting && !hasPlayed) { tryPlay(); }
-        });
-    }, { threshold: 0.3 });
-    observer.observe(hero);
-    function onFirstInteraction() {
-        if (!hasPlayed) { tryPlay(); }
-        document.removeEventListener('touchstart', onFirstInteraction);
-        document.removeEventListener('scroll', onFirstInteraction);
+
+        // Play audio
+        audio.volume = 0.3;
+        audio.play().catch(function() {});
+
+        // Fade out play me screen
+        playMeScreen.classList.add('hidden');
+
+        // Show logo
+        setTimeout(function() { heroLogo.classList.add('visible'); }, 500);
+
+        // Fade in headline
+        setTimeout(function() { headline.classList.add('visible'); }, 2000);
+
+        // Fade in subline
+        setTimeout(function() { subline.classList.add('visible'); }, 4000);
+
+        // Fade in CTA + audio button + scroll hint + timestamp
+        setTimeout(function() {
+            ctaWrap.classList.add('visible');
+            timestamp.classList.add('visible');
+            scrollHint.classList.add('visible');
+        }, 6000);
     }
-    document.addEventListener('touchstart', onFirstInteraction, { passive: true });
-    document.addEventListener('scroll', onFirstInteraction, { passive: true });
+
+    // Tap anywhere on the play me screen to start
+    playMeScreen.addEventListener('click', startExperience);
+    playMeScreen.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        startExperience();
+    }, { passive: false });
 })();
+
 function toggleAudio() {
     var audio = document.getElementById('bgAudio');
-    var btn = document.getElementById('playBtn');
+    var btn = document.getElementById('audioBtn');
     if (audio.paused) {
         audio.volume = 0.3;
         audio.play().then(function() { btn.classList.add('playing'); }).catch(function() {});
