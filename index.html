@@ -4,22 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BHB — Build Her Business</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>
     :root {
-        /* Warm but COLOURFUL — not brown, not corporate */
-        --soft-pink: #FFE4EC;
-        --blush: #FFB8CC;
-        --rose: #E8668A;
-        --magenta: #D94F78;
-        --warm-cream: #FFF9F2;
-        --peach: #FFE6D5;
-        --golden: #FFD966;
-        --soft-lilac: #E8D5F0;
-        --warm-ink: #3D2E3D;
-        --soft-ink: #6B5270;
-        --paper: #FFFBF7;
+        /* Original BHB colours — brought back */
+        --sky-blue: #84b6f4;
+        --bg-lavender: #B49FCC;
+        --accent-magenta: #E53A8A;
+        --text-ink: #3C4B71;
+        --paper-white: #F8F9FA;
+        --hl-yellow: #FFF000;
+        --mon-pink: #FFB5C6;
+        --mon-laven: #D4C4FB;
+        --mon-peach: #FFD2B3;
+        --mon-yellow: #FEEC94;
+        --mon-mint: #B2E5D0;
+        --mon-cream: #FFF4E0;
 
+        /* Slightly softer versions for backgrounds */
+        --soft-pink-bg: #FFE0EA;
+        --soft-blue-bg: #D6E8FF;
+        --soft-lav-bg: #E4D8F0;
+
+        /* Fonts — same as original */
+        --font-display: 'Shrikhand', cursive;
         --font-header: 'Fredoka One', sans-serif;
         --font-body: 'Space Grotesk', sans-serif;
         --font-hand: 'Caveat', cursive;
@@ -28,8 +36,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
         font-family: var(--font-body);
-        background: var(--warm-cream);
-        color: var(--warm-ink);
+        background: var(--sky-blue);
+        color: var(--text-ink);
     }
 
     /* ===== VIDEO HERO ===== */
@@ -50,15 +58,15 @@
         width: auto; height: auto;
         transform: translate(-50%, -50%);
         object-fit: cover;
-        /* NO FILTER — video exactly as created */
+        /* No colour filter at all */
     }
-    /* Just a gentle darken so white text is readable */
+    /* Just enough dim so white text reads */
     .video-hero .overlay-dim {
         position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0,0,0,0.28);
         z-index: 1; pointer-events: none;
     }
-    /* Very subtle scan lines — barely visible */
+    /* Very light scan lines */
     .video-hero .overlay-scanlines {
         position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         background: repeating-linear-gradient(
@@ -67,34 +75,44 @@
         );
         z-index: 2; pointer-events: none;
     }
-    /* Bottom fade into page colour */
+    /* Bottom fade into first section */
     .video-hero .overlay-bottom {
         position: absolute; bottom: 0; left: 0; right: 0;
-        height: 120px;
-        background: linear-gradient(0deg, var(--soft-pink) 0%, transparent 100%);
+        height: 100px;
+        background: linear-gradient(0deg, var(--soft-pink-bg) 0%, transparent 100%);
         z-index: 3; pointer-events: none;
     }
 
-    /* ===== LOGO ===== */
+    /* ===== LOGO — original style, slightly cleaner ===== */
     .hero-logo {
         position: absolute;
-        top: 22px; left: 24px;
+        top: 20px; left: 22px;
         z-index: 10;
     }
     .hero-logo h1 {
         font-family: var(--font-header);
-        font-size: 1.8rem;
-        color: #fff;
-        letter-spacing: 1.5px;
-        line-height: 1.05;
-        text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+        font-size: 2rem;
+        color: var(--paper-white);
+        letter-spacing: 2px;
+        line-height: 1;
+        transform: rotate(-2deg);
+        display: inline-block;
+        text-shadow:
+            -2px -2px 0 var(--text-ink),
+             2px -2px 0 var(--text-ink),
+            -2px  2px 0 var(--text-ink),
+             2px  2px 0 var(--text-ink),
+             4px  4px 0 var(--text-ink);
     }
     .hero-logo .tagline {
         font-family: var(--font-marker);
         font-size: 0.7rem;
-        color: var(--golden);
-        margin-top: 4px;
-        letter-spacing: 0.5px;
+        color: var(--text-ink);
+        background: var(--hl-yellow);
+        padding: 2px 6px;
+        display: inline-block;
+        transform: rotate(-2deg);
+        margin-top: 3px;
     }
 
     /* ===== HERO CONTENT ===== */
@@ -115,7 +133,7 @@
         text-shadow: 0 3px 20px rgba(0,0,0,0.4);
     }
     .hero-content h2 .highlight {
-        color: var(--golden);
+        color: var(--hl-yellow);
     }
     .hero-content .hero-sub {
         font-size: 1.1rem;
@@ -127,19 +145,19 @@
     }
     .hero-cta {
         display: inline-block;
-        background: var(--magenta);
+        background: var(--accent-magenta);
         color: white;
         font-family: var(--font-header);
         font-size: 1.15rem;
         padding: 14px 36px;
         border-radius: 50px;
         text-decoration: none;
-        box-shadow: 0 4px 20px rgba(217,79,120,0.4);
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.3), 0 4px 20px rgba(229,58,138,0.3);
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .hero-cta:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 28px rgba(217,79,120,0.5);
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 rgba(0,0,0,0.3), 0 2px 12px rgba(229,58,138,0.4);
     }
     .hero-detail {
         font-size: 0.82rem;
@@ -147,27 +165,24 @@
         margin-top: 10px;
     }
 
-    /* ===== PLAY BUTTON — fun but elegant ===== */
+    /* ===== PLAY BUTTON ===== */
     .play-btn {
-        margin-top: 30px;
+        margin-top: 28px;
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         cursor: pointer;
         z-index: 6;
-        position: relative;
         transition: transform 0.25s ease;
     }
     .play-btn:hover { transform: scale(1.08); }
     .play-btn:active { transform: scale(0.96); }
 
     .play-circle {
-        width: 60px; height: 60px;
+        width: 58px; height: 58px;
         border-radius: 50%;
         border: 2.5px solid rgba(255,255,255,0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         background: rgba(255,255,255,0.08);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
@@ -181,52 +196,42 @@
         margin-left: 3px;
         transition: all 0.3s;
     }
-    /* Pause bars when playing */
     .play-btn.playing .play-triangle {
         border: none;
-        width: 14px; height: 16px;
-        margin-left: 0;
+        width: 14px; height: 16px; margin-left: 0;
         border-left: 3.5px solid rgba(255,255,255,0.85);
         border-right: 3.5px solid rgba(255,255,255,0.85);
     }
     .play-label {
         font-family: var(--font-hand);
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         color: rgba(255,255,255,0.6);
         margin-top: 6px;
     }
     .play-btn.playing .play-circle {
-        border-color: var(--blush);
-        background: rgba(255,184,204,0.15);
+        border-color: var(--mon-pink);
+        background: rgba(255,181,198,0.15);
         animation: soft-glow 2s ease infinite;
     }
-    .play-btn.playing .play-label { color: var(--blush); }
+    .play-btn.playing .play-label { color: var(--mon-pink); }
     .play-btn .lbl-pause { display: none; }
     .play-btn.playing .lbl-play { display: none; }
     .play-btn.playing .lbl-pause { display: inline; }
     @keyframes soft-glow {
-        0%, 100% { box-shadow: 0 0 16px rgba(255,184,204,0.2); }
-        50% { box-shadow: 0 0 28px rgba(255,184,204,0.35); }
+        0%, 100% { box-shadow: 0 0 16px rgba(255,181,198,0.2); }
+        50% { box-shadow: 0 0 28px rgba(255,181,198,0.35); }
     }
 
-    /* Timestamp */
     .hero-timestamp {
-        position: absolute;
-        bottom: 16px; right: 18px;
+        position: absolute; bottom: 16px; right: 18px;
         font-family: 'Courier New', monospace;
-        font-size: 0.7rem;
-        color: rgba(255,255,255,0.2);
-        z-index: 5;
+        font-size: 0.7rem; color: rgba(255,255,255,0.2); z-index: 5;
     }
-    /* Scroll hint */
     .scroll-hint {
-        position: absolute;
-        bottom: 50px; left: 50%;
-        transform: translateX(-50%);
-        z-index: 5;
+        position: absolute; bottom: 44px; left: 50%;
+        transform: translateX(-50%); z-index: 5;
         color: rgba(255,255,255,0.3);
-        font-family: var(--font-hand);
-        font-size: 0.9rem;
+        font-family: var(--font-hand); font-size: 0.9rem;
         animation: bounce 2.5s ease infinite;
     }
     .scroll-hint::after { content: ' ↓'; }
@@ -259,19 +264,16 @@
         50% { transform: scale(1.06); }
     }
 
-    /* ===== SOUND FAMILIAR ===== */
+    /* ===== SOUND FAMILIAR — soft pink bg ===== */
     .sound-familiar {
-        background: var(--soft-pink);
+        background: var(--soft-pink-bg);
         padding: 70px 24px 80px;
     }
-    .sound-familiar .inner {
-        max-width: 720px;
-        margin: 0 auto;
-    }
+    .sound-familiar .inner { max-width: 720px; margin: 0 auto; }
     .sound-familiar .section-tag {
         font-family: var(--font-marker);
         font-size: 0.85rem;
-        color: var(--rose);
+        color: var(--accent-magenta);
         text-transform: uppercase;
         letter-spacing: 1.5px;
         margin-bottom: 10px;
@@ -279,43 +281,42 @@
     .sound-familiar h2 {
         font-family: var(--font-header);
         font-size: 2.1rem;
-        color: var(--warm-ink);
+        color: var(--text-ink);
         margin-bottom: 30px;
         line-height: 1.25;
     }
     .pain-card {
-        background: var(--paper);
+        background: white;
         padding: 22px 24px;
         border-radius: 12px;
         margin-bottom: 16px;
-        box-shadow: 0 2px 10px rgba(61,46,61,0.06);
-        border-left: 4px solid var(--blush);
-        position: relative;
+        box-shadow: 3px 3px 0 var(--mon-pink);
+        border-left: 4px solid var(--accent-magenta);
     }
     .pain-card .quote {
         font-family: var(--font-hand);
         font-size: 1.4rem;
-        color: var(--warm-ink);
+        color: var(--text-ink);
         margin-bottom: 6px;
         line-height: 1.25;
     }
     .pain-card .response {
         font-size: 0.92rem;
-        color: var(--soft-ink);
+        color: #6B7B9E;
         line-height: 1.6;
     }
     .annotation {
         font-family: var(--font-hand);
         font-size: 1.25rem;
-        color: var(--rose);
+        color: var(--accent-magenta);
         margin-top: 22px;
         transform: rotate(-1.5deg);
         display: inline-block;
     }
 
-    /* ===== WHAT'S INSIDE ===== */
+    /* ===== WHAT'S INSIDE — lavender bg ===== */
     .whats-inside {
-        background: var(--warm-cream);
+        background: var(--soft-lav-bg);
         padding: 70px 24px 80px;
         text-align: center;
     }
@@ -323,7 +324,7 @@
     .whats-inside .section-tag {
         font-family: var(--font-marker);
         font-size: 0.85rem;
-        color: var(--rose);
+        color: var(--bg-lavender);
         text-transform: uppercase;
         letter-spacing: 1.5px;
         margin-bottom: 10px;
@@ -331,7 +332,7 @@
     .whats-inside h2 {
         font-family: var(--font-header);
         font-size: 2.1rem;
-        color: var(--warm-ink);
+        color: var(--text-ink);
         margin-bottom: 36px;
     }
     .feature-grid {
@@ -341,11 +342,10 @@
         text-align: left;
     }
     .feature-card {
-        background: var(--paper);
+        background: white;
         border-radius: 14px;
         padding: 24px 22px;
-        box-shadow: 0 2px 10px rgba(61,46,61,0.05);
-        border: 1px solid rgba(255,184,204,0.25);
+        box-shadow: 3px 3px 0 var(--mon-laven);
         transition: transform 0.2s;
     }
     .feature-card:hover { transform: translateY(-3px); }
@@ -353,93 +353,89 @@
     .feature-card h3 {
         font-family: var(--font-header);
         font-size: 1rem;
-        color: var(--warm-ink);
+        color: var(--text-ink);
         margin-bottom: 8px;
     }
     .feature-card p {
         font-size: 0.88rem;
-        color: var(--soft-ink);
+        color: #6B7B9E;
         line-height: 1.55;
     }
-    /* Handwritten note card */
+    /* Yellow sticky note */
     .feature-note {
         grid-column: 1 / -1;
-        background: var(--golden);
+        background: var(--hl-yellow);
         border-radius: 14px;
         padding: 20px 24px;
         text-align: center;
         transform: rotate(-0.8deg);
-        box-shadow: 0 3px 12px rgba(61,46,61,0.08);
-        border: none;
+        box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
     }
     .feature-note p {
         font-family: var(--font-hand);
         font-size: 1.3rem;
-        color: var(--warm-ink);
+        color: var(--text-ink);
         line-height: 1.4;
     }
 
-    /* ===== CTA SECTION ===== */
+    /* ===== CTA — mint bg ===== */
     .cta-section {
-        background: var(--soft-lilac);
+        background: var(--mon-mint);
         padding: 60px 24px;
         text-align: center;
     }
     .cta-section h2 {
         font-family: var(--font-hand);
         font-size: 2.4rem;
-        color: var(--warm-ink);
+        color: var(--text-ink);
         margin-bottom: 8px;
     }
     .cta-section .price {
-        color: var(--soft-ink);
+        color: #5A7B6B;
         margin-bottom: 22px;
         font-size: 0.95rem;
     }
     .cta-section .cta-btn {
         display: inline-block;
-        background: var(--magenta);
+        background: var(--accent-magenta);
         color: white;
         font-family: var(--font-header);
         font-size: 1.1rem;
         padding: 14px 34px;
         border-radius: 50px;
         text-decoration: none;
-        box-shadow: 0 4px 18px rgba(217,79,120,0.3);
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
         transition: transform 0.2s;
     }
-    .cta-section .cta-btn:hover { transform: translateY(-2px); }
+    .cta-section .cta-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
     .cta-section .cancel-note {
         font-family: var(--font-hand);
         font-size: 1rem;
-        color: var(--soft-ink);
+        color: #5A7B6B;
         margin-top: 10px;
         display: block;
     }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-        .hero-logo h1 { font-size: 1.4rem; }
+        .hero-logo h1 { font-size: 1.5rem; }
         .hero-logo { top: 16px; left: 16px; }
         .hero-content h2 { font-size: 2.7rem; }
         .hero-content .hero-sub { font-size: 1rem; }
-        .play-circle { width: 52px; height: 52px; }
-        .sound-familiar { padding: 50px 20px 60px; }
-        .sound-familiar h2 { font-size: 1.7rem; }
-        .whats-inside { padding: 50px 20px 60px; }
-        .whats-inside h2 { font-size: 1.7rem; }
+        .play-circle { width: 50px; height: 50px; }
+        .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
+        .sound-familiar h2, .whats-inside h2 { font-size: 1.7rem; }
     }
     @media (max-width: 480px) {
         .hero-logo h1 { font-size: 1.2rem; }
         .hero-content h2 { font-size: 2.2rem; }
         .hero-content .hero-sub { font-size: 0.92rem; margin-bottom: 22px; }
         .hero-cta { font-size: 1rem; padding: 12px 28px; }
-        .play-circle { width: 48px; height: 48px; }
+        .play-circle { width: 46px; height: 46px; }
         .play-label { font-size: 1rem; }
-        .sound-familiar h2 { font-size: 1.45rem; }
+        .sound-familiar h2, .whats-inside h2 { font-size: 1.45rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
-        .whats-inside h2 { font-size: 1.45rem; }
         .cta-section h2 { font-size: 1.9rem; }
         .tap-vid-circle { width: 56px; height: 56px; }
     }
@@ -456,7 +452,7 @@
 
         <div class="hero-logo">
             <h1>BUILD HER<br>BUSINESS</h1>
-            <div class="tagline">Find Your Gameplan.</div>
+            <div><span class="tagline">Find Your Gameplan.</span></div>
         </div>
 
         <div class="hero-content">
@@ -498,12 +494,10 @@
                 <div class="quote">"I just need to hit Diamond rank..."</div>
                 <div class="response">You've been saying that for 3 years. The rank keeps moving. The products keep stacking up in your spare room.</div>
             </div>
-
             <div class="pain-card">
                 <div class="quote">"My upline said I'm not trying hard enough..."</div>
                 <div class="response">You're messaging 50 people a day. You're working harder than most employees. The system is the problem, not you.</div>
             </div>
-
             <div class="pain-card">
                 <div class="quote">"I've invested too much to quit now..."</div>
                 <div class="response">That's the sunk cost fallacy talking. The bravest thing you can do is walk away and start fresh.</div>
