@@ -257,7 +257,7 @@
         color: var(--hl-yellow);
     }
 
-    /* ===== STATIC COPY HERO — shows when scrolled back ===== */
+    /* ===== STATIC COPY HERO — 90s diary/magazine feel ===== */
     .copy-hero {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
@@ -272,47 +272,82 @@
     .copy-hero.visible { opacity: 1; }
     .copy-hero-inner {
         text-align: center;
-        max-width: 560px;
-        padding: 0 28px;
+        max-width: 580px;
+        padding: 0 24px;
         position: relative;
     }
-    .copy-hero-inner .ch-line {
-        display: block;
-        margin-bottom: 14px;
-        font-family: 'Inter', sans-serif;
-        font-weight: 300;
-        color: rgba(255,255,255,0.75);
-        font-size: 1.1rem;
-        line-height: 1.7;
-        letter-spacing: 0.5px;
-    }
-    /* Size variations */
-    .ch-sm { font-size: 0.95rem !important; color: rgba(255,255,255,0.5) !important; }
-    .ch-md { font-size: 1.15rem !important; }
-    .ch-lg { font-size: 1.5rem !important; color: white !important; font-weight: 400 !important; }
-    .ch-xl { font-size: 1.85rem !important; color: white !important; font-weight: 400 !important; letter-spacing: 1.5px !important; }
-    /* Colour accents */
-    .ch-pink { color: var(--mon-pink) !important; }
-    .ch-yellow { color: var(--hl-yellow) !important; }
-    .ch-lav { color: var(--mon-laven) !important; }
-    /* Italic & hand */
-    .ch-italic { font-style: italic !important; }
-    .ch-hand { font-family: var(--font-hand) !important; font-size: 1.6rem !important; }
-    /* Spacing */
-    .ch-gap { margin-top: 22px !important; }
-    .ch-gap-lg { margin-top: 34px !important; }
-    /* Soft glow behind the whole block */
+    /* Dark scrim behind for readability */
     .copy-hero-inner::before {
         content: '';
         position: absolute;
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
-        width: 90%;
-        height: 70%;
-        background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, transparent 70%);
-        filter: blur(40px);
+        width: 110%;
+        height: 115%;
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 60%, transparent 80%);
+        filter: blur(30px);
         z-index: -1;
     }
+    /* Base line */
+    .ch-line {
+        display: block;
+        margin-bottom: 8px;
+    }
+    /* — FONT STYLES (the BHB brand fonts) — */
+    .ch-whisper {
+        font-family: var(--font-hand);
+        font-size: 1.5rem;
+        color: rgba(255,255,255,0.55);
+        letter-spacing: 0.5px;
+    }
+    .ch-raw {
+        font-family: var(--font-marker);
+        font-size: 1.05rem;
+        color: white;
+        letter-spacing: 1px;
+    }
+    .ch-body {
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: rgba(255,255,255,0.6);
+        line-height: 1.7;
+        letter-spacing: 0.3px;
+    }
+    .ch-display {
+        font-family: var(--font-display);
+        color: white;
+        font-size: 1.7rem;
+        letter-spacing: 1px;
+    }
+    .ch-header {
+        font-family: var(--font-header);
+        color: white;
+        font-size: 1.4rem;
+    }
+    /* — HIGHLIGHT (yellow marker streak) — */
+    .ch-hl {
+        background: var(--hl-yellow);
+        color: var(--text-ink) !important;
+        padding: 1px 8px;
+        display: inline;
+        transform: rotate(-1deg);
+    }
+    /* — COLOURS — */
+    .ch-pink { color: var(--hot-pink) !important; }
+    .ch-soft-pink { color: var(--mon-pink) !important; }
+    .ch-lav { color: var(--mon-laven) !important; }
+    .ch-yellow { color: var(--hl-yellow) !important; }
+    .ch-dim { color: rgba(255,255,255,0.35) !important; }
+    /* — SIZES — */
+    .ch-big { font-size: 2rem !important; }
+    .ch-small { font-size: 0.8rem !important; }
+    /* — SPACING — */
+    .ch-gap { margin-top: 20px !important; }
+    .ch-gap-lg { margin-top: 34px !important; }
+    /* — ROTATION — */
+    .ch-tilt { display: inline-block; transform: rotate(-2deg); }
+    .ch-tilt-r { display: inline-block; transform: rotate(1.5deg); }
 
     /* ===== CTA REVEAL ===== */
     .hero-cta-final {
@@ -463,9 +498,10 @@
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
         .journey-phrase { font-size: 1.35rem; max-width: 90%; }
-        .ch-lg { font-size: 1.3rem !important; }
-        .ch-xl { font-size: 1.55rem !important; }
-        .ch-hand { font-size: 1.4rem !important; }
+        .ch-display { font-size: 1.4rem; }
+        .ch-big { font-size: 1.6rem !important; }
+        .ch-whisper { font-size: 1.3rem; }
+        .ch-raw { font-size: 0.95rem; }
         .play-me-ring { width: 75px; height: 75px; }
         .play-me-ring::after { font-size: 1.5rem; }
         .rec-indicator { top: 20px; right: 16px; }
@@ -478,12 +514,15 @@
     @media (max-width: 480px) {
         .hero-logo h1 { font-size: 1.1rem; }
         .journey-phrase { font-size: 1.15rem; }
-        .ch-line { font-size: 0.95rem !important; margin-bottom: 10px !important; }
-        .ch-lg { font-size: 1.15rem !important; }
-        .ch-xl { font-size: 1.35rem !important; }
-        .ch-hand { font-size: 1.25rem !important; }
-        .ch-gap { margin-top: 16px !important; }
-        .ch-gap-lg { margin-top: 24px !important; }
+        .ch-line { margin-bottom: 6px !important; }
+        .ch-display { font-size: 1.2rem; }
+        .ch-big { font-size: 1.35rem !important; }
+        .ch-whisper { font-size: 1.15rem; }
+        .ch-raw { font-size: 0.85rem; }
+        .ch-body { font-size: 0.85rem; }
+        .ch-header { font-size: 1.15rem; }
+        .ch-gap { margin-top: 14px !important; }
+        .ch-gap-lg { margin-top: 22px !important; }
         .hero-cta-final .cta-btn { font-size: 1rem; padding: 12px 28px; }
         .play-me-ring { width: 65px; height: 65px; }
         .play-me-ring::after { font-size: 1.3rem; }
@@ -541,20 +580,19 @@
             <div class="journey-phrase" data-in="36000" data-out="40000">it's time to <em>get her back.</em></div>
         </div>
 
-        <!-- STATIC COPY HERO — shows when scrolled back up -->
+        <!-- STATIC COPY HERO — 90s diary style -->
         <div class="copy-hero" id="copyHero">
             <div class="copy-hero-inner">
-                <span class="ch-line ch-sm">remember when you were</span>
-                <span class="ch-line ch-xl ch-yellow">fearless?</span>
-                <span class="ch-line ch-md ch-gap">when the world felt <span class="ch-italic ch-lav">massive</span></span>
-                <span class="ch-line ch-sm">and you were going to take on every bit of it</span>
-                <span class="ch-line ch-md ch-gap ch-italic">then somewhere along the way...</span>
-                <span class="ch-line ch-lg ch-pink ch-gap">someone sold you a dream<br>that wasn't yours</span>
-                <span class="ch-line ch-sm ch-gap">the rank. the hustle. the "just keep going"</span>
-                <span class="ch-line ch-hand ch-gap-lg">but that girl?</span>
-                <span class="ch-line ch-lg">she's still in there.</span>
-                <span class="ch-line ch-sm ch-italic ch-gap">she's just been buried under someone else's business plan.</span>
-                <span class="ch-line ch-xl ch-yellow ch-gap-lg">it's time to get her back.</span>
+                <span class="ch-line ch-whisper">remember when you were</span>
+                <span class="ch-line ch-display ch-big ch-yellow">fearless?</span>
+                <span class="ch-line ch-body ch-gap">when the world felt massive<br>and you were going to take on every bit of it</span>
+                <span class="ch-line ch-whisper ch-dim ch-gap">then somewhere along the way...</span>
+                <span class="ch-line ch-raw ch-pink ch-gap ch-tilt">someone sold you a dream<br>that wasn't yours</span>
+                <span class="ch-line ch-body ch-gap ch-small">the rank. the hustle. the <span class="ch-hl">"just keep going"</span></span>
+                <span class="ch-line ch-whisper ch-big ch-soft-pink ch-gap-lg">but that girl?</span>
+                <span class="ch-line ch-header ch-lav">she's still in there.</span>
+                <span class="ch-line ch-body ch-gap ch-small ch-dim">she's just been buried under someone else's business plan.</span>
+                <span class="ch-line ch-display ch-big ch-gap-lg"><span class="ch-hl ch-tilt-r">get her back.</span></span>
             </div>
         </div>
 
