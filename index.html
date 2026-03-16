@@ -232,6 +232,58 @@
         color: var(--hl-yellow);
     }
 
+    /* ===== STATIC COPY HERO — shows when scrolled back ===== */
+    .copy-hero {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 11;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 1.2s ease;
+    }
+    .copy-hero.visible { opacity: 1; }
+    .copy-hero-inner {
+        text-align: center;
+        max-width: 520px;
+        padding: 0 28px;
+    }
+    .copy-hero-inner p {
+        font-family: 'Inter', sans-serif;
+        font-weight: 300;
+        font-size: 1.45rem;
+        color: white;
+        line-height: 2;
+        letter-spacing: 0.5px;
+    }
+    .copy-hero-inner p + p {
+        margin-top: 18px;
+    }
+    .copy-hero-inner em {
+        font-style: normal;
+        color: var(--hl-yellow);
+    }
+    .copy-hero-inner .copy-hero-final {
+        margin-top: 32px;
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+    /* Soft glow behind the whole block */
+    .copy-hero-inner::before {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 60%;
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, transparent 70%);
+        filter: blur(40px);
+        z-index: -1;
+    }
+
     /* ===== CTA REVEAL ===== */
     .hero-cta-final {
         position: absolute;
@@ -381,6 +433,8 @@
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
         .journey-phrase { font-size: 1.35rem; max-width: 90%; }
+        .copy-hero-inner p { font-size: 1.25rem; line-height: 1.9; }
+        .copy-hero-inner .copy-hero-final { font-size: 1.35rem; }
         .play-me-ring { width: 75px; height: 75px; }
         .play-me-ring::after { font-size: 1.5rem; }
         .rec-indicator { top: 20px; right: 16px; }
@@ -393,6 +447,9 @@
     @media (max-width: 480px) {
         .hero-logo h1 { font-size: 1.1rem; }
         .journey-phrase { font-size: 1.15rem; }
+        .copy-hero-inner p { font-size: 1.05rem; line-height: 1.8; }
+        .copy-hero-inner .copy-hero-final { font-size: 1.15rem; }
+        .copy-hero-inner p + p { margin-top: 12px; }
         .hero-cta-final .cta-btn { font-size: 1rem; padding: 12px 28px; }
         .play-me-ring { width: 65px; height: 65px; }
         .play-me-ring::after { font-size: 1.3rem; }
@@ -442,6 +499,18 @@
             <div class="journey-phrase" data-in="27500" data-out="31000">she's still in there.</div>
             <div class="journey-phrase" data-in="31500" data-out="35000">she's just been buried under<br>someone else's business plan.</div>
             <div class="journey-phrase" data-in="36000" data-out="40000">it's time to <em>get her back.</em></div>
+        </div>
+
+        <!-- STATIC COPY HERO — shows when scrolled back up -->
+        <div class="copy-hero" id="copyHero">
+            <div class="copy-hero-inner">
+                <p>remember when you were <em>fearless?</em></p>
+                <p>when the world felt massive<br>and you were going to take on every bit of it</p>
+                <p>then someone sold you a dream<br>that wasn't yours</p>
+                <p>the rank. the hustle.<br>the "just keep going"</p>
+                <p>but that girl? she's still in there.</p>
+                <p class="copy-hero-final">it's time to <em>get her back.</em></p>
+            </div>
         </div>
 
         <!-- CTA — appears at the end of the journey -->
@@ -606,11 +675,25 @@
         }, 50);
     }
 
+    var copyHero = document.getElementById('copyHero');
+    var textJourney = document.getElementById('textJourney');
+
     function settleToStill() {
-        // Pause video but keep it VISIBLE at frame 0 — so it shows a still image
+        // Pause video but keep it VISIBLE at frame 0 — shows as a still image
         video.pause();
         video.currentTime = 0;
-        // Keep video.classList 'visible' so it stays showing the first frame
+
+        // Hide the cycling phrases
+        phrases.forEach(function(p) {
+            p.classList.remove('visible');
+            p.classList.add('fading');
+        });
+
+        // After phrases fade, hide the journey container and show static copy
+        setTimeout(function() {
+            textJourney.style.opacity = '0';
+            copyHero.classList.add('visible');
+        }, 600);
     }
 
     window.addEventListener('scroll', function() {
