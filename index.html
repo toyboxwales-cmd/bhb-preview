@@ -272,7 +272,8 @@
     .copy-hero.visible { opacity: 1; }
     .copy-hero-inner {
         text-align: center;
-        max-width: 580px;
+        max-width: 700px;
+        width: 100%;
         padding: 0 24px;
         position: relative;
     }
@@ -292,6 +293,14 @@
     .ch-line {
         display: block;
         margin-bottom: 8px;
+    }
+    /* Desktop offsets — scattered like a magazine spread */
+    @media (min-width: 769px) {
+        .ch-drift-l { text-align: left; padding-left: 8%; }
+        .ch-drift-r { text-align: right; padding-right: 8%; }
+        .ch-drift-ll { text-align: left; padding-left: 18%; }
+        .ch-drift-rr { text-align: right; padding-right: 15%; }
+        .ch-drift-c { text-align: center; }
     }
     /* — FONT STYLES (the BHB brand fonts) — */
     .ch-whisper {
@@ -580,19 +589,19 @@
             <div class="journey-phrase" data-in="36000" data-out="40000">it's time to <em>get her back.</em></div>
         </div>
 
-        <!-- STATIC COPY HERO — 90s diary style -->
+        <!-- STATIC COPY HERO — 90s diary style, scattered on desktop -->
         <div class="copy-hero" id="copyHero">
             <div class="copy-hero-inner">
-                <span class="ch-line ch-whisper">remember when you were</span>
-                <span class="ch-line ch-display ch-big ch-yellow">fearless?</span>
-                <span class="ch-line ch-body ch-gap">when the world felt massive<br>and you were going to take on every bit of it</span>
-                <span class="ch-line ch-whisper ch-dim ch-gap">then somewhere along the way...</span>
-                <span class="ch-line ch-raw ch-pink ch-gap ch-tilt">someone sold you a dream<br>that wasn't yours</span>
-                <span class="ch-line ch-body ch-gap ch-small">the rank. the hustle. the <span class="ch-hl">"just keep going"</span></span>
-                <span class="ch-line ch-whisper ch-big ch-soft-pink ch-gap-lg">but that girl?</span>
-                <span class="ch-line ch-header ch-lav">she's still in there.</span>
-                <span class="ch-line ch-body ch-gap ch-small ch-dim">she's just been buried under someone else's business plan.</span>
-                <span class="ch-line ch-display ch-big ch-gap-lg"><span class="ch-hl ch-tilt-r">get her back.</span></span>
+                <span class="ch-line ch-whisper ch-drift-l">remember when you were</span>
+                <span class="ch-line ch-display ch-big ch-yellow ch-drift-rr">fearless?</span>
+                <span class="ch-line ch-body ch-gap ch-drift-ll">when the world felt massive<br>and you were going to take on every bit of it</span>
+                <span class="ch-line ch-whisper ch-dim ch-gap ch-drift-r">then somewhere along the way...</span>
+                <span class="ch-line ch-raw ch-pink ch-gap ch-tilt ch-drift-l">someone sold you a dream<br>that wasn't yours</span>
+                <span class="ch-line ch-body ch-gap ch-small ch-drift-rr">the rank. the hustle. the <span class="ch-hl">"just keep going"</span></span>
+                <span class="ch-line ch-whisper ch-big ch-soft-pink ch-gap-lg ch-drift-ll">but that girl?</span>
+                <span class="ch-line ch-header ch-lav ch-drift-r">she's still in there.</span>
+                <span class="ch-line ch-body ch-gap ch-small ch-dim ch-drift-l">she's just been buried under someone else's business plan.</span>
+                <span class="ch-line ch-display ch-big ch-gap-lg ch-drift-c"><span class="ch-hl ch-tilt-r">get her back.</span></span>
             </div>
         </div>
 
