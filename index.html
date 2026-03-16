@@ -111,45 +111,77 @@
         opacity: 0;
         pointer-events: none;
     }
-    /* Minimal play circle — just a ring with triangle */
+    /* Camcorder viewfinder play button */
+    .play-me-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
     .play-me-ring {
-        width: 100px; height: 100px;
+        width: 90px; height: 90px;
         border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.25);
+        border: 2px solid rgba(255,255,255,0.2);
         display: flex; align-items: center; justify-content: center;
-        animation: ring-breathe 3s ease infinite;
         position: relative;
+        box-shadow: 0 0 30px rgba(255,255,255,0.04), inset 0 0 20px rgba(255,255,255,0.03);
+        animation: crt-glow 3s ease infinite;
     }
     .play-me-ring::after {
-        content: '';
-        width: 0; height: 0;
-        border-style: solid;
-        border-width: 16px 0 16px 28px;
-        border-color: transparent transparent transparent rgba(255,255,255,0.7);
-        margin-left: 6px;
+        content: '▶';
+        font-size: 1.8rem;
+        color: rgba(255,255,255,0.6);
+        margin-left: 4px;
     }
-    /* Outer glow ring */
-    .play-me-ring::before {
-        content: '';
-        position: absolute;
-        top: -8px; left: -8px; right: -8px; bottom: -8px;
-        border-radius: 50%;
-        border: 1px solid rgba(255,255,255,0.08);
-        animation: ring-breathe 3s ease infinite 0.5s;
+    @keyframes crt-glow {
+        0%, 100% { box-shadow: 0 0 30px rgba(255,255,255,0.04), inset 0 0 20px rgba(255,255,255,0.03); }
+        50% { box-shadow: 0 0 40px rgba(255,255,255,0.08), inset 0 0 25px rgba(255,255,255,0.05); }
     }
-    @keyframes ring-breathe {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.06); opacity: 0.8; }
-    }
-    .play-me-hint {
-        font-family: 'Inter', sans-serif;
-        font-weight: 300;
-        font-size: 0.85rem;
-        letter-spacing: 4px;
+    .play-me-label {
+        font-family: 'Courier New', monospace;
+        font-size: 0.75rem;
+        letter-spacing: 3px;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.35);
-        margin-top: 24px;
+        color: rgba(255,255,255,0.3);
+        margin-top: 18px;
     }
+    /* REC indicator — top right corner */
+    .rec-indicator {
+        position: absolute;
+        top: 28px; right: 24px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 21;
+    }
+    .rec-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: #e53a3a;
+        animation: rec-blink 1.5s ease infinite;
+    }
+    .rec-text {
+        font-family: 'Courier New', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        color: rgba(255,255,255,0.5);
+    }
+    @keyframes rec-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
+    }
+    /* Viewfinder corners */
+    .vf-corner {
+        position: absolute;
+        width: 30px; height: 30px;
+        border-color: rgba(255,255,255,0.15);
+        border-style: solid;
+        z-index: 21;
+    }
+    .vf-tl { top: 50px; left: 20px; border-width: 2px 0 0 2px; }
+    .vf-tr { top: 50px; right: 20px; border-width: 2px 2px 0 0; }
+    .vf-bl { bottom: 30px; left: 20px; border-width: 0 0 2px 2px; }
+    .vf-br { bottom: 30px; right: 20px; border-width: 0 2px 2px 0; }
 
     /* ===== TEXT JOURNEY — word-by-word reveal ===== */
     .text-journey {
@@ -349,8 +381,11 @@
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
         .journey-phrase { font-size: 1.35rem; max-width: 90%; }
-        .play-me-ring { width: 80px; height: 80px; }
-        .play-me-ring::after { border-width: 12px 0 12px 22px; margin-left: 4px; }
+        .play-me-ring { width: 75px; height: 75px; }
+        .play-me-ring::after { font-size: 1.5rem; }
+        .rec-indicator { top: 20px; right: 16px; }
+        .vf-tl { top: 40px; left: 14px; } .vf-tr { top: 40px; right: 14px; }
+        .vf-bl { bottom: 24px; left: 14px; } .vf-br { bottom: 24px; right: 14px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.8rem; }
         .pain-card .quote { font-size: 1.3rem; }
@@ -359,8 +394,9 @@
         .hero-logo h1 { font-size: 1.1rem; }
         .journey-phrase { font-size: 1.15rem; }
         .hero-cta-final .cta-btn { font-size: 1rem; padding: 12px 28px; }
-        .play-me-ring { width: 70px; height: 70px; }
-        .play-me-ring::after { border-width: 10px 0 10px 18px; }
+        .play-me-ring { width: 65px; height: 65px; }
+        .play-me-ring::after { font-size: 1.3rem; }
+        .play-me-label { font-size: 0.65rem; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -381,10 +417,17 @@
             <div><span class="tagline">Find Your Gameplan.</span></div>
         </div>
 
-        <!-- PLAY ME — minimal, mysterious -->
+        <!-- PLAY ME — camcorder viewfinder -->
         <div class="play-me-screen" id="playMeScreen">
-            <div class="play-me-ring"></div>
-            <div class="play-me-hint">play me</div>
+            <div class="rec-indicator"><div class="rec-dot"></div><span class="rec-text">REC</span></div>
+            <div class="vf-corner vf-tl"></div>
+            <div class="vf-corner vf-tr"></div>
+            <div class="vf-corner vf-bl"></div>
+            <div class="vf-corner vf-br"></div>
+            <div class="play-me-center">
+                <div class="play-me-ring"></div>
+                <div class="play-me-label">play me</div>
+            </div>
         </div>
 
         <!-- TEXT JOURNEY — phrases that appear and fade -->
@@ -534,6 +577,50 @@
         e.preventDefault();
         startExperience();
     }, { passive: false });
+
+    // Scroll-based auto-fade: when user scrolls past ~70% of hero, fade out music and video
+    var heroSection = document.getElementById('videoHero');
+    var audioFadedOut = false;
+    var fadeInterval = null;
+
+    function fadeOutAudio() {
+        if (audioFadedOut || audio.paused) return;
+        audioFadedOut = true;
+        var vol = audio.volume;
+        fadeInterval = setInterval(function() {
+            vol -= 0.02;
+            if (vol <= 0) {
+                vol = 0;
+                audio.pause();
+                clearInterval(fadeInterval);
+                var toggle = document.getElementById('audioToggle');
+                toggle.classList.remove('playing');
+                var playLabel = toggle.querySelector('.lbl-play');
+                var pauseLabel = toggle.querySelector('.lbl-pause');
+                playLabel.style.display = 'inline';
+                pauseLabel.style.display = 'none';
+            }
+            audio.volume = Math.max(0, vol);
+        }, 50);
+    }
+
+    function resetToStatic() {
+        video.pause();
+        video.currentTime = 0;
+        video.classList.remove('visible');
+    }
+
+    // Use scroll listener for smooth detection
+    window.addEventListener('scroll', function() {
+        if (!hasStarted) return;
+        var rect = heroSection.getBoundingClientRect();
+        var heroBottom = rect.bottom;
+        var threshold = window.innerHeight * 0.3; // when only 30% of hero is visible
+        if (heroBottom < threshold) {
+            fadeOutAudio();
+            resetToStatic();
+        }
+    }, { passive: true });
 })();
 
 function toggleAudio() {
