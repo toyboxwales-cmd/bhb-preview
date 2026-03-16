@@ -145,14 +145,12 @@
         color: rgba(255,255,255,0.3);
         margin-top: 18px;
     }
-    /* REC indicator — top right corner */
+    /* REC indicator — sits with play button, becomes STOP once playing */
     .rec-indicator {
-        position: absolute;
-        top: 28px; right: 24px;
         display: flex;
         align-items: center;
         gap: 8px;
-        z-index: 21;
+        margin-top: 24px;
     }
     .rec-dot {
         width: 10px; height: 10px;
@@ -164,11 +162,38 @@
         font-family: 'Courier New', monospace;
         font-size: 0.7rem;
         letter-spacing: 2px;
-        color: rgba(255,255,255,0.5);
+        color: rgba(255,255,255,0.4);
     }
     @keyframes rec-blink {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.2; }
+    }
+    /* STOP button — appears during playback */
+    .stop-btn {
+        position: absolute;
+        top: 24px; right: 24px;
+        z-index: 25;
+        display: none;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 8px 14px;
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 4px;
+        background: rgba(0,0,0,0.4);
+        transition: background 0.3s, border-color 0.3s;
+    }
+    .stop-btn:hover { background: rgba(0,0,0,0.6); border-color: rgba(255,255,255,0.3); }
+    .stop-btn.visible { display: flex; }
+    .stop-btn .stop-square {
+        width: 10px; height: 10px;
+        background: #e53a3a;
+    }
+    .stop-btn .stop-text {
+        font-family: 'Courier New', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        color: rgba(255,255,255,0.5);
     }
     /* Viewfinder corners */
     .vf-corner {
@@ -247,39 +272,44 @@
     .copy-hero.visible { opacity: 1; }
     .copy-hero-inner {
         text-align: center;
-        max-width: 520px;
+        max-width: 560px;
         padding: 0 28px;
+        position: relative;
     }
-    .copy-hero-inner p {
+    .copy-hero-inner .ch-line {
+        display: block;
+        margin-bottom: 14px;
         font-family: 'Inter', sans-serif;
         font-weight: 300;
-        font-size: 1.45rem;
-        color: white;
-        line-height: 2;
+        color: rgba(255,255,255,0.75);
+        font-size: 1.1rem;
+        line-height: 1.7;
         letter-spacing: 0.5px;
     }
-    .copy-hero-inner p + p {
-        margin-top: 18px;
-    }
-    .copy-hero-inner em {
-        font-style: normal;
-        color: var(--hl-yellow);
-    }
-    .copy-hero-inner .copy-hero-final {
-        margin-top: 32px;
-        font-size: 1.6rem;
-        font-weight: 400;
-        letter-spacing: 1px;
-    }
+    /* Size variations */
+    .ch-sm { font-size: 0.95rem !important; color: rgba(255,255,255,0.5) !important; }
+    .ch-md { font-size: 1.15rem !important; }
+    .ch-lg { font-size: 1.5rem !important; color: white !important; font-weight: 400 !important; }
+    .ch-xl { font-size: 1.85rem !important; color: white !important; font-weight: 400 !important; letter-spacing: 1.5px !important; }
+    /* Colour accents */
+    .ch-pink { color: var(--mon-pink) !important; }
+    .ch-yellow { color: var(--hl-yellow) !important; }
+    .ch-lav { color: var(--mon-laven) !important; }
+    /* Italic & hand */
+    .ch-italic { font-style: italic !important; }
+    .ch-hand { font-family: var(--font-hand) !important; font-size: 1.6rem !important; }
+    /* Spacing */
+    .ch-gap { margin-top: 22px !important; }
+    .ch-gap-lg { margin-top: 34px !important; }
     /* Soft glow behind the whole block */
     .copy-hero-inner::before {
         content: '';
         position: absolute;
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
-        width: 80%;
-        height: 60%;
-        background: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, transparent 70%);
+        width: 90%;
+        height: 70%;
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, transparent 70%);
         filter: blur(40px);
         z-index: -1;
     }
@@ -433,8 +463,9 @@
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
         .journey-phrase { font-size: 1.35rem; max-width: 90%; }
-        .copy-hero-inner p { font-size: 1.25rem; line-height: 1.9; }
-        .copy-hero-inner .copy-hero-final { font-size: 1.35rem; }
+        .ch-lg { font-size: 1.3rem !important; }
+        .ch-xl { font-size: 1.55rem !important; }
+        .ch-hand { font-size: 1.4rem !important; }
         .play-me-ring { width: 75px; height: 75px; }
         .play-me-ring::after { font-size: 1.5rem; }
         .rec-indicator { top: 20px; right: 16px; }
@@ -447,9 +478,12 @@
     @media (max-width: 480px) {
         .hero-logo h1 { font-size: 1.1rem; }
         .journey-phrase { font-size: 1.15rem; }
-        .copy-hero-inner p { font-size: 1.05rem; line-height: 1.8; }
-        .copy-hero-inner .copy-hero-final { font-size: 1.15rem; }
-        .copy-hero-inner p + p { margin-top: 12px; }
+        .ch-line { font-size: 0.95rem !important; margin-bottom: 10px !important; }
+        .ch-lg { font-size: 1.15rem !important; }
+        .ch-xl { font-size: 1.35rem !important; }
+        .ch-hand { font-size: 1.25rem !important; }
+        .ch-gap { margin-top: 16px !important; }
+        .ch-gap-lg { margin-top: 24px !important; }
         .hero-cta-final .cta-btn { font-size: 1rem; padding: 12px 28px; }
         .play-me-ring { width: 65px; height: 65px; }
         .play-me-ring::after { font-size: 1.3rem; }
@@ -476,7 +510,6 @@
 
         <!-- PLAY ME — camcorder viewfinder -->
         <div class="play-me-screen" id="playMeScreen">
-            <div class="rec-indicator"><div class="rec-dot"></div><span class="rec-text">REC</span></div>
             <div class="vf-corner vf-tl"></div>
             <div class="vf-corner vf-tr"></div>
             <div class="vf-corner vf-bl"></div>
@@ -484,7 +517,14 @@
             <div class="play-me-center">
                 <div class="play-me-ring"></div>
                 <div class="play-me-label">play me</div>
+                <div class="rec-indicator"><div class="rec-dot"></div><span class="rec-text">REC</span></div>
             </div>
+        </div>
+
+        <!-- STOP button — visible during playback -->
+        <div class="stop-btn" id="stopBtn">
+            <div class="stop-square"></div>
+            <span class="stop-text">STOP</span>
         </div>
 
         <!-- TEXT JOURNEY — phrases that appear and fade -->
@@ -504,12 +544,17 @@
         <!-- STATIC COPY HERO — shows when scrolled back up -->
         <div class="copy-hero" id="copyHero">
             <div class="copy-hero-inner">
-                <p>remember when you were <em>fearless?</em></p>
-                <p>when the world felt massive<br>and you were going to take on every bit of it</p>
-                <p>then someone sold you a dream<br>that wasn't yours</p>
-                <p>the rank. the hustle.<br>the "just keep going"</p>
-                <p>but that girl? she's still in there.</p>
-                <p class="copy-hero-final">it's time to <em>get her back.</em></p>
+                <span class="ch-line ch-sm">remember when you were</span>
+                <span class="ch-line ch-xl ch-yellow">fearless?</span>
+                <span class="ch-line ch-md ch-gap">when the world felt <span class="ch-italic ch-lav">massive</span></span>
+                <span class="ch-line ch-sm">and you were going to take on every bit of it</span>
+                <span class="ch-line ch-md ch-gap ch-italic">then somewhere along the way...</span>
+                <span class="ch-line ch-lg ch-pink ch-gap">someone sold you a dream<br>that wasn't yours</span>
+                <span class="ch-line ch-sm ch-gap">the rank. the hustle. the "just keep going"</span>
+                <span class="ch-line ch-hand ch-gap-lg">but that girl?</span>
+                <span class="ch-line ch-lg">she's still in there.</span>
+                <span class="ch-line ch-sm ch-italic ch-gap">she's just been buried under someone else's business plan.</span>
+                <span class="ch-line ch-xl ch-yellow ch-gap-lg">it's time to get her back.</span>
             </div>
         </div>
 
@@ -587,7 +632,9 @@
     var scrollHint = document.getElementById('scrollHint');
     var ctaFinal = document.getElementById('ctaFinal');
     var phrases = document.querySelectorAll('.journey-phrase');
+    var stopBtn = document.getElementById('stopBtn');
     var hasStarted = false;
+    var experienceTimers = [];
 
     video.playbackRate = 0.5;
 
@@ -612,39 +659,72 @@
         // Fade out play me screen
         playMeScreen.classList.add('hidden');
 
+        // Show stop button
+        stopBtn.classList.add('visible');
+
         // Show logo after a beat
-        setTimeout(function() { heroLogo.classList.add('visible'); }, 800);
+        experienceTimers.push(setTimeout(function() { heroLogo.classList.add('visible'); }, 800));
 
         // Run through each phrase
         phrases.forEach(function(phrase) {
             var inTime = parseInt(phrase.getAttribute('data-in'));
             var outTime = parseInt(phrase.getAttribute('data-out'));
 
-            setTimeout(function() {
+            experienceTimers.push(setTimeout(function() {
                 phrase.classList.add('visible');
-            }, inTime);
+            }, inTime));
 
-            setTimeout(function() {
+            experienceTimers.push(setTimeout(function() {
                 phrase.classList.remove('visible');
                 phrase.classList.add('fading');
-            }, outTime);
+            }, outTime));
         });
 
         // Show CTA after last phrase
         var lastPhrase = phrases[phrases.length - 1];
         var ctaTime = parseInt(lastPhrase.getAttribute('data-out')) + 1000;
 
-        setTimeout(function() {
+        experienceTimers.push(setTimeout(function() {
             ctaFinal.classList.add('visible');
             timestamp.classList.add('visible');
             scrollHint.classList.add('visible');
-        }, ctaTime);
+            stopBtn.classList.remove('visible');
+        }, ctaTime));
+    }
+
+    function stopExperience() {
+        // Cancel all pending timers
+        experienceTimers.forEach(function(t) { clearTimeout(t); });
+        experienceTimers = [];
+
+        // Fade out audio
+        fadeOutAudio();
+
+        // Settle to still + show copy hero
+        settleToStill();
+
+        // Hide stop button, show CTA and scroll hint
+        stopBtn.classList.remove('visible');
+        ctaFinal.classList.add('visible');
+        timestamp.classList.add('visible');
+        scrollHint.classList.add('visible');
+        heroLogo.classList.add('visible');
     }
 
     playMeScreen.addEventListener('click', startExperience);
     playMeScreen.addEventListener('touchstart', function(e) {
         e.preventDefault();
         startExperience();
+    }, { passive: false });
+
+    stopBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        stopExperience();
+    });
+    stopBtn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        stopExperience();
     }, { passive: false });
 
     // Scroll-based auto-fade: smooth fade out when scrolling past hero
