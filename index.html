@@ -310,13 +310,13 @@
         margin-top: 16px;
     }
 
-    /* ===== CTA REVEAL ===== */
+    /* ===== CTA REVEAL — full bottom takeover ===== */
     .hero-cta-final {
         position: absolute;
         bottom: 0; left: 0; right: 0;
         z-index: 12;
         text-align: center;
-        padding: 0 24px 50px;
+        padding: 0 24px 30px;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 1.2s ease, transform 1.2s ease;
@@ -327,68 +327,84 @@
         transform: translateY(0);
         pointer-events: auto;
     }
+    /* Big bold instruction */
+    .cta-headline {
+        font-family: 'Anton', sans-serif;
+        font-size: 3.5rem;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        line-height: 1;
+        display: block;
+        margin-bottom: 18px;
+        text-shadow:
+            2px 2px 0 rgba(0,0,0,0.4),
+            0 0 40px rgba(255,255,255,0.06);
+    }
+    .cta-headline .hl-pink {
+        color: var(--hot-pink);
+    }
+    /* The button */
     .hero-cta-final .cta-btn {
         display: inline-block;
-        background: var(--hot-pink);
-        color: white;
+        background: var(--hl-yellow);
+        color: var(--text-ink);
         font-family: 'Anton', sans-serif;
-        font-size: 2.4rem;
-        letter-spacing: 4px;
+        font-size: 1.6rem;
+        letter-spacing: 3px;
         text-transform: uppercase;
-        padding: 20px 60px;
+        padding: 18px 50px;
         text-decoration: none;
         position: relative;
         transition: transform 0.2s, box-shadow 0.2s;
-        box-shadow: 0 6px 30px rgba(229,58,138,0.5);
+        box-shadow: 0 6px 25px rgba(255,240,0,0.3);
     }
     .hero-cta-final .cta-btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 40px rgba(229,58,138,0.6);
+        box-shadow: 0 10px 35px rgba(255,240,0,0.4);
     }
     .hero-cta-final .cta-detail {
         font-family: var(--font-hand);
-        font-size: 1.5rem;
-        color: rgba(255,255,255,0.45);
-        margin-top: 14px;
+        font-size: 1.4rem;
+        color: rgba(255,255,255,0.4);
+        margin-top: 12px;
     }
     .hero-cta-final .audio-toggle {
-        margin-top: 14px;
+        margin-top: 12px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
         cursor: pointer;
-        color: rgba(255,255,255,0.3);
+        color: rgba(255,255,255,0.25);
         font-family: var(--font-hand);
-        font-size: 1rem;
+        font-size: 0.95rem;
         transition: color 0.3s;
     }
     .hero-cta-final .audio-toggle:hover { color: rgba(255,255,255,0.7); }
     .hero-cta-final .audio-toggle.playing { color: var(--mon-pink); }
 
     .hero-timestamp {
-        position: absolute; bottom: 16px; right: 18px;
+        position: absolute; bottom: 10px; right: 18px;
         font-family: 'Courier New', monospace;
-        font-size: 0.65rem; color: rgba(255,255,255,0.15); z-index: 15;
+        font-size: 0.65rem; color: rgba(255,255,255,0.12); z-index: 15;
         opacity: 0; transition: opacity 1s ease;
     }
     .hero-timestamp.visible { opacity: 1; }
 
+    /* Scroll hint — bold, commanding, part of the CTA block */
     .scroll-hint {
-        position: absolute; bottom: 14px; left: 50%;
-        transform: translateX(-50%); z-index: 15;
+        display: block;
+        margin-top: 18px;
         color: white;
         font-family: 'Anton', sans-serif;
-        font-size: 1.1rem;
-        letter-spacing: 3px;
+        font-size: 1.4rem;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        animation: bounce 2s ease infinite;
-        opacity: 0; transition: opacity 1s ease;
+        animation: bounce 1.8s ease infinite;
     }
-    .scroll-hint.visible { opacity: 1; }
-    .scroll-hint::after { content: '  ↓'; font-size: 1.3rem; }
     @keyframes bounce {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50% { transform: translateX(-50%) translateY(8px); }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(8px); }
     }
 
     /* ===== SOUND FAMILIAR ===== */
@@ -469,6 +485,7 @@
         .poster-headline { font-size: 4.5rem; }
         .play-me-text { font-size: 5.5rem; letter-spacing: 4px; }
         .play-me-text .play-arrow { font-size: 3rem; }
+        .cta-headline { font-size: 2.8rem; }
         .vf-tl { top: 40px; left: 14px; } .vf-tr { top: 40px; right: 14px; }
         .vf-bl { bottom: 24px; left: 14px; } .vf-br { bottom: 24px; right: 14px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
@@ -483,9 +500,10 @@
         .poster-sub { font-size: 0.75rem; }
         .play-me-text { font-size: 4rem; letter-spacing: 3px; }
         .play-me-text .play-arrow { font-size: 2.2rem; }
-        .hero-cta-final .cta-btn { font-size: 1.8rem; padding: 16px 40px; letter-spacing: 3px; }
-        .hero-cta-final .cta-detail { font-size: 1.2rem; }
-        .scroll-hint { font-size: 0.95rem; }
+        .cta-headline { font-size: 2.2rem; letter-spacing: 3px; }
+        .hero-cta-final .cta-btn { font-size: 1.3rem; padding: 14px 34px; letter-spacing: 2px; }
+        .hero-cta-final .cta-detail { font-size: 1.1rem; }
+        .scroll-hint { font-size: 1.1rem; letter-spacing: 3px; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -546,10 +564,12 @@
             </div>
         </div>
 
-        <!-- CTA — appears at the end of the journey -->
+        <!-- CTA — the next punch after the journey -->
         <div class="hero-cta-final" id="ctaFinal">
-            <a href="#" class="cta-btn">Get Her Back</a>
-            <div class="cta-detail">real gameplans. real numbers. £15/month. ♡</div>
+            <span class="cta-headline">SO <span class="hl-pink">NOW WHAT?</span></span>
+            <a href="#" class="cta-btn">Find Your Gameplan</a>
+            <div class="cta-detail">£15/month. cancel anytime. no bullshit.</div>
+            <div class="scroll-hint" id="scrollHint">keep going ↓</div>
             <div class="audio-toggle" id="audioToggle" onclick="event.stopPropagation(); toggleAudio();">
                 <span class="lbl-play">♫ music</span>
                 <span class="lbl-pause" style="display:none;">♫ playing</span>
@@ -561,7 +581,6 @@
         </audio>
 
         <div class="hero-timestamp" id="timestamp">1993</div>
-        <div class="scroll-hint" id="scrollHint">scroll down</div>
     </div>
 
     <!-- ===== SOUND FAMILIAR ===== -->
