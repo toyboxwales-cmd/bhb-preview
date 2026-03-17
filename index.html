@@ -310,13 +310,13 @@
         margin-top: 16px;
     }
 
-    /* ===== CTA REVEAL — full bottom takeover ===== */
+    /* ===== CTA REVEAL ===== */
     .hero-cta-final {
         position: absolute;
-        bottom: 0; left: 0; right: 0;
+        bottom: 60px; left: 0; right: 0;
         z-index: 12;
         text-align: center;
-        padding: 0 24px 30px;
+        padding: 0 24px;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 1.2s ease, transform 1.2s ease;
@@ -327,24 +327,6 @@
         transform: translateY(0);
         pointer-events: auto;
     }
-    /* Big bold instruction */
-    .cta-headline {
-        font-family: 'Anton', sans-serif;
-        font-size: 3.5rem;
-        color: white;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        line-height: 1;
-        display: block;
-        margin-bottom: 18px;
-        text-shadow:
-            2px 2px 0 rgba(0,0,0,0.4),
-            0 0 40px rgba(255,255,255,0.06);
-    }
-    .cta-headline .hl-pink {
-        color: var(--hot-pink);
-    }
-    /* The button */
     .hero-cta-final .cta-btn {
         display: inline-block;
         background: var(--hl-yellow);
@@ -367,10 +349,10 @@
         font-family: var(--font-hand);
         font-size: 1.4rem;
         color: rgba(255,255,255,0.4);
-        margin-top: 12px;
+        margin-top: 10px;
     }
     .hero-cta-final .audio-toggle {
-        margin-top: 12px;
+        margin-top: 10px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
@@ -391,20 +373,25 @@
     }
     .hero-timestamp.visible { opacity: 1; }
 
-    /* Scroll hint — bold, commanding, part of the CTA block */
+    /* Scroll hint — big, bold, impossible to ignore */
     .scroll-hint {
-        display: block;
-        margin-top: 18px;
-        color: white;
+        position: absolute;
+        bottom: 12px; left: 0; right: 0;
+        z-index: 15;
+        text-align: center;
+        color: var(--hot-pink);
         font-family: 'Anton', sans-serif;
-        font-size: 1.4rem;
-        letter-spacing: 4px;
+        font-size: 1.8rem;
+        letter-spacing: 5px;
         text-transform: uppercase;
         animation: bounce 1.8s ease infinite;
+        opacity: 0; transition: opacity 1s ease;
+        text-shadow: 0 0 20px rgba(229,58,138,0.4);
     }
+    .scroll-hint.visible { opacity: 1; }
     @keyframes bounce {
         0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(8px); }
+        50% { transform: translateY(10px); }
     }
 
     /* ===== SOUND FAMILIAR ===== */
@@ -485,7 +472,7 @@
         .poster-headline { font-size: 4.5rem; }
         .play-me-text { font-size: 5.5rem; letter-spacing: 4px; }
         .play-me-text .play-arrow { font-size: 3rem; }
-        .cta-headline { font-size: 2.8rem; }
+        .scroll-hint { font-size: 1.5rem; }
         .vf-tl { top: 40px; left: 14px; } .vf-tr { top: 40px; right: 14px; }
         .vf-bl { bottom: 24px; left: 14px; } .vf-br { bottom: 24px; right: 14px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
@@ -500,10 +487,9 @@
         .poster-sub { font-size: 0.75rem; }
         .play-me-text { font-size: 4rem; letter-spacing: 3px; }
         .play-me-text .play-arrow { font-size: 2.2rem; }
-        .cta-headline { font-size: 2.2rem; letter-spacing: 3px; }
         .hero-cta-final .cta-btn { font-size: 1.3rem; padding: 14px 34px; letter-spacing: 2px; }
         .hero-cta-final .cta-detail { font-size: 1.1rem; }
-        .scroll-hint { font-size: 1.1rem; letter-spacing: 3px; }
+        .scroll-hint { font-size: 1.3rem; letter-spacing: 3px; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -564,17 +550,17 @@
             </div>
         </div>
 
-        <!-- CTA — the next punch after the journey -->
+        <!-- CTA — appears at the end of the journey -->
         <div class="hero-cta-final" id="ctaFinal">
-            <span class="cta-headline">SO <span class="hl-pink">NOW WHAT?</span></span>
             <a href="#" class="cta-btn">Find Your Gameplan</a>
             <div class="cta-detail">£15/month. cancel anytime. no bullshit.</div>
-            <div class="scroll-hint" id="scrollHint">keep going ↓</div>
             <div class="audio-toggle" id="audioToggle" onclick="event.stopPropagation(); toggleAudio();">
                 <span class="lbl-play">♫ music</span>
                 <span class="lbl-pause" style="display:none;">♫ playing</span>
             </div>
         </div>
+
+        <div class="scroll-hint" id="scrollHint">KEEP GOING ↓</div>
 
         <audio id="bgAudio" preload="auto" loop>
             <source src="audio.mp3" type="audio/mpeg">
