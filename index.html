@@ -313,7 +313,7 @@
     /* ===== CTA REVEAL ===== */
     .hero-cta-final {
         position: absolute;
-        bottom: 60px; left: 0; right: 0;
+        bottom: 90px; left: 0; right: 0;
         z-index: 12;
         text-align: center;
         padding: 0 24px;
@@ -373,25 +373,37 @@
     }
     .hero-timestamp.visible { opacity: 1; }
 
-    /* Scroll hint — big, bold, impossible to ignore */
+    /* Scroll hint — DEMANDS action */
     .scroll-hint {
         position: absolute;
-        bottom: 12px; left: 0; right: 0;
+        bottom: 0; left: 0; right: 0;
         z-index: 15;
         text-align: center;
-        color: var(--hot-pink);
-        font-family: 'Anton', sans-serif;
-        font-size: 1.8rem;
-        letter-spacing: 5px;
-        text-transform: uppercase;
-        animation: bounce 1.8s ease infinite;
+        background: var(--hl-yellow);
+        padding: 16px 20px;
         opacity: 0; transition: opacity 1s ease;
-        text-shadow: 0 0 20px rgba(229,58,138,0.4);
+        cursor: pointer;
     }
     .scroll-hint.visible { opacity: 1; }
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
+    .scroll-hint .scroll-text {
+        font-family: 'Anton', sans-serif;
+        font-size: 2.4rem;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        color: var(--text-ink);
+        display: block;
+        line-height: 1;
+    }
+    .scroll-hint .scroll-arrow {
+        display: block;
+        font-size: 2.2rem;
+        color: var(--hot-pink);
+        animation: arrow-pulse 1.2s ease infinite;
+        margin-top: 4px;
+    }
+    @keyframes arrow-pulse {
+        0%, 100% { transform: translateY(0); opacity: 1; }
+        50% { transform: translateY(8px); opacity: 0.6; }
     }
 
     /* ===== SOUND FAMILIAR ===== */
@@ -472,7 +484,8 @@
         .poster-headline { font-size: 4.5rem; }
         .play-me-text { font-size: 5.5rem; letter-spacing: 4px; }
         .play-me-text .play-arrow { font-size: 3rem; }
-        .scroll-hint { font-size: 1.5rem; }
+        .scroll-hint .scroll-text { font-size: 2rem; letter-spacing: 4px; }
+        .scroll-hint .scroll-arrow { font-size: 1.8rem; }
         .vf-tl { top: 40px; left: 14px; } .vf-tr { top: 40px; right: 14px; }
         .vf-bl { bottom: 24px; left: 14px; } .vf-br { bottom: 24px; right: 14px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
@@ -489,7 +502,8 @@
         .play-me-text .play-arrow { font-size: 2.2rem; }
         .hero-cta-final .cta-btn { font-size: 1.3rem; padding: 14px 34px; letter-spacing: 2px; }
         .hero-cta-final .cta-detail { font-size: 1.1rem; }
-        .scroll-hint { font-size: 1.3rem; letter-spacing: 3px; }
+        .scroll-hint .scroll-text { font-size: 1.6rem; letter-spacing: 3px; }
+        .scroll-hint .scroll-arrow { font-size: 1.4rem; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -560,7 +574,10 @@
             </div>
         </div>
 
-        <div class="scroll-hint" id="scrollHint">KEEP GOING ↓</div>
+        <div class="scroll-hint" id="scrollHint">
+            <span class="scroll-text">KEEP GOING</span>
+            <span class="scroll-arrow">▼</span>
+        </div>
 
         <audio id="bgAudio" preload="auto" loop>
             <source src="audio.mp3" type="audio/mpeg">
