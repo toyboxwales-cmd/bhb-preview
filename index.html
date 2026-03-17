@@ -332,24 +332,24 @@
         background: var(--hot-pink);
         color: white;
         font-family: 'Anton', sans-serif;
-        font-size: 1.4rem;
-        letter-spacing: 3px;
+        font-size: 2.4rem;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        padding: 16px 44px;
+        padding: 20px 60px;
         text-decoration: none;
         position: relative;
         transition: transform 0.2s, box-shadow 0.2s;
-        box-shadow: 0 4px 20px rgba(229,58,138,0.4);
+        box-shadow: 0 6px 30px rgba(229,58,138,0.5);
     }
     .hero-cta-final .cta-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 30px rgba(229,58,138,0.5);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 40px rgba(229,58,138,0.6);
     }
     .hero-cta-final .cta-detail {
         font-family: var(--font-hand);
-        font-size: 1.3rem;
-        color: rgba(255,255,255,0.4);
-        margin-top: 12px;
+        font-size: 1.5rem;
+        color: rgba(255,255,255,0.45);
+        margin-top: 14px;
     }
     .hero-cta-final .audio-toggle {
         margin-top: 14px;
@@ -357,7 +357,7 @@
         align-items: center;
         gap: 6px;
         cursor: pointer;
-        color: rgba(255,255,255,0.35);
+        color: rgba(255,255,255,0.3);
         font-family: var(--font-hand);
         font-size: 1rem;
         transition: color 0.3s;
@@ -374,18 +374,21 @@
     .hero-timestamp.visible { opacity: 1; }
 
     .scroll-hint {
-        position: absolute; bottom: 18px; left: 50%;
+        position: absolute; bottom: 14px; left: 50%;
         transform: translateX(-50%); z-index: 15;
-        color: rgba(255,255,255,0.45);
-        font-family: var(--font-hand); font-size: 1.6rem;
-        animation: bounce 2.5s ease infinite;
+        color: white;
+        font-family: 'Anton', sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        animation: bounce 2s ease infinite;
         opacity: 0; transition: opacity 1s ease;
     }
     .scroll-hint.visible { opacity: 1; }
-    .scroll-hint::after { content: '  ↓'; }
+    .scroll-hint::after { content: '  ↓'; font-size: 1.3rem; }
     @keyframes bounce {
         0%, 100% { transform: translateX(-50%) translateY(0); }
-        50% { transform: translateX(-50%) translateY(6px); }
+        50% { transform: translateX(-50%) translateY(8px); }
     }
 
     /* ===== SOUND FAMILIAR ===== */
@@ -480,7 +483,9 @@
         .poster-sub { font-size: 0.75rem; }
         .play-me-text { font-size: 4rem; letter-spacing: 3px; }
         .play-me-text .play-arrow { font-size: 2.2rem; }
-        .hero-cta-final .cta-btn { font-size: 1.2rem; padding: 14px 34px; }
+        .hero-cta-final .cta-btn { font-size: 1.8rem; padding: 16px 40px; letter-spacing: 3px; }
+        .hero-cta-final .cta-detail { font-size: 1.2rem; }
+        .scroll-hint { font-size: 0.95rem; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -556,7 +561,7 @@
         </audio>
 
         <div class="hero-timestamp" id="timestamp">1993</div>
-        <div class="scroll-hint" id="scrollHint">keep scrolling</div>
+        <div class="scroll-hint" id="scrollHint">scroll down</div>
     </div>
 
     <!-- ===== SOUND FAMILIAR ===== -->
