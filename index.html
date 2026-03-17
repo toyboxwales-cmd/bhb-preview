@@ -119,50 +119,62 @@
         justify-content: center;
     }
     .play-me-ring {
-        width: 90px; height: 90px;
+        width: 140px; height: 140px;
         border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.2);
+        border: 2px solid rgba(255,255,255,0.25);
         display: flex; align-items: center; justify-content: center;
         position: relative;
-        box-shadow: 0 0 30px rgba(255,255,255,0.04), inset 0 0 20px rgba(255,255,255,0.03);
-        animation: crt-glow 3s ease infinite;
+        box-shadow:
+            0 0 40px rgba(255,255,255,0.08),
+            0 0 80px rgba(255,255,255,0.04),
+            inset 0 0 30px rgba(255,255,255,0.05);
+        animation: play-pulse 2.5s ease infinite;
     }
     .play-me-ring::after {
         content: '▶';
-        font-size: 1.8rem;
-        color: rgba(255,255,255,0.6);
-        margin-left: 4px;
+        font-size: 2.8rem;
+        color: rgba(255,255,255,0.7);
+        margin-left: 6px;
     }
-    @keyframes crt-glow {
-        0%, 100% { box-shadow: 0 0 30px rgba(255,255,255,0.04), inset 0 0 20px rgba(255,255,255,0.03); }
-        50% { box-shadow: 0 0 40px rgba(255,255,255,0.08), inset 0 0 25px rgba(255,255,255,0.05); }
+    @keyframes play-pulse {
+        0%, 100% {
+            box-shadow: 0 0 40px rgba(255,255,255,0.08), 0 0 80px rgba(255,255,255,0.04), inset 0 0 30px rgba(255,255,255,0.05);
+            transform: scale(1);
+            border-color: rgba(255,255,255,0.25);
+        }
+        50% {
+            box-shadow: 0 0 60px rgba(255,255,255,0.15), 0 0 120px rgba(255,255,255,0.06), inset 0 0 40px rgba(255,255,255,0.08);
+            transform: scale(1.05);
+            border-color: rgba(255,255,255,0.4);
+        }
     }
     .play-me-label {
         font-family: 'Courier New', monospace;
-        font-size: 0.75rem;
-        letter-spacing: 3px;
+        font-size: 0.85rem;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.3);
-        margin-top: 18px;
+        color: rgba(255,255,255,0.4);
+        margin-top: 22px;
     }
-    /* REC indicator — sits with play button, becomes STOP once playing */
+    /* REC indicator — sits with play button */
     .rec-indicator {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-top: 24px;
+        gap: 10px;
+        margin-top: 28px;
     }
     .rec-dot {
-        width: 10px; height: 10px;
+        width: 12px; height: 12px;
         border-radius: 50%;
         background: #e53a3a;
+        box-shadow: 0 0 8px rgba(229,58,58,0.5);
         animation: rec-blink 1.5s ease infinite;
     }
     .rec-text {
         font-family: 'Courier New', monospace;
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-        color: rgba(255,255,255,0.4);
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        color: rgba(255,255,255,0.45);
     }
     @keyframes rec-blink {
         0%, 100% { opacity: 1; }
@@ -333,24 +345,33 @@
     }
     .hero-cta-final .cta-btn {
         display: inline-block;
-        background: var(--hot-pink);
+        background: none;
+        border: none;
         color: white;
-        font-family: var(--font-header);
-        font-size: 1.1rem;
-        padding: 14px 36px;
-        border-radius: 50px;
+        font-family: var(--font-hand);
+        font-size: 2.2rem;
+        padding: 0;
         text-decoration: none;
-        box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
-        transition: transform 0.15s, box-shadow 0.15s;
+        position: relative;
+        transition: color 0.3s;
+        cursor: pointer;
+    }
+    .hero-cta-final .cta-btn::after {
+        content: '';
+        position: absolute;
+        bottom: -2px; left: 0; right: 0;
+        height: 2px;
+        background: var(--hot-pink);
+        opacity: 0.6;
     }
     .hero-cta-final .cta-btn:hover {
-        transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+        color: var(--mon-pink);
     }
     .hero-cta-final .cta-detail {
-        font-size: 0.78rem;
-        color: rgba(255,255,255,0.45);
-        margin-top: 8px;
+        font-family: var(--font-hand);
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.35);
+        margin-top: 6px;
     }
     .hero-cta-final .audio-toggle {
         margin-top: 16px;
@@ -375,15 +396,15 @@
     .hero-timestamp.visible { opacity: 1; }
 
     .scroll-hint {
-        position: absolute; bottom: 20px; left: 50%;
+        position: absolute; bottom: 18px; left: 50%;
         transform: translateX(-50%); z-index: 15;
-        color: rgba(255,255,255,0.5);
-        font-family: var(--font-hand); font-size: 1.3rem;
+        color: rgba(255,255,255,0.45);
+        font-family: var(--font-hand); font-size: 1.6rem;
         animation: bounce 2.5s ease infinite;
         opacity: 0; transition: opacity 1s ease;
     }
     .scroll-hint.visible { opacity: 1; }
-    .scroll-hint::after { content: ' ↓'; }
+    .scroll-hint::after { content: '  ↓'; }
     @keyframes bounce {
         0%, 100% { transform: translateX(-50%) translateY(0); }
         50% { transform: translateX(-50%) translateY(6px); }
@@ -465,9 +486,9 @@
         .journey-phrase { font-size: 2.2rem; max-width: 85%; }
         .journey-final { font-size: 3.5rem !important; }
         .poster-headline { font-size: 4.5rem; }
-        .play-me-ring { width: 75px; height: 75px; }
-        .play-me-ring::after { font-size: 1.5rem; }
-        .rec-indicator { top: 20px; right: 16px; }
+        .play-me-ring { width: 120px; height: 120px; }
+        .play-me-ring::after { font-size: 2.4rem; }
+        .hero-cta-final .cta-btn { font-size: 1.9rem; }
         .vf-tl { top: 40px; left: 14px; } .vf-tr { top: 40px; right: 14px; }
         .vf-bl { bottom: 24px; left: 14px; } .vf-br { bottom: 24px; right: 14px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
@@ -480,10 +501,10 @@
         .journey-final { font-size: 2.8rem !important; }
         .poster-headline { font-size: 3rem; }
         .poster-sub { font-size: 0.75rem; }
-        .hero-cta-final .cta-btn { font-size: 1rem; padding: 12px 28px; }
-        .play-me-ring { width: 65px; height: 65px; }
-        .play-me-ring::after { font-size: 1.3rem; }
-        .play-me-label { font-size: 0.65rem; }
+        .hero-cta-final .cta-btn { font-size: 1.6rem; }
+        .play-me-ring { width: 100px; height: 100px; }
+        .play-me-ring::after { font-size: 2rem; }
+        .play-me-label { font-size: 0.75rem; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -544,8 +565,8 @@
 
         <!-- CTA — appears at the end of the journey -->
         <div class="hero-cta-final" id="ctaFinal">
-            <a href="#" class="cta-btn">Get Her Back</a>
-            <div class="cta-detail">Real gameplans. Real numbers. £15/month.</div>
+            <a href="#" class="cta-btn">get her back ♡</a>
+            <div class="cta-detail">real gameplans. real numbers. £15/month.</div>
             <div class="audio-toggle" id="audioToggle" onclick="event.stopPropagation(); toggleAudio();">
                 <span class="lbl-play">♫ music</span>
                 <span class="lbl-pause" style="display:none;">♫ playing</span>
