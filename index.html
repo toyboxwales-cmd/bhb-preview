@@ -313,7 +313,7 @@
     /* ===== CTA REVEAL ===== */
     .hero-cta-final {
         position: absolute;
-        bottom: 90px; left: 0; right: 0;
+        bottom: 120px; left: 0; right: 0;
         z-index: 12;
         text-align: center;
         padding: 0 24px;
@@ -373,37 +373,43 @@
     }
     .hero-timestamp.visible { opacity: 1; }
 
-    /* Scroll hint — DEMANDS action */
+    /* Scroll hint — cinematic, matches PRESS PLAY energy */
     .scroll-hint {
         position: absolute;
-        bottom: 0; left: 0; right: 0;
+        bottom: 18px; left: 0; right: 0;
         z-index: 15;
         text-align: center;
-        background: var(--hot-pink);
-        padding: 16px 20px;
         opacity: 0; transition: opacity 1s ease;
         cursor: pointer;
     }
     .scroll-hint.visible { opacity: 1; }
     .scroll-hint .scroll-text {
         font-family: 'Anton', sans-serif;
-        font-size: 2.4rem;
+        font-size: 2.6rem;
         letter-spacing: 6px;
         text-transform: uppercase;
         color: white;
         display: block;
         line-height: 1;
+        text-shadow: 2px 2px 0 rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.1);
+        animation: scroll-breathe 2.5s ease infinite;
     }
     .scroll-hint .scroll-arrow {
         display: block;
-        font-size: 2.2rem;
-        color: white;
-        animation: arrow-pulse 1.2s ease infinite;
-        margin-top: 4px;
+        font-family: 'Anton', sans-serif;
+        font-size: 1.8rem;
+        color: var(--hot-pink);
+        margin-top: 6px;
+        animation: arrow-drop 1.5s ease infinite;
+        text-shadow: 0 0 20px rgba(229,58,138,0.5);
     }
-    @keyframes arrow-pulse {
+    @keyframes scroll-breathe {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+    @keyframes arrow-drop {
         0%, 100% { transform: translateY(0); opacity: 1; }
-        50% { transform: translateY(8px); opacity: 0.6; }
+        50% { transform: translateY(10px); opacity: 0.5; }
     }
 
     /* ===== SOUND FAMILIAR ===== */
@@ -484,12 +490,9 @@
         .poster-headline { font-size: 4.5rem; }
         .play-me-text { font-size: 5.5rem; letter-spacing: 4px; }
         .play-me-text .play-arrow { font-size: 3rem; }
-        .scroll-hint { padding: 12px 16px; }
-        .scroll-hint .scroll-text { font-size: 1.8rem; letter-spacing: 4px; }
-        .scroll-hint .scroll-arrow { font-size: 1.5rem; margin-top: 2px; }
-        .hero-cta-final { bottom: 80px; }
-        .hero-cta-final .cta-detail { font-size: 1.2rem; margin-top: 6px; }
-        .hero-cta-final .audio-toggle { margin-top: 6px; }
+        .scroll-hint .scroll-text { font-size: 2.2rem; letter-spacing: 4px; }
+        .scroll-hint .scroll-arrow { font-size: 1.5rem; }
+        .hero-cta-final { bottom: 100px; }
         .vf-tl { top: 40px; left: 14px; } .vf-tr { top: 40px; right: 14px; }
         .vf-bl { bottom: 24px; left: 14px; } .vf-br { bottom: 24px; right: 14px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
@@ -504,13 +507,11 @@
         .poster-sub { font-size: 0.75rem; }
         .play-me-text { font-size: 4rem; letter-spacing: 3px; }
         .play-me-text .play-arrow { font-size: 2.2rem; }
-        .hero-cta-final { bottom: 70px; }
+        .hero-cta-final { bottom: 85px; }
         .hero-cta-final .cta-btn { font-size: 1.2rem; padding: 12px 28px; letter-spacing: 2px; }
-        .hero-cta-final .cta-detail { font-size: 1rem; margin-top: 4px; }
-        .hero-cta-final .audio-toggle { margin-top: 4px; font-size: 0.85rem; }
-        .scroll-hint { padding: 10px 14px; }
-        .scroll-hint .scroll-text { font-size: 1.5rem; letter-spacing: 3px; }
-        .scroll-hint .scroll-arrow { font-size: 1.2rem; margin-top: 2px; }
+        .hero-cta-final .cta-detail { font-size: 1rem; }
+        .scroll-hint .scroll-text { font-size: 1.8rem; letter-spacing: 3px; }
+        .scroll-hint .scroll-arrow { font-size: 1.2rem; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -582,7 +583,7 @@
         </div>
 
         <div class="scroll-hint" id="scrollHint">
-            <span class="scroll-text">KEEP GOING</span>
+            <span class="scroll-text">KEEP<br>GOING</span>
             <span class="scroll-arrow">▼</span>
         </div>
 
@@ -655,23 +656,44 @@
 
     video.playbackRate = 0.5;
 
+    // Pre-unlock audio on first touch so mobile browsers allow playback
+    function unlockAudio() {
+        audio.volume = 0;
+        audio.play().then(function() {
+            audio.pause();
+            audio.currentTime = 0;
+        }).catch(function() {});
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('click', unlockAudio);
+    }
+    document.addEventListener('touchstart', unlockAudio, { once: true });
+    document.addEventListener('click', unlockAudio, { once: true });
+
     function startExperience() {
         if (hasStarted) return;
         hasStarted = true;
 
-        // Play video — fade it in
+        // Play audio FIRST — the user tap counts as the gesture
+        audio.volume = 0.3;
+        audio.play().then(function() {
+            document.getElementById('audioToggle').classList.add('playing');
+        }).catch(function(e) {
+            // Retry after a short delay (some Android browsers need this)
+            setTimeout(function() {
+                audio.volume = 0.3;
+                audio.play().then(function() {
+                    document.getElementById('audioToggle').classList.add('playing');
+                }).catch(function() {});
+            }, 100);
+        });
+
+        // Play video
         video.play().then(function() {
             video.playbackRate = 0.5;
             video.classList.add('visible');
         }).catch(function() {
             video.classList.add('visible');
         });
-
-        // Play audio
-        audio.volume = 0.3;
-        audio.play().then(function() {
-            document.getElementById('audioToggle').classList.add('playing');
-        }).catch(function() {});
 
         // Fade out play me screen
         playMeScreen.classList.add('hidden');
