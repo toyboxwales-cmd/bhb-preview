@@ -94,7 +94,7 @@
         margin-top: 3px;
     }
 
-    /* ===== PLAY ME SCREEN ===== */
+    /* ===== PLAY ME SCREEN — full screen text takeover ===== */
     .play-me-screen {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
@@ -104,81 +104,65 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        background: rgba(0,0,0,0.7);
+        background: rgba(0,0,0,0.75);
         transition: opacity 1s ease;
     }
     .play-me-screen.hidden {
         opacity: 0;
         pointer-events: none;
     }
-    /* Camcorder viewfinder play button */
     .play-me-center {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        animation: play-breathe 3s ease infinite;
     }
-    .play-me-ring {
-        width: 140px; height: 140px;
-        border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.25);
-        display: flex; align-items: center; justify-content: center;
-        position: relative;
-        box-shadow:
-            0 0 40px rgba(255,255,255,0.08),
-            0 0 80px rgba(255,255,255,0.04),
-            inset 0 0 30px rgba(255,255,255,0.05);
-        animation: play-pulse 2.5s ease infinite;
-    }
-    .play-me-ring::after {
-        content: '▶';
-        font-size: 2.8rem;
-        color: rgba(255,255,255,0.7);
-        margin-left: 6px;
-    }
-    @keyframes play-pulse {
-        0%, 100% {
-            box-shadow: 0 0 40px rgba(255,255,255,0.08), 0 0 80px rgba(255,255,255,0.04), inset 0 0 30px rgba(255,255,255,0.05);
-            transform: scale(1);
-            border-color: rgba(255,255,255,0.25);
-        }
-        50% {
-            box-shadow: 0 0 60px rgba(255,255,255,0.15), 0 0 120px rgba(255,255,255,0.06), inset 0 0 40px rgba(255,255,255,0.08);
-            transform: scale(1.05);
-            border-color: rgba(255,255,255,0.4);
-        }
-    }
-    .play-me-label {
-        font-family: 'Courier New', monospace;
-        font-size: 0.85rem;
-        letter-spacing: 4px;
+    .play-me-text {
+        font-family: 'Anton', sans-serif;
+        font-size: 7rem;
+        color: white;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.4);
-        margin-top: 22px;
+        letter-spacing: 6px;
+        line-height: 0.95;
+        text-align: center;
+        text-shadow:
+            3px 3px 0 rgba(0,0,0,0.4),
+            0 0 60px rgba(255,255,255,0.08);
     }
-    /* REC indicator — sits with play button */
+    .play-me-text .play-arrow {
+        display: block;
+        font-size: 4rem;
+        margin-bottom: 10px;
+        color: rgba(255,255,255,0.5);
+    }
+    @keyframes play-breathe {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.03); opacity: 0.9; }
+    }
+    /* REC sits under the big text */
     .rec-indicator {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-top: 28px;
+        margin-top: 30px;
     }
     .rec-dot {
         width: 12px; height: 12px;
         border-radius: 50%;
         background: #e53a3a;
-        box-shadow: 0 0 8px rgba(229,58,58,0.5);
+        box-shadow: 0 0 10px rgba(229,58,58,0.6);
         animation: rec-blink 1.5s ease infinite;
     }
     .rec-text {
         font-family: 'Courier New', monospace;
         font-size: 0.8rem;
         letter-spacing: 3px;
-        color: rgba(255,255,255,0.45);
+        color: rgba(255,255,255,0.4);
     }
     @keyframes rec-blink {
         0%, 100% { opacity: 1; }
-        50% { opacity: 0.2; }
+        50% { opacity: 0.15; }
     }
     /* STOP button — appears during playback */
     .stop-btn {
@@ -332,7 +316,7 @@
         bottom: 0; left: 0; right: 0;
         z-index: 12;
         text-align: center;
-        padding: 0 24px 60px;
+        padding: 0 24px 50px;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 1.2s ease, transform 1.2s ease;
@@ -345,41 +329,35 @@
     }
     .hero-cta-final .cta-btn {
         display: inline-block;
-        background: none;
-        border: none;
+        background: var(--hot-pink);
         color: white;
-        font-family: var(--font-hand);
-        font-size: 2.2rem;
-        padding: 0;
+        font-family: 'Anton', sans-serif;
+        font-size: 1.4rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 16px 44px;
         text-decoration: none;
         position: relative;
-        transition: color 0.3s;
-        cursor: pointer;
-    }
-    .hero-cta-final .cta-btn::after {
-        content: '';
-        position: absolute;
-        bottom: -2px; left: 0; right: 0;
-        height: 2px;
-        background: var(--hot-pink);
-        opacity: 0.6;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 20px rgba(229,58,138,0.4);
     }
     .hero-cta-final .cta-btn:hover {
-        color: var(--mon-pink);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 30px rgba(229,58,138,0.5);
     }
     .hero-cta-final .cta-detail {
         font-family: var(--font-hand);
-        font-size: 1.1rem;
-        color: rgba(255,255,255,0.35);
-        margin-top: 6px;
+        font-size: 1.3rem;
+        color: rgba(255,255,255,0.4);
+        margin-top: 12px;
     }
     .hero-cta-final .audio-toggle {
-        margin-top: 16px;
+        margin-top: 14px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
         cursor: pointer;
-        color: rgba(255,255,255,0.4);
+        color: rgba(255,255,255,0.35);
         font-family: var(--font-hand);
         font-size: 1rem;
         transition: color 0.3s;
@@ -486,9 +464,8 @@
         .journey-phrase { font-size: 2.2rem; max-width: 85%; }
         .journey-final { font-size: 3.5rem !important; }
         .poster-headline { font-size: 4.5rem; }
-        .play-me-ring { width: 120px; height: 120px; }
-        .play-me-ring::after { font-size: 2.4rem; }
-        .hero-cta-final .cta-btn { font-size: 1.9rem; }
+        .play-me-text { font-size: 5.5rem; letter-spacing: 4px; }
+        .play-me-text .play-arrow { font-size: 3rem; }
         .vf-tl { top: 40px; left: 14px; } .vf-tr { top: 40px; right: 14px; }
         .vf-bl { bottom: 24px; left: 14px; } .vf-br { bottom: 24px; right: 14px; }
         .sound-familiar, .whats-inside { padding: 50px 20px 60px; }
@@ -501,10 +478,9 @@
         .journey-final { font-size: 2.8rem !important; }
         .poster-headline { font-size: 3rem; }
         .poster-sub { font-size: 0.75rem; }
-        .hero-cta-final .cta-btn { font-size: 1.6rem; }
-        .play-me-ring { width: 100px; height: 100px; }
-        .play-me-ring::after { font-size: 2rem; }
-        .play-me-label { font-size: 0.75rem; }
+        .play-me-text { font-size: 4rem; letter-spacing: 3px; }
+        .play-me-text .play-arrow { font-size: 2.2rem; }
+        .hero-cta-final .cta-btn { font-size: 1.2rem; padding: 14px 34px; }
         .sound-familiar h2, .whats-inside h2 { font-size: 1.5rem; }
         .pain-card .quote { font-size: 1.2rem; }
         .feature-grid { grid-template-columns: 1fr; }
@@ -525,15 +501,17 @@
             <div><span class="tagline">Find Your Gameplan.</span></div>
         </div>
 
-        <!-- PLAY ME — camcorder viewfinder -->
+        <!-- PLAY ME — full screen text takeover -->
         <div class="play-me-screen" id="playMeScreen">
             <div class="vf-corner vf-tl"></div>
             <div class="vf-corner vf-tr"></div>
             <div class="vf-corner vf-bl"></div>
             <div class="vf-corner vf-br"></div>
             <div class="play-me-center">
-                <div class="play-me-ring"></div>
-                <div class="play-me-label">play me</div>
+                <div class="play-me-text">
+                    <span class="play-arrow">▶</span>
+                    PRESS<br>PLAY
+                </div>
                 <div class="rec-indicator"><div class="rec-dot"></div><span class="rec-text">REC</span></div>
             </div>
         </div>
@@ -565,8 +543,8 @@
 
         <!-- CTA — appears at the end of the journey -->
         <div class="hero-cta-final" id="ctaFinal">
-            <a href="#" class="cta-btn">get her back ♡</a>
-            <div class="cta-detail">real gameplans. real numbers. £15/month.</div>
+            <a href="#" class="cta-btn">Get Her Back</a>
+            <div class="cta-detail">real gameplans. real numbers. £15/month. ♡</div>
             <div class="audio-toggle" id="audioToggle" onclick="event.stopPropagation(); toggleAudio();">
                 <span class="lbl-play">♫ music</span>
                 <span class="lbl-pause" style="display:none;">♫ playing</span>
