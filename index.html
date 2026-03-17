@@ -220,17 +220,22 @@
     }
     .journey-phrase {
         position: absolute;
-        font-family: 'Inter', sans-serif;
-        font-weight: 300;
-        font-size: 2.4rem;
+        top: 55%;
+        font-family: 'Anton', sans-serif;
+        font-size: 2.8rem;
         color: white;
         text-align: center;
-        line-height: 1.4;
-        letter-spacing: 0.5px;
-        max-width: 80%;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        line-height: 1.2;
+        max-width: 70%;
         opacity: 0;
-        transform: translateY(12px);
-        transition: opacity 1.2s ease, transform 1.2s ease;
+        transform: translateY(10px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        text-shadow:
+            1px 1px 0 rgba(0,0,0,0.6),
+            2px 2px 0 rgba(0,0,0,0.3),
+            0 0 30px rgba(0,0,0,0.4);
     }
     .journey-phrase.visible {
         opacity: 1;
@@ -238,36 +243,16 @@
     }
     .journey-phrase.fading {
         opacity: 0;
-        transform: translateY(-12px);
-        transition: opacity 1.5s ease, transform 1.5s ease;
-    }
-    /* Glow bar behind text */
-    .journey-phrase::before {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 110%;
-        height: 100%;
-        background: radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, transparent 70%);
-        filter: blur(20px);
-        z-index: -1;
-    }
-    .journey-phrase em {
-        font-style: normal;
-        color: var(--hl-yellow);
+        transform: translateY(-10px);
+        transition: opacity 1s ease, transform 1s ease;
     }
     .journey-final {
-        font-family: 'Anton', sans-serif !important;
         font-size: 4.5rem !important;
-        letter-spacing: 4px;
-        text-transform: uppercase;
+        letter-spacing: 5px;
         text-shadow:
-            3px 3px 0 rgba(0,0,0,0.5),
-            6px 6px 0 rgba(0,0,0,0.15);
-    }
-    .journey-final em {
-        color: var(--hl-yellow);
+            2px 2px 0 rgba(0,0,0,0.6),
+            4px 4px 0 rgba(0,0,0,0.25),
+            0 0 40px rgba(0,0,0,0.5);
     }
 
     /* ===== STATIC COPY HERO — movie poster style ===== */
@@ -298,14 +283,6 @@
         background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 55%, transparent 75%);
         filter: blur(30px);
         z-index: -1;
-    }
-    /* The tagline — small, above the hero line */
-    .poster-tagline {
-        font-family: var(--font-hand);
-        font-size: 1.8rem;
-        color: rgba(255,255,255,0.45);
-        display: block;
-        margin-bottom: 10px;
     }
     /* THE line — massive, bold condensed, fills the screen */
     .poster-headline {
@@ -485,10 +462,9 @@
     @media (max-width: 768px) {
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
-        .journey-phrase { font-size: 1.9rem; max-width: 90%; }
-        .journey-final { font-size: 3.2rem !important; }
+        .journey-phrase { font-size: 2.2rem; max-width: 85%; }
+        .journey-final { font-size: 3.5rem !important; }
         .poster-headline { font-size: 4.5rem; }
-        .poster-tagline { font-size: 1.4rem; }
         .play-me-ring { width: 75px; height: 75px; }
         .play-me-ring::after { font-size: 1.5rem; }
         .rec-indicator { top: 20px; right: 16px; }
@@ -500,11 +476,10 @@
     }
     @media (max-width: 480px) {
         .hero-logo h1 { font-size: 1.1rem; }
-        .journey-phrase { font-size: 1.5rem; }
-        .journey-final { font-size: 2.6rem !important; }
-        .poster-headline { font-size: 3.5rem; }
-        .poster-tagline { font-size: 1.1rem; }
-        .poster-sub { font-size: 0.8rem; }
+        .journey-phrase { font-size: 1.8rem; letter-spacing: 2px; }
+        .journey-final { font-size: 2.8rem !important; }
+        .poster-headline { font-size: 3rem; }
+        .poster-sub { font-size: 0.75rem; }
         .hero-cta-final .cta-btn { font-size: 1rem; padding: 12px 28px; }
         .play-me-ring { width: 65px; height: 65px; }
         .play-me-ring::after { font-size: 1.3rem; }
@@ -548,21 +523,21 @@
             <span class="stop-text">STOP</span>
         </div>
 
-        <!-- TEXT JOURNEY — fewer phrases, longer pauses, bigger impact -->
+        <!-- TEXT JOURNEY — short, punchy, like thoughts not paragraphs -->
         <div class="text-journey" id="textJourney">
-            <div class="journey-phrase" data-in="2500" data-out="6500">remember when you were <em>fearless?</em></div>
-            <div class="journey-phrase" data-in="8000" data-out="13000">when the world felt massive and you were going to take on every bit of it</div>
-            <div class="journey-phrase" data-in="15000" data-out="20000">then someone sold you a dream that wasn't yours</div>
-            <div class="journey-phrase" data-in="22000" data-out="27000">the rank. the hustle. the "just keep going"</div>
-            <div class="journey-phrase" data-in="29000" data-out="34000">but that girl? she's still in there.</div>
-            <div class="journey-phrase journey-final" data-in="36000" data-out="44000"><em>get her back.</em></div>
+            <div class="journey-phrase" data-in="1500" data-out="4000">remember her?</div>
+            <div class="journey-phrase" data-in="5500" data-out="8000">she had big plans.</div>
+            <div class="journey-phrase" data-in="9500" data-out="13000">then they sold her a lie.</div>
+            <div class="journey-phrase" data-in="14500" data-out="17500">you didn't fail.</div>
+            <div class="journey-phrase" data-in="19000" data-out="22500">the system did.</div>
+            <div class="journey-phrase" data-in="24000" data-out="28000">the real you is still here.</div>
+            <div class="journey-phrase journey-final" data-in="30000" data-out="37000">you were never<br>the failure.</div>
         </div>
 
         <!-- STATIC COPY HERO — movie poster -->
         <div class="copy-hero" id="copyHero">
             <div class="copy-hero-inner">
-                <span class="poster-tagline">she's still in there.</span>
-                <span class="poster-headline"><span class="hl-word">GET</span> HER<br>BACK.</span>
+                <span class="poster-headline">YOU WERE<br>NEVER THE<br><span class="hl-word">FAILURE.</span></span>
                 <span class="poster-sub">real gameplans. real numbers. £15/month.</span>
             </div>
         </div>
