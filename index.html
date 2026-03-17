@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BHB — Build Her Business</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Permanent+Marker&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fredoka+One&family=Shrikhand&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Permanent+Marker&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
     :root {
         --sky-blue: #84b6f4;
@@ -258,18 +258,16 @@
         color: var(--hl-yellow);
     }
     .journey-final {
-        font-family: var(--font-header) !important;
-        font-size: 4rem !important;
-        font-weight: 400;
-        letter-spacing: 3px;
+        font-family: 'Anton', sans-serif !important;
+        font-size: 4.5rem !important;
+        letter-spacing: 4px;
+        text-transform: uppercase;
         text-shadow:
-            -2px -2px 0 rgba(0,0,0,0.4),
-             2px -2px 0 rgba(0,0,0,0.4),
-            -2px  2px 0 rgba(0,0,0,0.4),
-             2px  2px 0 rgba(0,0,0,0.4);
+            3px 3px 0 rgba(0,0,0,0.5),
+            6px 6px 0 rgba(0,0,0,0.15);
     }
     .journey-final em {
-        color: white;
+        color: var(--hl-yellow);
     }
 
     /* ===== STATIC COPY HERO — movie poster style ===== */
@@ -309,25 +307,23 @@
         display: block;
         margin-bottom: 10px;
     }
-    /* THE line — massive, fills the screen */
+    /* THE line — massive, bold condensed, fills the screen */
     .poster-headline {
-        font-family: var(--font-header);
-        font-size: 5rem;
+        font-family: 'Anton', sans-serif;
+        font-size: 6rem;
         color: white;
-        line-height: 1.1;
-        letter-spacing: 2px;
+        line-height: 0.95;
+        letter-spacing: 3px;
+        text-transform: uppercase;
         display: block;
         text-shadow:
-            -3px -3px 0 var(--text-ink),
-             3px -3px 0 var(--text-ink),
-            -3px  3px 0 var(--text-ink),
-             3px  3px 0 var(--text-ink),
-             4px  4px 0 var(--text-ink);
+            3px 3px 0 rgba(0,0,0,0.5),
+            6px 6px 0 rgba(0,0,0,0.2);
     }
     .poster-headline .hl-word {
         background: var(--hl-yellow);
         color: var(--text-ink);
-        padding: 0 12px;
+        padding: 0 14px;
         text-shadow: none;
         display: inline-block;
     }
@@ -490,9 +486,9 @@
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
         .journey-phrase { font-size: 1.9rem; max-width: 90%; }
-        .journey-final { font-size: 3rem !important; }
-        .poster-headline { font-size: 3.8rem; }
-        .poster-tagline { font-size: 1.5rem; }
+        .journey-final { font-size: 3.2rem !important; }
+        .poster-headline { font-size: 4.5rem; }
+        .poster-tagline { font-size: 1.4rem; }
         .play-me-ring { width: 75px; height: 75px; }
         .play-me-ring::after { font-size: 1.5rem; }
         .rec-indicator { top: 20px; right: 16px; }
@@ -505,10 +501,10 @@
     @media (max-width: 480px) {
         .hero-logo h1 { font-size: 1.1rem; }
         .journey-phrase { font-size: 1.5rem; }
-        .journey-final { font-size: 2.4rem !important; }
-        .poster-headline { font-size: 2.8rem; }
-        .poster-tagline { font-size: 1.2rem; }
-        .poster-sub { font-size: 0.85rem; }
+        .journey-final { font-size: 2.6rem !important; }
+        .poster-headline { font-size: 3.5rem; }
+        .poster-tagline { font-size: 1.1rem; }
+        .poster-sub { font-size: 0.8rem; }
         .hero-cta-final .cta-btn { font-size: 1rem; padding: 12px 28px; }
         .play-me-ring { width: 65px; height: 65px; }
         .play-me-ring::after { font-size: 1.3rem; }
