@@ -412,6 +412,82 @@
         50% { transform: translateY(10px); opacity: 0.5; }
     }
 
+    /* ===== TRUTH BOMB — stays dark, scroll-triggered ===== */
+    .truth-bomb {
+        background: #0a0a0f;
+        position: relative;
+        overflow: hidden;
+    }
+    .truth-bomb .tb-line {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 30px;
+        position: relative;
+    }
+    .truth-bomb .tb-line:last-child {
+        min-height: 50vh;
+    }
+    .truth-bomb .tb-text {
+        font-family: 'Anton', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        line-height: 1.05;
+        text-align: center;
+        max-width: 800px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .truth-bomb .tb-text.tb-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .truth-bomb .tb-text.tb-white {
+        font-size: 4rem;
+        color: white;
+        text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    }
+    .truth-bomb .tb-text.tb-pink {
+        font-size: 4rem;
+        color: var(--hot-pink);
+        text-shadow: 0 0 40px rgba(229,58,138,0.3);
+    }
+    .truth-bomb .tb-text.tb-yellow {
+        font-size: 5rem;
+        color: var(--text-ink);
+        background: var(--hl-yellow);
+        display: inline-block;
+        padding: 8px 24px;
+        text-shadow: none;
+    }
+    .truth-bomb .tb-text.tb-huge {
+        font-size: 6rem;
+        color: white;
+        text-shadow: 3px 3px 0 rgba(0,0,0,0.5), 0 0 60px rgba(255,255,255,0.08);
+    }
+    /* Faint scanlines to carry over the hero vibe */
+    .truth-bomb::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: repeating-linear-gradient(
+            transparent, transparent 2px,
+            rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px
+        );
+        pointer-events: none;
+        z-index: 1;
+    }
+    /* Gradient fade at bottom — dark into blue */
+    .truth-bomb .tb-fade {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 200px;
+        background: linear-gradient(to bottom, transparent, var(--sky-blue));
+        z-index: 2;
+    }
+
     /* ===== SOUND FAMILIAR ===== */
     .sound-familiar {
         background: var(--sky-blue);
@@ -483,6 +559,11 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
+        .truth-bomb .tb-text.tb-white { font-size: 2.8rem; }
+        .truth-bomb .tb-text.tb-pink { font-size: 2.8rem; }
+        .truth-bomb .tb-text.tb-yellow { font-size: 3.2rem; padding: 6px 16px; }
+        .truth-bomb .tb-text.tb-huge { font-size: 4rem; }
+        .truth-bomb .tb-line { min-height: 50vh; padding: 30px 24px; }
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
         .journey-phrase { font-size: 2.2rem; max-width: 85%; }
@@ -500,6 +581,11 @@
         .pain-card .quote { font-size: 1.3rem; }
     }
     @media (max-width: 480px) {
+        .truth-bomb .tb-text.tb-white { font-size: 2.2rem; letter-spacing: 2px; }
+        .truth-bomb .tb-text.tb-pink { font-size: 2.2rem; letter-spacing: 2px; }
+        .truth-bomb .tb-text.tb-yellow { font-size: 2.5rem; padding: 4px 12px; }
+        .truth-bomb .tb-text.tb-huge { font-size: 3.2rem; }
+        .truth-bomb .tb-line { min-height: 45vh; }
         .hero-logo h1 { font-size: 1.1rem; }
         .journey-phrase { font-size: 1.8rem; letter-spacing: 2px; }
         .journey-final { font-size: 2.8rem !important; }
@@ -593,6 +679,29 @@
 
         <div class="hero-timestamp" id="timestamp">1993</div>
     </div>
+
+    <!-- ===== TRUTH BOMB — dark scroll reveals ===== -->
+    <section class="truth-bomb" id="truthBomb">
+        <div class="tb-line">
+            <div class="tb-text tb-white">they told you to<br>hustle harder.</div>
+        </div>
+        <div class="tb-line">
+            <div class="tb-text tb-white">they told you it<br>was your fault.</div>
+        </div>
+        <div class="tb-line">
+            <div class="tb-text tb-pink">it wasn't.</div>
+        </div>
+        <div class="tb-line">
+            <div class="tb-text tb-white">the products piled up.<br>the friends disappeared.</div>
+        </div>
+        <div class="tb-line">
+            <div class="tb-text tb-white">and you kept smiling<br>through all of it.</div>
+        </div>
+        <div class="tb-line">
+            <div class="tb-text tb-huge">enough.</div>
+        </div>
+        <div class="tb-fade"></div>
+    </section>
 
     <!-- ===== SOUND FAMILIAR ===== -->
     <section class="sound-familiar">
@@ -848,6 +957,25 @@ function toggleAudio() {
         pauseLabel.style.display = 'none';
     }
 }
+// Truth Bomb scroll reveals
+(function() {
+    var tbTexts = document.querySelectorAll('.tb-text');
+    if (!tbTexts.length) return;
+
+    function checkTruthBombs() {
+        var windowHeight = window.innerHeight;
+        tbTexts.forEach(function(el) {
+            var rect = el.getBoundingClientRect();
+            // Trigger when element is 75% up the viewport
+            if (rect.top < windowHeight * 0.75 && rect.bottom > 0) {
+                el.classList.add('tb-visible');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', checkTruthBombs, { passive: true });
+    checkTruthBombs(); // check on load in case already scrolled
+})();
 </script>
 </body>
 </html>
