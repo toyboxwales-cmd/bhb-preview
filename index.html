@@ -511,18 +511,37 @@
         text-shadow: 3px 3px 0 var(--hot-pink);
         line-height: 1;
     }
-    /* Sticker-style doodles */
+    /* Sticker images — scattered retro objects */
     .remember-her .rh-sticker {
         position: absolute;
         z-index: 1;
-        font-size: 3rem;
-        opacity: 0.12;
+        width: 90px; height: auto;
+        opacity: 0.2;
+        pointer-events: none;
     }
-    .rh-s1 { top: 5%; right: 8%; transform: rotate(15deg); }
-    .rh-s2 { top: 22%; left: 4%; transform: rotate(-10deg); }
-    .rh-s3 { top: 45%; right: 5%; transform: rotate(20deg); }
-    .rh-s4 { top: 65%; left: 7%; transform: rotate(-15deg); }
-    .rh-s5 { top: 85%; right: 10%; transform: rotate(8deg); }
+    .rh-s1 { top: 4%; right: 6%; transform: rotate(15deg); }
+    .rh-s2 { top: 20%; left: 3%; transform: rotate(-10deg); }
+    .rh-s3 { top: 42%; right: 4%; transform: rotate(20deg); }
+    .rh-s4 { top: 62%; left: 5%; transform: rotate(-8deg); }
+    .rh-s5 { top: 82%; right: 8%; transform: rotate(12deg); }
+    /* Polaroid photo */
+    .rh-polaroid {
+        background: white;
+        padding: 8px 8px 30px 8px;
+        box-shadow: 3px 3px 12px rgba(0,0,0,0.15);
+        display: inline-block;
+        max-width: 220px;
+        position: relative;
+        z-index: 2;
+    }
+    .rh-polaroid img { width: 100%; display: block; }
+    .rh-polaroid .pol-caption {
+        font-family: var(--font-hand);
+        font-size: 1.1rem;
+        color: var(--text-ink);
+        text-align: center;
+        margin-top: 6px;
+    }
     /* Torn paper edge at bottom */
     .remember-her .rh-tear {
         position: absolute;
@@ -532,6 +551,153 @@
         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 30'%3E%3Cpath d='M0,15 Q30,5 60,18 T120,12 T180,20 T240,8 T300,16 T360,10 T420,22 T480,6 T540,18 T600,14 T660,20 T720,8 T780,16 T840,12 T900,22 T960,6 T1020,18 T1080,10 T1140,20 T1200,14 V30 H0 Z' fill='%23FCF0F5'/%3E%3C/svg%3E") repeat-x;
         background-size: 1200px 30px;
         transform: rotate(180deg);
+    }
+
+    /* ===== VHS VIDEO STRIP ===== */
+    .vhs-strip {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        background: #0a0a0f;
+    }
+    .vhs-strip video {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%; min-height: 100%;
+        object-fit: cover;
+        opacity: 0.5;
+    }
+    .vhs-strip::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: repeating-linear-gradient(
+            transparent, transparent 2px,
+            rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px
+        );
+        pointer-events: none;
+        z-index: 2;
+    }
+    .vhs-strip .vhs-label {
+        position: absolute;
+        bottom: 12px; left: 16px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.3);
+        letter-spacing: 2px;
+        z-index: 3;
+    }
+    .vhs-strip .vhs-timecode {
+        position: absolute;
+        top: 12px; right: 16px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.3);
+        letter-spacing: 2px;
+        z-index: 3;
+    }
+
+    /* ===== CRESCENDO FINALE ===== */
+    .crescendo {
+        position: relative;
+        background: #0a0a0f;
+        overflow: hidden;
+    }
+    .crescendo .cres-bg {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-image: url('living-room.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.3;
+    }
+    .crescendo::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: repeating-linear-gradient(
+            transparent, transparent 2px,
+            rgba(0,0,0,0.2) 2px, rgba(0,0,0,0.2) 4px
+        );
+        pointer-events: none;
+        z-index: 1;
+    }
+    .crescendo .cres-line {
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 30px;
+        position: relative;
+        z-index: 2;
+    }
+    .crescendo .cres-text {
+        text-align: center;
+        max-width: 800px;
+        opacity: 0;
+        transform: translateY(25px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .crescendo .cres-text.tb-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .crescendo .cres-text.cres-feature {
+        font-family: 'Anton', sans-serif;
+        font-size: 3.5rem;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        line-height: 1.1;
+        text-shadow: 2px 2px 0 rgba(0,0,0,0.6);
+    }
+    .crescendo .cres-text.cres-feature .cres-num {
+        font-size: 1.2rem;
+        color: var(--hl-yellow);
+        letter-spacing: 6px;
+        display: block;
+        margin-bottom: 8px;
+        font-family: 'Courier New', monospace;
+    }
+    .crescendo .cres-text.cres-big {
+        font-family: 'Anton', sans-serif;
+        font-size: 6rem;
+        color: var(--hl-yellow);
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        line-height: 1;
+        text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+    }
+    .crescendo .cres-cta {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        padding: 20px 30px 80px;
+    }
+    .crescendo .cres-cta a {
+        display: inline-block;
+        background: var(--hl-yellow);
+        color: var(--text-ink);
+        font-family: 'Anton', sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 20px 50px;
+        text-decoration: none;
+        box-shadow: 0 6px 25px rgba(255,240,0,0.3);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .crescendo .cres-cta a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 35px rgba(255,240,0,0.4);
+    }
+    .crescendo .cres-cta .cres-price {
+        font-family: var(--font-hand);
+        font-size: 1.4rem;
+        color: rgba(255,255,255,0.5);
+        margin-top: 14px;
+        display: block;
     }
 
     /* ===== SOUND FAMILIAR — diary entries / passed notes ===== */
@@ -711,6 +877,12 @@
         .remember-her .rh-text.rh-marker { font-size: 2rem; }
         .remember-her .rh-text.rh-bold { font-size: 2.8rem; }
         .remember-her .rh-text.rh-huge { font-size: 3.8rem; }
+        .remember-her .rh-sticker { width: 60px; }
+        .rh-polaroid { max-width: 180px; }
+        .vhs-strip { height: 140px; }
+        .crescendo .cres-text.cres-feature { font-size: 2.6rem; }
+        .crescendo .cres-text.cres-big { font-size: 4.5rem; }
+        .crescendo .cres-line { min-height: 40vh; }
         .remember-her .rh-line { min-height: 45vh; padding: 30px 24px; }
         .hero-logo h1 { font-size: 1.3rem; }
         .hero-logo { top: 16px; left: 16px; }
@@ -734,6 +906,12 @@
         .remember-her .rh-text.rh-marker { font-size: 1.7rem; }
         .remember-her .rh-text.rh-bold { font-size: 2.2rem; }
         .remember-her .rh-text.rh-huge { font-size: 3rem; letter-spacing: 2px; }
+        .remember-her .rh-sticker { width: 45px; opacity: 0.15; }
+        .rh-polaroid { max-width: 150px; }
+        .vhs-strip { height: 100px; }
+        .crescendo .cres-text.cres-feature { font-size: 2rem; letter-spacing: 2px; }
+        .crescendo .cres-text.cres-big { font-size: 3.5rem; letter-spacing: 3px; }
+        .crescendo .cres-cta a { font-size: 1.3rem; padding: 16px 36px; }
         .remember-her .rh-line { min-height: 40vh; }
         .remember-her::after, .sound-familiar::after, .whats-inside::after, .cta-section::after { left: 20px; }
         .hero-logo h1 { font-size: 1.1rem; }
@@ -833,12 +1011,12 @@
 
     <!-- ===== REMEMBER HER — 90s diary scroll ===== -->
     <section class="remember-her" id="rememberHer">
-        <!-- image slots for retro stickers — replace src with your images -->
-        <img class="rh-sticker rh-s1" src="" alt="" style="display:none;">
-        <img class="rh-sticker rh-s2" src="" alt="" style="display:none;">
-        <img class="rh-sticker rh-s3" src="" alt="" style="display:none;">
-        <img class="rh-sticker rh-s4" src="" alt="" style="display:none;">
-        <img class="rh-sticker rh-s5" src="" alt="" style="display:none;">
+        <!-- 90s sticker images -->
+        <img class="rh-sticker rh-s1" src="scrunchie.png" alt="">
+        <img class="rh-sticker rh-s2" src="tape.png" alt="">
+        <img class="rh-sticker rh-s3" src="floppy.png" alt="">
+        <img class="rh-sticker rh-s4" src="filofax.png" alt="">
+        <img class="rh-sticker rh-s5" src="scrunchie.png" alt="">
 
         <div class="rh-line">
             <div class="rh-text rh-hand">you had plans once.<br>big ones.</div>
@@ -848,6 +1026,12 @@
         </div>
         <div class="rh-line">
             <div class="rh-text rh-hand">the job. the kids. the bills.<br>the "maybe next year."</div>
+        </div>
+        <div class="rh-line">
+            <div class="rh-polaroid" style="transform: rotate(-3deg);">
+                <img src="girl-diary.jpg" alt="">
+                <div class="pol-caption">she had plans. 1996.</div>
+            </div>
         </div>
         <div class="rh-line">
             <div class="rh-text rh-marker">and somewhere along the way,<br>you stopped believing it<br>was <span class="rh-hl">your turn.</span></div>
@@ -861,6 +1045,13 @@
 
         <div class="rh-tear"></div>
     </section>
+
+    <!-- ===== VHS VIDEO STRIP ===== -->
+    <div class="vhs-strip">
+        <video src="video1.mp4" muted loop playsinline autoplay></video>
+        <span class="vhs-label">PLAY ▶ SP</span>
+        <span class="vhs-timecode">00:03:27</span>
+    </div>
 
     <!-- ===== SOUND FAMILIAR — diary entries ===== -->
     <section class="sound-familiar">
@@ -907,13 +1098,54 @@
         </div>
     </section>
 
-    <!-- ===== CTA ===== -->
-    <section class="cta-section">
-        <div class="inner">
-            <h2>she's still in there. go get her.</h2>
-            <div class="price">Step-by-step gameplans. Real numbers. £15/month.</div>
-            <a href="#" class="cta-btn">Find Your Gameplan</a>
-            <span class="cancel-note">(cancel anytime, no questions asked)</span>
+    <!-- ===== VHS STRIP 2 — before the crescendo ===== -->
+    <div class="vhs-strip">
+        <video src="video1.mp4" muted loop playsinline autoplay></video>
+        <span class="vhs-label">REC ●</span>
+        <span class="vhs-timecode">01:33:07</span>
+    </div>
+
+    <!-- ===== CRESCENDO FINALE ===== -->
+    <section class="crescendo" id="crescendo">
+        <div class="cres-bg"></div>
+
+        <div class="cres-line">
+            <div class="cres-text cres-feature">
+                <span class="cres-num">-- 01 --</span>
+                6 real gameplans
+            </div>
+        </div>
+        <div class="cres-line">
+            <div class="cres-text cres-feature">
+                <span class="cres-num">-- 02 --</span>
+                honest numbers
+            </div>
+        </div>
+        <div class="cres-line">
+            <div class="cres-text cres-feature">
+                <span class="cres-num">-- 03 --</span>
+                your crew
+            </div>
+        </div>
+        <div class="cres-line">
+            <div class="cres-text cres-feature">
+                <span class="cres-num">-- 04 --</span>
+                a real roadmap
+            </div>
+        </div>
+        <div class="cres-line">
+            <div class="cres-text cres-feature">
+                <span class="cres-num">-- 05 --</span>
+                no bullshit
+            </div>
+        </div>
+        <div class="cres-line">
+            <div class="cres-text cres-big">your turn.</div>
+        </div>
+
+        <div class="cres-cta">
+            <a href="#">Find Your Gameplan</a>
+            <span class="cres-price">£15/month. cancel anytime. no questions asked.</span>
         </div>
     </section>
 
@@ -1127,7 +1359,7 @@ function toggleAudio() {
 }
 // Remember Her scroll reveals
 (function() {
-    var rhTexts = document.querySelectorAll('.rh-text');
+    var rhTexts = document.querySelectorAll('.rh-text, .cres-text');
     if (!rhTexts.length) return;
 
     function checkScrollReveals() {
